@@ -3,7 +3,30 @@ import { expect, test } from '@playwright/test';
 const DAILY_JAMOS = 'ㄷㅔㅇㅣㄹㄹㅣ'.split('');
 
 test.describe('AI 제품 꼬들 production build', () => {
+  test('shows how-to modal on first visit and via help button', async ({ page }) => {
+    await page.addInitScript(() => localStorage.removeItem('ai-jamo-how-to-play-seen'));
+    await page.goto('./');
+
+    await expect(page.locator('#howto-overlay')).toBeVisible();
+    await expect(page.locator('#howto-title')).toHaveText('게임 방법');
+    await expect(page.locator('.howto-row .tile.correct')).toHaveCount(2);
+
+    await page.locator('#howto-close').click();
+    await expect(page.locator('#howto-overlay')).toBeHidden();
+
+    await page.locator('#btn-howto').click();
+    await expect(page.locator('#howto-overlay')).toBeVisible();
+    await page.locator('#howto-close').click();
+  });
+
+  test('shows board play hint with syllable count', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+    await page.goto('./');
+    await expect(page.locator('.play-hint')).toHaveText('3글자 단어를 입력하세요');
+  });
+
   test('shows keyboard, input, and accepts daily word without jamo mismatch', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
 
     await expect(page.locator('.keyboard')).toBeVisible();
@@ -28,6 +51,7 @@ test.describe('AI 제품 꼬들 production build', () => {
   });
 
   test('physical keyboard hangul fill submits without length error', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
     const input = page.locator('#guess-input');
     await input.fill('데일리');

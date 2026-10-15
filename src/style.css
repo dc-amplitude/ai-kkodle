@@ -54,6 +54,136 @@ h1 {
   gap: 0.35rem;
 }
 
+.icon-btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1;
+  border: 1px solid #334155;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  border-color: var(--accent);
+}
+
+.play-hint {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.howto-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(8, 12, 18, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.howto-overlay.hidden {
+  display: none;
+}
+
+.howto-dialog {
+  max-width: 26rem;
+  width: 100%;
+  max-height: min(90vh, 640px);
+  overflow: auto;
+  background: var(--panel);
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.25rem 1rem;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.howto-dialog h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.35rem;
+}
+
+.howto-steps {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.howto-steps li + li {
+  margin-top: 0.45rem;
+}
+
+.howto-example-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.howto-row {
+  margin-bottom: 0.65rem;
+}
+
+.howto-row .tile {
+  width: 1.85rem;
+  height: 2.1rem;
+  font-size: 0.9rem;
+}
+
+.howto-legend {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.howto-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+
+.swatch.correct {
+  background: var(--correct);
+}
+
+.swatch.present {
+  background: var(--present);
+}
+
+.swatch.absent {
+  background: var(--absent);
+}
+
+.howto-close {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
 .badge {
   background: var(--accent);
   color: white;

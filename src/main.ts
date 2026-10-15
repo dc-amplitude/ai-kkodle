@@ -24,6 +24,11 @@ import {
   updateStreakOnWin,
   wasDailyPlayed,
 } from './lib/storage';
+import {
+  hasSeenHowToPlay,
+  isHowToPlayVisible,
+  openHowToPlay,
+} from './ui/howToPlay';
 import { jamosForKey, renderKeyboardHtml } from './ui/keyboard';
 
 type Mode = 'daily' | 'practice';
@@ -131,6 +136,7 @@ function render(): void {
         <p class="subtitle">${flags.shareSuffix} · 난이도 ${flags.difficultyLabel}</p>
       </div>
       <div class="meta">
+        <button type="button" id="btn-howto" class="icon-btn" title="게임 방법" aria-label="게임 방법">?</button>
         <span class="badge">${mode === 'daily' ? '오늘의 퍼즐' : '연습 모드'}</span>
         <span class="streak" title="서울 기준 연속 성공">🔥 ${streak.count}일</span>
       </div>
@@ -144,6 +150,8 @@ function render(): void {
     </section>
 
     <p class="info">자모 ${puzzle.jamoCount}칸 · 음절 ${syllableCount(puzzle.word)}글자 · 기회 ${maxAttempts}번</p>
+
+    <p class="play-hint">${syllableCount(puzzle.word)}글자 단어를 입력하세요</p>
 
     <section class="board" id="board" role="grid" aria-live="polite" tabindex="0" aria-label="자모 보드 — 탭하면 입력칸으로 이동">
       ${rows}
@@ -182,7 +190,7 @@ function render(): void {
   bindHandlers();
 
   const input = document.querySelector<HTMLInputElement>('#guess-input');
-  if (input && !finished) {
+  if (input && !finished && !isHowToPlayVisible()) {
     input.value = draftPreview();
     input.focus({ preventScroll: true });
     input.addEventListener('compositionstart', () => {
@@ -252,6 +260,10 @@ function bindHandlers(): void {
     }
     if (target.closest('#btn-new')) {
       newPracticeRound();
+      return;
+    }
+    if (target.closest('#btn-howto')) {
+      openHowToPlay(flags.maxAttempts, 'help_button', trackHowToPlayOpened);
       return;
     }
     if (target.closest('#board')) {
@@ -449,6 +461,10 @@ function newPracticeRound(): void {
   render();
 }
 
+function trackHowToPlayOpened(source: 'auto' | 'help_button'): void {
+  track('how_to_play_opened', { source, mode: state.mode });
+}
+
 async function boot(): Promise<void> {
   await initAnalytics();
   flags = await initExperiments();
@@ -458,6 +474,9 @@ async function boot(): Promise<void> {
   });
   track('game_start', gameStartProps());
   render();
+  if (!hasSeenHowToPlay()) {
+    openHowToPlay(flags.maxAttempts, 'auto', trackHowToPlayOpened);
+  }
 }
 
 boot();

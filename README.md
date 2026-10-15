@@ -80,6 +80,7 @@ Repository → Settings → Secrets and variables → Actions:
 | `share_clicked` | `mode`, `success`, `attempts` |
 | `streak_day` | `streak_count`, `seoul_date`, `already_played` |
 | `mode_switched` | `from`, `to` |
+| `how_to_play_opened` | `source` (`auto` \| `help_button`), `mode` |
 
 Session Replay: `privacyConfig.defaultMaskLevel: 'conservative'` (입력 마스킹 강화).
 
