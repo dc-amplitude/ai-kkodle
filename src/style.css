@@ -313,25 +313,26 @@ button:disabled {
   align-items: center;
   gap: clamp(0.35rem, 2vw, 0.65rem);
   margin-bottom: 0.45rem;
-  padding: 0.25rem 0 0.45rem;
+  padding: 0.35rem 0 0.5rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.22);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
+  flex-shrink: 0;
+  min-height: calc(4rem + 0.75rem);
 }
 
-/* Top syllable preview — fixed large squares (not scaled with jamo row) */
+/* Top syllable preview — fixed squares (separate from jamo guess rows) */
 .board-preview-row .tile-syllable.tile-preview {
   box-sizing: border-box;
   flex-shrink: 0;
-  width: 5rem;
-  height: 5rem;
-  min-width: 5rem;
-  min-height: 5rem;
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  min-height: 4rem;
   max-width: none;
-  font-size: 1.85rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  border-radius: 0.55rem;
+  line-height: 1;
+  border-radius: 0.5rem;
   border: 2px solid #64748b;
   background: #1e293b;
   color: #f1f5f9;
@@ -357,10 +358,12 @@ button:disabled {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3px;
+  justify-content: center;
+  padding: 2px;
   border-radius: 0.55rem;
   border: 2px solid transparent;
   flex: 0 0 auto;
+  overflow: visible;
 }
 
 .syllable-preview-slot.syl-correct {
@@ -763,16 +766,31 @@ html.device-touch .board {
   gap: 0.2rem;
   flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+html.device-touch .board-preview-row {
+  flex-shrink: 0;
+  min-height: calc(3.25rem + 0.65rem);
+  padding-top: 0.2rem;
+  padding-bottom: 0.35rem;
+}
+
+html.device-touch .board-guesses {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
 html.device-touch .board-preview-row .tile-syllable.tile-preview {
-  width: 4.25rem;
-  height: 4.25rem;
-  min-width: 4.25rem;
-  min-height: 4.25rem;
-  font-size: 1.65rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  min-width: 3.25rem;
+  min-height: 3.25rem;
+  font-size: 1.5rem;
   border-width: 2px;
 }
 
@@ -875,12 +893,16 @@ html.device-touch.native-kb-open body {
     gap: 0.15rem;
   }
 
+  html.device-touch .board-preview-row {
+    min-height: calc(3.25rem + 0.5rem);
+  }
+
   html.device-touch .board-preview-row .tile-syllable.tile-preview {
-    width: 4rem;
-    height: 4rem;
-    min-width: 4rem;
-    min-height: 4rem;
-    font-size: 1.5rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    min-width: 3.25rem;
+    min-height: 3.25rem;
+    font-size: 1.45rem;
   }
 
   html.device-touch .board-guesses .tile-jamo {

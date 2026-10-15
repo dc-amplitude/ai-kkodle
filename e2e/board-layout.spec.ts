@@ -50,8 +50,9 @@ test('mobile screenshot mid-typing 바보', async ({ page }, testInfo) => {
   const box = await page.locator('#board-preview .tile-preview').first().boundingBox();
   expect(box).not.toBeNull();
   if (box) {
-    expect(box.width).toBeGreaterThanOrEqual(62);
-    expect(box.height).toBeGreaterThanOrEqual(62);
+    expect(box.width).toBeGreaterThanOrEqual(48);
+    expect(box.height).toBeGreaterThanOrEqual(48);
+    expect(Math.abs(box.width - box.height)).toBeLessThan(4);
   }
 
   await page.screenshot({
@@ -68,8 +69,9 @@ test('desktop preview tiles are large squares', async ({ page }) => {
   const box = await page.locator('#board-preview .tile-preview').first().boundingBox();
   expect(box).not.toBeNull();
   if (box) {
-    expect(box.width).toBeGreaterThanOrEqual(76);
-    expect(box.height).toBeGreaterThanOrEqual(76);
+    expect(box.width).toBeGreaterThanOrEqual(60);
+    expect(box.height).toBeGreaterThanOrEqual(60);
+    expect(Math.abs(box.width - box.height)).toBeLessThan(4);
   }
 });
 

@@ -76,6 +76,63 @@ test('native keyboard open hides on-screen keyboard', async ({ page }) => {
   await expect(page.locator('.keyboard')).toBeHidden();
 });
 
+async function typeBabo(page: import('@playwright/test').Page): Promise<void> {
+  for (const key of ['ㅂ', 'ㅏ', 'ㅂ', 'ㅗ']) {
+    await page.locator(`[data-jamo-key="${key}"]`).click();
+  }
+}
+
+test('preview tiles fit fully on 412x915 with jamo keyboard', async ({ page }, testInfo) => {
+  await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+  await page.setViewportSize({ width: 412, height: 915 });
+  await page.goto('./');
+  await expect(page.locator('.keyboard')).toBeVisible();
+  await typeBabo(page);
+
+  const fit = await page.evaluate(() => {
+    const row = document.querySelector('#board-preview') as HTMLElement | null;
+    const tile = row?.querySelector('.tile-preview') as HTMLElement | null;
+    if (!row || !tile) return { ok: false, reason: 'missing' };
+    const rr = row.getBoundingClientRect();
+    const tr = tile.getBoundingClientRect();
+    const style = getComputedStyle(tile);
+    const border = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+    return {
+      ok:
+        tr.top >= rr.top - 0.5 &&
+        tr.bottom <= rr.bottom + 0.5 &&
+        tr.height >= 48 &&
+        tr.width >= 48,
+      tileH: tr.height,
+      tileW: tr.width,
+      rowH: rr.height,
+      border,
+    };
+  });
+  expect(fit.ok, JSON.stringify(fit)).toBe(true);
+
+  await page.screenshot({
+    path: testInfo.outputPath('android-412-preview-babo.png'),
+    fullPage: false,
+  });
+});
+
+test('preview tiles fit on short viewport 412x640', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+  await page.setViewportSize({ width: 412, height: 640 });
+  await page.goto('./');
+  await typeBabo(page);
+  const fit = await page.evaluate(() => {
+    const row = document.querySelector('#board-preview') as HTMLElement | null;
+    const tile = row?.querySelector('.tile-preview') as HTMLElement | null;
+    if (!row || !tile) return false;
+    const rr = row.getBoundingClientRect();
+    const tr = tile.getBoundingClientRect();
+    return tr.top >= rr.top - 0.5 && tr.bottom <= rr.bottom + 0.5 && tr.height >= 48;
+  });
+  expect(fit).toBe(true);
+});
+
 test('mobile gameplay screenshot', async ({ page }, testInfo) => {
   await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
   await page.setViewportSize({ width: 390, height: 844 });
