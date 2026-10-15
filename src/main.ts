@@ -15,6 +15,7 @@ import {
   type JamoState,
 } from './lib/jamo';
 import { processEnglishInputText } from './lib/inputEnglish';
+import { wordToLetters } from './lib/latin';
 import { processInputText } from './lib/inputLatin';
 import {
   aggregatePuzzleKeyStates,
@@ -44,8 +45,8 @@ import {
   updateStreakOnWin,
   wasDailyPlayed,
 } from './lib/storage';
-import { renderBoardRowHtml } from './ui/board';
-import { renderLatinBoardRowHtml } from './ui/boardLatin';
+import { hangulSyllableSlots, renderBoardRowHtml, renderSyllablePreviewHtml } from './ui/board';
+import { renderLatinBoardRowHtml, renderLatinPreviewHtml } from './ui/boardLatin';
 import {
   hasSeenHowToPlay,
   isHowToPlayVisible,
@@ -227,11 +228,60 @@ function configureGuessInput(input: HTMLInputElement, finished: boolean): void {
   }
 }
 
+function userIsTyping(): boolean {
+  return imeComposing || keyboardJamos.length > 0 || draftHangul.length > 0;
+}
+
+function draftTextForPreview(): string {
+  if (keyboardJamos.length) {
+    return draftUnitsToDisplay(state.puzzle, keyboardJamos.slice(0, targetUnitCount()));
+  }
+  return draftHangul;
+}
+
+function buildPreviewHtml(puzzle: Puzzle, en: boolean): string {
+  if (en) {
+    const letters = wordToLetters(puzzle.word);
+    if (userIsTyping()) {
+      const units = draftUnitsForBoard();
+      return renderLatinPreviewHtml(puzzle.word, units, undefined, 'live');
+    }
+    const last = state.attempts.length - 1;
+    if (last >= 0) {
+      return renderLatinPreviewHtml(
+        puzzle.word,
+        unitsFromGuess(puzzle, state.attempts[last]!),
+        state.statuses[last],
+        'submitted',
+      );
+    }
+    return renderLatinPreviewHtml(puzzle.word, Array(letters.length).fill(''), undefined, 'idle');
+  }
+
+  const slots = syllableCount(puzzle.word);
+  if (userIsTyping()) {
+    const chars = hangulSyllableSlots(draftTextForPreview(), slots);
+    return renderSyllablePreviewHtml(puzzle.word, chars, undefined, 'live');
+  }
+  const last = state.attempts.length - 1;
+  if (last >= 0) {
+    const chars = hangulSyllableSlots(state.attempts[last]!, slots);
+    return renderSyllablePreviewHtml(puzzle.word, chars, state.statuses[last], 'submitted');
+  }
+  return renderSyllablePreviewHtml(puzzle.word, Array(slots).fill(''), undefined, 'idle');
+}
+
 function updateBoardPreviewFromInput(_raw: string): void {
+  if (state.finished) return;
+  const en = isEn();
+  const preview = document.querySelector('#board-preview');
+  if (preview) preview.innerHTML = buildPreviewHtml(state.puzzle, en);
+
   const activeRow = state.attempts.length;
-  const row = document.querySelectorAll('.row')[activeRow];
-  if (!row || state.finished) return;
-  if (isEn()) {
+  const row = document.querySelectorAll('#board-guesses .row')[activeRow];
+  if (!row) return;
+
+  if (en) {
     const previewUnits = draftUnitsForBoard();
     const colCount = targetUnitCount();
     Array.from({ length: colCount }).forEach((_, colIdx) => {
@@ -244,6 +294,8 @@ function updateBoardPreviewFromInput(_raw: string): void {
     });
     return;
   }
+
+  if (!userIsTyping()) return;
   row.innerHTML = renderBoardRowHtml(
     state.puzzle.word,
     draftUnitsForBoard(),
@@ -338,6 +390,8 @@ function render(): void {
     : onScreenKbPrimary
       ? '자모 보드'
       : '자모 보드 — 탭하면 입력칸으로 이동';
+  const previewHtml = buildPreviewHtml(puzzle, en);
+  const previewAria = en ? '현재 입력 글자' : '현재 입력 음절';
 
   app.innerHTML = `
     <div class="game-shell">
@@ -376,7 +430,8 @@ function render(): void {
     <p class="play-hint">${playHintLine}</p>
 
     <section class="${boardClass}" id="board" data-jamo-count="${unitsN}" data-syllable-count="${sylN}" style="--jamo-count: ${unitsN}; --syllable-count: ${sylN}" role="grid" aria-live="polite" tabindex="0" aria-label="${boardAria}">
-      ${rows}
+      <div class="board-preview-row" id="board-preview" aria-label="${previewAria}">${previewHtml}</div>
+      <div class="board-guesses" id="board-guesses">${rows}</div>
     </section>
 
     ${resultLine}

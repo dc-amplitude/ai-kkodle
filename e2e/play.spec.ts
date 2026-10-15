@@ -53,7 +53,7 @@ test.describe('AI 제품 꼬들 production build', () => {
     await page.locator('[data-action="enter"]').click();
 
     await expect(page.locator('#message')).not.toContainText('자모 길이');
-    await expect(page.locator('.row').first().locator('.tile.correct')).not.toHaveCount(0);
+    await expect(page.locator('#board-guesses .row').first().locator('.tile-jamo.correct')).not.toHaveCount(0);
   });
 
   test('practice mode free definition hint and progressive hints', async ({ page }) => {
@@ -97,6 +97,6 @@ test.describe('AI 제품 꼬들 production build', () => {
     await input.fill('환각');
     await input.press('Enter');
     await expect(page.locator('#message')).not.toContainText('자모 길이');
-    await expect(page.locator('.row').first().locator('.tile-jamo.correct')).toHaveCount(7);
+    await expect(page.locator('#board-guesses .row').first().locator('.tile-jamo.correct')).toHaveCount(7);
   });
 });

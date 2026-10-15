@@ -1,22 +1,30 @@
 import { describe, expect, it } from 'vitest';
-import { syllableCount, wordToJamos } from '../lib/jamo';
-import { renderBoardRowHtml } from './board';
+import { syllableCount } from '../lib/jamo';
+import { hangulSyllableSlots, renderBoardRowHtml, renderSyllablePreviewHtml } from './board';
+
+describe('hangulSyllableSlots', () => {
+  it('splits 바보 into two syllable slots', () => {
+    expect(hangulSyllableSlots('바보', 2)).toEqual(['바', '보']);
+    expect(hangulSyllableSlots('바', 2)).toEqual(['바', '']);
+  });
+});
+
+describe('renderSyllablePreviewHtml', () => {
+  it('renders one preview tile per syllable', () => {
+    const html = renderSyllablePreviewHtml('바보', ['바', '보'], undefined, 'live');
+    const slots = html.match(/syllable-preview-slot/g)?.length ?? 0;
+    expect(slots).toBe(2);
+    expect(html).toContain('>바<');
+    expect(html).toContain('>보<');
+  });
+});
 
 describe('renderBoardRowHtml', () => {
-  it('renders one syllable unit per answer syllable', () => {
-    for (const word of ['환각', '프롬프트', '데일']) {
+  it('renders jamo groups without big syllable tiles per row', () => {
+    for (const word of ['환각', '바보']) {
       const html = renderBoardRowHtml(word, [], undefined, 'empty');
-      const units = html.match(/class="syllable-unit/g)?.length ?? 0;
-      expect(units, word).toBe(syllableCount(word));
+      expect(html).not.toContain('tile-syllable');
+      expect(html.match(/class="syl-group/g)?.length).toBe(syllableCount(word));
     }
-  });
-
-  it('shows composed syllable on big tile when jamos filled', () => {
-    const all = wordToJamos('환각');
-    const pref = wordToJamos('환');
-    const row = all.map((_, i) => pref[i] ?? '');
-    const html = renderBoardRowHtml('환각', row, undefined, 'tbd');
-    expect(html).toContain('tile-syllable');
-    expect(html).toContain('>환<');
   });
 });
