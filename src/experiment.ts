@@ -15,7 +15,7 @@ const DEFAULTS: GameFlags = {
   maxAttempts: 6,
   hintAfterAttempt: 3,
   shareTitle: 'AI 제품 꼬들',
-  shareSuffix: '주니어 PM·PO 용어 퀴즈',
+  shareSuffix: 'AI·IT 용어 자모 퀴즈',
   difficultyLabel: '보통',
   difficultyTier: 'normal',
 };

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const DAILY_JAMOS = 'ㄷㅔㅇㅣㄹㄹㅣ'.split('');
+const DAILY_JAMOS = 'ㅎㅗㅏㄴㄱㅏㄱ'.split('');
 
 test.describe('AI 제품 꼬들 production build', () => {
   test('shows how-to modal on first visit and via help button', async ({ page }) => {
@@ -43,12 +43,10 @@ test.describe('AI 제품 꼬들 production build', () => {
     await page.locator('#board').click();
     await expect(page.locator('#guess-input')).toBeFocused();
 
-    for (const jamo of DAILY_JAMOS.slice(0, 6)) {
+    for (const jamo of DAILY_JAMOS) {
       await page.locator(`[data-jamo-key="${jamo}"]`).click();
     }
 
-    await expect(page.locator('.draft-preview')).toContainText('6/7');
-    await page.locator('[data-jamo-key="ㅣ"]').click();
     await expect(page.locator('.draft-preview')).toContainText('7/7');
 
     await page.locator('[data-action="enter"]').click();
@@ -79,25 +77,25 @@ test.describe('AI 제품 꼬들 production build', () => {
     await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
     await expect(page.locator('#input-message')).toContainText('한글로 입력해 주세요');
 
-    await input.fill('rlghlrtj');
+    await input.fill('ghksrkr');
     await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
-    await expect(input).toHaveValue('기획서');
+    await expect(input).toHaveValue('환각');
   });
 
   test('shows origin badge during play', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
     await expect(page.locator('.origin-badge')).toBeVisible();
-    await expect(page.locator('.origin-badge')).toContainText(/외래어|한국어/);
+    await expect(page.locator('.origin-badge')).toContainText(/AI 용어|IT 기초/);
   });
 
   test('physical keyboard hangul fill submits without length error', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
     const input = page.locator('#guess-input');
-    await input.fill('데일리');
+    await input.fill('환각');
     await input.press('Enter');
     await expect(page.locator('#message')).not.toContainText('자모 길이');
-    await expect(page.locator('.tile.correct')).toHaveCount(7);
+    await expect(page.locator('.row').first().locator('.tile.correct')).toHaveCount(7);
   });
 });

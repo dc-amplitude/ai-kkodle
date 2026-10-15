@@ -14,7 +14,7 @@ describe('daily puzzle', () => {
     const today = getSeoulDateString(new Date('2026-10-15T01:00:00Z'));
     expect(today).toBe('2026-10-15');
     const p = getDailyPuzzle('2026-10-15');
-    expect(p.word).toBe('데일리');
+    expect(p.word).toBe('환각');
   });
 });
 

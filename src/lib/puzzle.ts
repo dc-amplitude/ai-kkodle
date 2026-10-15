@@ -4,9 +4,16 @@ import { syllableCount, wordToJamos } from './jamo';
 
 export type PuzzleOrigin = 'loanword' | 'korean';
 
+export type PuzzleCategory = 'ai' | 'it-foundation';
+
 export type PuzzleEntry = {
   word: string;
   definition: string;
+  usage: string;
+  example: string;
+  startingHint: string;
+  etymology: string;
+  category: PuzzleCategory;
   date?: string;
   origin: PuzzleOrigin;
   englishSource?: string;

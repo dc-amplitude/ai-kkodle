@@ -340,6 +340,42 @@ button:disabled {
   border-radius: 0.35rem;
 }
 
+.def-line {
+  margin: 0 0 0.45rem;
+  line-height: 1.5;
+}
+
+.def-line:last-child {
+  margin-bottom: 0;
+}
+
+.def-label {
+  display: inline-block;
+  min-width: 2.2rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--correct);
+  margin-right: 0.35rem;
+}
+
+.def-example {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 0.92rem;
+  color: #d8ffe8;
+  line-height: 1.45;
+}
+
+.def-etymology {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.fail + .definition {
+  margin-top: 0.5rem;
+  background: rgba(108, 92, 231, 0.12);
+  border-left-color: var(--accent);
+}
+
 .fail {
   color: #ffb4b4;
 }

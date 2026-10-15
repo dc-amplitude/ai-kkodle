@@ -1,6 +1,8 @@
 # AI 제품 꼬들 (자모 Wordle)
 
-주니어 PM·PO·AI 제품 용어를 **자모(초성·중성·종성) 단위**로 맞히는 무료 브라우저 게임입니다. Amplitude Analytics, Session Replay, Experiment(Wave Opportunities) 데모용으로 만들었습니다.
+**AI·IT 용어**를 **자모(초성·중성·종성) 단위**로 맞히며 뜻·쓰임·예문·어원을 배우는 무료 브라우저 게임입니다. AI에 관심 있는 누구나 즐길 수 있도록, 생성 AI 용어와 그를 이해하는 데 필요한 IT 기초 용어를 다룹니다. Amplitude Analytics, Session Replay, Experiment 데모에도 사용할 수 있습니다.
+
+> **이름 제안 (아직 변경하지 않음):** 공개 제품으로 키울 때는 **「AI 어휘 꼬들」**, **「자모 AI 사전 퀴즈」**, **「Hangul AI Lexicon」** 같은 이름이 PM/PO 한정 느낌을 줄이고 범위를 분명히 합니다.
 
 ## 로컬 실행
 
@@ -13,41 +15,61 @@ npm run dev
 ```bash
 npm run build    # 프로덕션 빌드
 npm run preview  # dist 미리보기
-npm test         # 자모·데일리 퍼즐 테스트
+npm test         # 자모·퍼즐·콘텐츠 품질 테스트
+npm run test:e2e # Playwright
 ```
 
 ## 자모 길이 설계 (variable-length)
 
-한글 단어는 음절 수와 관계없이 **자모 개수가 달라집니다** (예: `퍼널` → 5자모). 고정 7칸 같은 영어 Wordle 방식은 한국어에 맞지 않아, **정답 단어마다 자모 칸 수가 정해지는 가변 보드**를 사용합니다.
+한글 단어는 음절 수와 관계없이 **자모 개수가 달라집니다**. **정답 단어마다 자모 칸 수가 정해지는 가변 보드**를 사용합니다.
 
 **자모 셈 규칙 (`es-hangul` `disassemble` — 정답·추측 동일):**
 
 | 경우 | 예 | 자모 칸 |
 |------|-----|--------|
-| 일반 음절 | `퍼` | ㅍ·ㅓ |
-| `disassemble`이 쪼개는 모음 | `회` | ㅎ·**ㅗ·ㅣ** (3칸, ㅚ 1칸 아님) |
-| 복합 모음 Unicode 1자 | `애` | ㅇ·ㅐ |
+| 일반 음절 | `토` | ㅌ·ㅗ |
+| `disassemble`이 쪼개는 모음 | `회` | ㅎ·**ㅗ·ㅣ** (3칸) |
 | 겹받침 | `값` | ㄱ·ㅏ·ㅂ·ㅅ |
 
-화면 **자모 키보드**의 `ㅚ`·`ㅢ` 키는 위 규칙에 맞게 ㅗ+ㅣ, ㅡ+ㅣ 두 칸으로 입력됩니다. IME로 한글 음절을 입력해도 같은 방식으로 분해됩니다.
+플레이어는 **자모 칸 수를 채운 뒤 제출**하거나 **음절 수가 맞는 한글 단어**를 IME로 입력합니다 (**아무 단어나 입력 가능**).
 
-플레이어는 **자모 칸 수를 채운 뒤 제출**하거나, **음절 수가 맞는 한글 단어**를 IME로 입력합니다 (**아무 단어나 입력 가능**, 사전 검증 없음). Wordle 규칙(초록/노랑/회색)은 자모 칸마다 적용됩니다.
-
-**힌트:** 매 판 **시작 힌트**(용어 뜻)가 처음부터 표시됩니다. 💡 버튼으로 추가 힌트 2개(자모 위치·첫 음절)를 더 받을 수 있으며, 데일리 모드에서는 Experiment `hint_after_attempt` 이후에 추가 힌트 버튼이 열립니다.
+**힌트:** **시작 힌트**(`startingHint`)는 정답 단어를 직접 드러내지 않는 단서입니다. 맞히면 **의미·쓰임·예문·어원**을 볼 수 있습니다. 💡 버튼으로 자모·첫 음절 힌트 2개를 더 받을 수 있으며, 데일리 모드에서는 Experiment `hint_after_attempt` 이후에 추가 힌트 버튼이 열립니다.
 
 ## 게임 모드
 
 | 모드 | 설명 |
 |------|------|
-| **데일리** | Asia/Seoul 달력 날짜 기준 전 세계 동일 퍼즐. `data/puzzles.json`에 `date`가 있으면 해당일 우선, 없으면 앵커(2025-01-01 KST)부터 로테이션. |
-| **연습** | 무제한. 「새 단어」로 다른 시드 단어. |
+| **데일리** | Asia/Seoul 달력 날짜 기준 전 세계 동일 퍼즐. `date` 필드가 있으면 해당일 우선, 없으면 앵커(2025-01-01 KST)부터 로테이션. |
+| **연습** | 무제한. 「새 단어」로 다른 시드. 기본 난이도는 **2–3음절** 단어만. |
 
-- **연속 기록(streak)**: `localStorage`, 데일리 성공 시만 서울 날짜 기준 갱신.
-- **공유**: 스포일러 없이 🟩🟨⬜ 그리드만 (클립보드 / Web Share API).
+## 퍼즐 데이터 — 형식과 추가 방법
 
-## 퍼즐 데이터
+**소스:** `scripts/puzzle-catalog.mjs` (편집) → `node scripts/build-puzzles.mjs` → `data/puzzles.json` (빌드 결과)
 
-`data/puzzles.json` — `{ "word", "definition", "date?" }`. 시드 데이터만 포함(고객 데이터 없음).
+각 항목 필드:
+
+| 필드 | 설명 |
+|------|------|
+| `word` | 정답 한글 단어 |
+| `category` | `ai` \| `it-foundation` |
+| `definition` | 한 줄 의미 |
+| `usage` | AI/IT 현장에서 어떻게 쓰이는지 |
+| `example` | `예:`로 시작하는 짧은 예문 |
+| `startingHint` | 시작 힌트 (**정답 단어·부분 문자열 포함 금지**) |
+| `etymology` | 어원 (영어·그리스·라틴·인명 등) |
+| `origin` | `loanword` \| `korean` |
+| `englishSource` | loanword일 때 영어 표기 |
+| `date` | (선택) `YYYY-MM-DD` 서울 기준 **데일리 고정일** |
+
+### 새 용어 추가
+
+1. `scripts/puzzle-catalog.mjs`의 `PUZZLE_CATALOG` 배열에 객체를 추가합니다.
+2. `node scripts/build-puzzles.mjs`로 검증 후 `data/puzzles.json`을 재생성합니다.
+3. `npm test` — `puzzle-content.test.ts`가 필수 필드·게임 자기 언급·startingHint 규칙을 검사합니다.
+
+### 특정 날짜 데일리 지정
+
+한 항목에만 `"date": "2026-10-15"`처럼 넣습니다. **날짜는 항목당 최대 하나**, 중복 날짜는 빌드 스크립트에서 거부하도록 운영하세요. `date`가 없는 항목만 로테이션 풀에 들어갑니다.
 
 ## Amplitude 설정
 
@@ -55,7 +77,7 @@ npm test         # 자모·데일리 퍼즐 테스트
 |------|------|
 | `VITE_AMPLITUDE_API_KEY` | Analytics + Session Replay |
 | `VITE_AMPLITUDE_DEPLOYMENT_KEY` | Experiment 배포 키 |
-| `VITE_BASE_PATH` | GitHub Pages 경로 (Actions 빌드 기본 `/ai-kkodle/`, 로컬 dev는 `/`) |
+| `VITE_BASE_PATH` | GitHub Pages 경로 (Actions 빌드 기본 `/ai-kkodle/`) |
 
 키가 없으면 SDK 초기화를 건너뛰고 게임은 정상 동작합니다.
 
@@ -66,58 +88,17 @@ Repository → Settings → Secrets and variables → Actions:
 - `VITE_AMPLITUDE_API_KEY`
 - `VITE_AMPLITUDE_DEPLOYMENT_KEY`
 
-선택 **Repository variable**:
-
-- `VITE_BASE_PATH` — 로컬은 `/`, GitHub Actions 빌드 기본값은 `/ai-kkodle/` (Pages: `https://dc-amplitude.github.io/ai-kkodle/`)
+선택 **Repository variable**: `VITE_BASE_PATH` — 로컬 `/`, Pages `/ai-kkodle/`
 
 ## 이벤트 taxonomy
 
 | 이벤트 | 주요 properties |
 |--------|------------------|
-| `game_start` | `mode`, `puzzle_id`, `jamo_count`, `seoul_date`, `max_attempts`, `starting_hint` (always `true` — free tier-1 definition) |
+| `game_start` | `mode`, `puzzle_id`, `jamo_count`, `seoul_date`, `max_attempts`, `starting_hint` |
 | `guess_submitted` | `mode`, `attempt`, `jamo_count`, `correct_jamos` |
-| `guess_rejected` | `reason`, `mode` |
-| `hint_used` | `mode`, `hint_level` (2–3 only; tier 1 is free at start), `paid_hints_revealed`, `after_attempt`, `flag_hint_after` |
-| `game_complete` | `mode`, `success`, `attempts`, `puzzle_id` |
-| `share_clicked` | `mode`, `success`, `attempts` |
-| `streak_day` | `streak_count`, `seoul_date`, `already_played` |
-| `mode_switched` | `from`, `to` |
-| `how_to_play_opened` | `source` (`auto` \| `help_button`), `mode` |
+| `hint_used` | `hint_level` (2–3), `paid_hints_revealed`, … |
+| `how_to_play_opened` | `source`, `mode` |
 
-Session Replay: `privacyConfig.defaultMaskLevel: 'conservative'` (입력 마스킹 강화).
+## 배포
 
-## Experiment 플래그
-
-| Flag key | Variants | 기본값 | 효과 |
-|----------|----------|--------|------|
-| `max_attempts` | `6`, `5` | 6 | 최대 시도 횟수 |
-| `hint_after_attempt` | `2`, `3`, `4` | 3 | N번째 오답 시 첫 자모 힌트 |
-| `share_title` | `default`, `wave` | `AI 제품 꼬들` | 공유 제목 |
-| `share_copy` | `default`, `short` | 긴 부제 | 공유 문구 |
-| `difficulty` | `easy`, `default`, `hard` | 보통 | UI 난이도 라벨 |
-
-플래그 fetch 실패 시 위 기본값 사용. `exposure()`는 힌트·모드 전환·공유 시 호출.
-
-## GitHub Pages 배포
-
-1. GitHub에 **새 저장소** 생성 후 이 프로젝트 push.
-2. **Settings → Pages → Build and deployment**: Source = **GitHub Actions**.
-3. Secrets/variables 설정 (위 참고).
-4. `main`에 push/merge 시 `.github/workflows/deploy-pages.yml`이 `dist` 배포.
-
-### 기존 Cursor 프로젝트에서 GitHub로 옮기기
-
-```bash
-git remote add github https://github.com/dc-amplitude/ai-kkodle.git
-git push -u github main
-```
-
-이 저장소 Pages URL: `https://dc-amplitude.github.io/ai-kkodle/` (Actions가 `VITE_BASE_PATH=/ai-kkodle/`로 빌드).
-
-## 기술 스택
-
-Vite · TypeScript · es-hangul · @amplitude/analytics-browser · session-replay plugin · experiment-js-client
-
-## 라이선스
-
-MIT — 데모·학습용 시드 콘텐츠.
+`main` push 시 GitHub Actions → GitHub Pages (`/.github/workflows/deploy-pages.yml`).

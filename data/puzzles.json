@@ -1,1048 +1,1090 @@
 [
   {
     "word": "프롬프트",
-    "definition": "AI에게 지시와 맥락을 전달하는 입력 문장이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "prompt",
-    "usage": "PM·PO는 기능 설명이나 요약을 모델에 넣을 때 문장 구조와 예시를 다듬는다.",
-    "example": "예: 릴리스 노트 초안을 모델에 넣기 전에 지시문을 세 번 고쳤다.",
-    "startingHint": "모델에게 무엇을 하라고 적어 넣는 한 덩어리 문장"
-  },
-  {
-    "word": "퍼널",
-    "definition": "사용자가 목표 행동까지 거치는 단계별 전환 경로다.",
-    "origin": "loanword",
-    "englishSource": "funnel",
-    "usage": "성장·PM 팀은 가입→활성→결제 등 단계별 이탈 지점을 이 용어로 부른다.",
-    "example": "예: 결제 단계에서 이탈이 커서 상단 단계부터 다시 봤다.",
-    "startingHint": "깔때기처럼 단계마다 사람 수가 줄어드는 사용자 여정"
-  },
-  {
-    "word": "리텐션",
-    "definition": "일정 기간 후에도 사용자가 남아 있는 비율이다.",
-    "origin": "loanword",
-    "englishSource": "retention",
-    "usage": "PO는 기능 출시 후 N일·N주 잔존 곡선으로 효과를 판단한다.",
-    "example": "예: 온보딩 개선 후 7일 잔존이 3%p 올랐다.",
-    "startingHint": "처음 쓴 사람이 시간이 지나도 계속 쓰는지 보는 지표"
-  },
-  {
-    "word": "코호트",
-    "definition": "같은 시점이나 조건으로 묶어 비교하는 사용자 그룹이다.",
-    "origin": "loanword",
-    "englishSource": "cohort",
-    "usage": "데이터 팀은 가입 주차별 그룹을 나눠 행동 차이를 본다.",
-    "example": "예: 3월 1주 가입자만 따로 잔존을 비교했다.",
-    "startingHint": "같은 조건으로 묶은 사용자 묶음을 시간에 따라 추적"
-  },
-  {
-    "word": "임베딩",
-    "definition": "텍스트·이미지를 벡터로 바꿔 의미를 표현하는 표현 방식이다.",
-    "origin": "loanword",
-    "englishSource": "embedding",
-    "usage": "AI 제품은 검색·추천에서 문장 의미를 숫자 벡터로 맞춘다.",
-    "example": "예: FAQ 문단을 벡터로 저장해 유사 질문을 찾았다.",
-    "startingHint": "글과 이미지를 의미가 담긴 숫자 배열로 바꾸는 기법"
-  },
-  {
-    "word": "추론",
-    "definition": "학습된 모델이 새 입력에 답을 생성하는 실행 단계다.",
-    "origin": "korean",
-    "usage": "PO는 응답 속도와 비용이 이 단계에서 나온다고 이해한다.",
-    "example": "예: 피크 시간대에 GPU에서 답 생성 지연이 늘었다.",
-    "startingHint": "이미 배운 모델이 새 데이터를 보고 결과를 내는 과정"
-  },
-  {
-    "word": "파인튜닝",
-    "definition": "기존 모델을 특정 데이터로 추가 학습하는 과정이다.",
-    "origin": "loanword",
-    "englishSource": "fine-tuning",
-    "usage": "도메인 용어가 많은 B2B 제품은 내부 로그로 모델을 맞춘다.",
-    "example": "예: 고객 지원 말투 데이터로 베이스 모델을 조정했다.",
-    "startingHint": "범용 모델을 우리 데이터에 맞게 한 번 더 학습"
+    "definition": "모델에게 역할·지시·예시를 전달하는 입력 텍스트다.",
+    "usage": "챗봇·코파일럿·이미지 생성 서비스에서 답의 품질을 좌우하는 첫 입력이다.",
+    "example": "예: “한국어로 세 문장 요약”을 맨 위에 적어 두었다.",
+    "startingHint": "모델에게 무엇을 어떻게 해 달라고 적어 넣는 문장",
+    "etymology": "영어 prompt(앞세우다·촉구하다)에서 온 IT·AI 용어."
   },
   {
     "word": "토큰",
-    "definition": "모델이 처리하는 텍스트의 최소 단위 조각이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "token",
-    "usage": "PM은 API 비용과 입력 길이 제한을 이 단위로 계산한다.",
-    "example": "예: 긴 PRD를 넣으니 입력 조각 수가 한도를 넘었다.",
-    "startingHint": "문장을 잘게 쪼갠 조각 하나하나의 청구 단위"
+    "definition": "텍스트를 모델이 처리하는 최소 단위 조각이다.",
+    "usage": "API 요금·컨텍스트 길이·속도 계산에 이 단위가 쓰인다.",
+    "example": "예: 긴 문서는 토큰 한도 때문에 잘라서 넣었다.",
+    "startingHint": "글자보다 작거나 큰, 모델이 세는 텍스트 덩어리",
+    "etymology": "그리스 token(징표·표식)에서 온 컴퓨터 용어."
   },
   {
-    "word": "컨텍스트",
-    "definition": "답변에 필요한 주변 정보와 대화 맥락 전체다.",
+    "word": "임베딩",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "context",
-    "usage": "챗봇 기능은 최근 메시지와 사용자 프로필을 함께 넣는다.",
-    "example": "예: 이전 질문 세 줄을 붙여야 답이 이어졌다.",
-    "startingHint": "모델이 답할 때 함께 참고하는 배경 정보 묶음"
+    "englishSource": "embedding",
+    "definition": "글·이미지·음성을 의미가 담긴 숫자 벡터로 바꾼 표현이다.",
+    "usage": "검색, 추천, RAG에서 “비슷한 의미”를 거리로 비교할 때 쓴다.",
+    "example": "예: FAQ 문단마다 벡터를 만들어 유사 질문을 찾았다.",
+    "startingHint": "의미를 좌표처럼 숫자 배열로 옮기는 표현",
+    "etymology": "영어 embed(안에 박다)에서, 벡터 공간에 “끼워 넣는다”는 뜻."
+  },
+  {
+    "word": "파인튜닝",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "fine-tuning",
+    "definition": "이미 학습된 모델을 특정 데이터로 추가 조정하는 과정이다.",
+    "usage": "기업·팀은 브랜드 톤이나 도메인 지식을 넣을 때 이 방식을 쓴다.",
+    "example": "예: 고객 상담 로그로 일주일 파인튜닝을 돌렸다.",
+    "startingHint": "큰 모델을 살짝 더 가르쳐 특정 분야에 맞추기",
+    "etymology": "fine(미세한) + tuning(조율)의 합성어."
+  },
+  {
+    "word": "추론",
+    "category": "ai",
+    "origin": "korean",
+    "definition": "학습이 끝난 모델이 새 입력에 답을 생성·판별하는 실행 단계다.",
+    "usage": "서비스에서는 “학습”과 구분해 GPU에서 돌아가는 실시간 응답을 뜻한다.",
+    "example": "예: 추론 비용이 커서 작은 모델로 바꿨다.",
+    "startingHint": "이미 배운 모델이 새 질문에 답을 내는 단계",
+    "etymology": "漢字 推(밀다) + 論(논하다). 추리·연역의 한자어."
   },
   {
     "word": "에이전트",
-    "definition": "도구를 쓰며 목표를 스스로 수행하는 AI 프로그램이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "agent",
-    "usage": "PO는 자동화 시나리오를 여러 단계 작업을 맡기는 형태로 설계한다.",
-    "example": "예: 티켓을 읽고 문서를 찾아 초안 답변을 올리게 했다.",
-    "startingHint": "스스로 계획하고 외부 도구를 호출하는 자율형 AI"
+    "definition": "도구·API를 스스로 호출하며 목표를 수행하는 AI 프로그램이다.",
+    "usage": "일정 잡기, 코드 수정, 검색 같은 다단계 작업을 자동화할 때 쓴다.",
+    "example": "예: 에이전트가 티켓을 읽고 패치 초안까지 만들었다.",
+    "startingHint": "스스로 단계를 밟으며 일을 처리하는 AI 행위자",
+    "etymology": "라틴 agere(행하다) → agent(행하는 자)."
   },
   {
     "word": "가드레일",
-    "definition": "위험·오류를 막기 위한 안전 규칙과 제한이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "guardrail",
-    "usage": "PM은 금칙 주제와 출력 형식을 정책으로 고정한다.",
-    "example": "예: 개인정보 패턴이 나오면 응답을 차단했다.",
-    "startingHint": "모델이 위험한 말을 하지 못하게 막는 안전 장치"
+    "definition": "모델 출력·행동을 안전·정책 범위 안에 두는 제약 규칙이다.",
+    "usage": "유해 콘텐츠, 개인정보, 환각을 줄이려고 프롬프트·필터·정책에 넣는다.",
+    "example": "예: 의료 답변 전에 가드레일로 “진단 금지”를 걸었다.",
+    "startingHint": "AI가 선을 넘지 않게 막아 두는 안전 난간",
+    "etymology": "영어 guard(지키다) + rail(난간)."
   },
   {
     "word": "벤치마크",
-    "definition": "모델·기능 성능을 표준 데이터로 비교하는 시험이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "benchmark",
-    "usage": "AI 팀은 새 버전 출시 전 공개 과제 점수를 비교한다.",
-    "example": "예: 요약 품질 표준 세트에서 점수가 2점 올랐다.",
-    "startingHint": "같은 문제집으로 성능을 재는 공통 시험"
-  },
-  {
-    "word": "플래그",
-    "definition": "기능을 켜고 끄거나 실험군을 나누는 설정 스위치다.",
-    "origin": "loanword",
-    "englishSource": "flag",
-    "usage": "릴리스 전에는 일부 사용자만 새 UI를 보게 켠다.",
-    "example": "예: 내부 직원만 베타 메뉴 스위치를 켰다.",
-    "startingHint": "코드 배포 없이 기능 노출을 조절하는 on/off"
-  },
-  {
-    "word": "실험",
-    "definition": "가설을 검증하기 위해 대조군과 비교하는 시도다.",
-    "origin": "korean",
-    "usage": "PO는 한 가지 변경만 두고 전환 차이를 본다.",
-    "example": "예: CTA 문구만 바꿔 결제율을 A/B로 봤다.",
-    "startingHint": "무작위로 나눠 어떤 변경이 더 나은지 검증"
-  },
-  {
-    "word": "롤아웃",
-    "definition": "새 기능이나 모델을 점진적으로 넓혀 배포하는 방식이다.",
-    "origin": "loanword",
-    "englishSource": "rollout",
-    "usage": "PM은 트래픽 비율을 올려 리스크를 줄인다.",
-    "example": "예: 추천 모델을 5%에서 50%까지 단계적으로 열었다.",
-    "startingHint": "처음 소수에게만 열고 점점 전 사용자에게 확대"
-  },
-  {
-    "word": "온보딩",
-    "definition": "신규 사용자가 첫 가치를 경험하도록 안내하는 흐름이다.",
-    "origin": "loanword",
-    "englishSource": "onboarding",
-    "usage": "제품 팀은 첫 세션 완료율을 이 흐름의 성공으로 본다.",
-    "example": "예: 가입 직후 체크리스트 세 단계를 줄였다.",
-    "startingHint": "처음 들어온 사람이 서비스를 쓸 수 있게 안내하는 과정"
-  },
-  {
-    "word": "전환율",
-    "definition": "한 단계에서 다음 목표 행동으로 넘어간 비율이다.",
-    "origin": "korean",
-    "usage": "마케팅·PM은 랜딩→가입 비율을 주간으로 추적한다.",
-    "example": "예: 무료 체험 후 결제 비율이 8%였다.",
-    "startingHint": "이전 단계 사용자 중 다음 행동을 한 사람의 비율"
-  },
-  {
-    "word": "이탈률",
-    "definition": "특정 단계나 기간 안에 서비스를 떠난 비율이다.",
-    "origin": "korean",
-    "usage": "구독 제품은 결제 실패 후 해지 비율을 별도로 본다.",
-    "example": "예: 2주차 이탈이 급증해 푸시 정책을 바꿨다.",
-    "startingHint": "중간에 그만두거나 떠나 버린 사용자의 비율"
-  },
-  {
-    "word": "세그먼트",
-    "definition": "행동·속성 기준으로 나눈 사용자 부분집합이다.",
-    "origin": "loanword",
-    "englishSource": "segment",
-    "usage": "PO는 파워 유저와 휴면 유저에 다른 메시지를 쓴다.",
-    "example": "예: 30일 미접속 세그만 대상으로 캠페인을 보냈다.",
-    "startingHint": "공통 특성으로 잘라 낸 사용자 그룹"
-  },
-  {
-    "word": "대시보드",
-    "definition": "핵심 지표를 한 화면에 모아 보는 보고 도구다.",
-    "origin": "loanword",
-    "englishSource": "dashboard",
-    "usage": "PM은 주간 회의 전에 이 화면으로 숫자를 공유한다.",
-    "example": "예: 실시간 활성과 오류율을 한 패널에서 봤다.",
-    "startingHint": "여러 차트와 숫자를 모아 둔 운영용 화면"
-  },
-  {
-    "word": "이벤트",
-    "definition": "앱·웹에서 사용자 행동을 기록하는 로그 단위다.",
-    "origin": "loanword",
-    "englishSource": "event",
-    "usage": "데이터 팀은 버튼 클릭마다 이름과 속성을 심는다.",
-    "example": "예: 결제 완료 시점에 purchase 로그를 남겼다.",
-    "startingHint": "클릭·조회 같은 행동을 이름 붙여 수집한 기록"
-  },
-  {
-    "word": "세션",
-    "definition": "사용자가 연속으로 서비스를 쓰는 한 번의 방문 구간이다.",
-    "origin": "loanword",
-    "englishSource": "session",
-    "usage": "분석에서는 30분 무활동이면 새 방문으로 나눈다.",
-    "example": "예: 평균 방문 길이가 4분으로 나왔다.",
-    "startingHint": "들어와서 나가기 전까지 이어지는 한 번의 이용"
-  },
-  {
-    "word": "퍼널분석",
-    "definition": "단계별 전환·이탈을 수치로 풀어 보는 분석이다.",
-    "origin": "loanword",
-    "englishSource": "funnel analysis",
-    "usage": "PM은 어느 스텝에서 사람이 빠지는지 먼저 찾는다.",
-    "example": "예: 장바구니 단계 이탈이 전체의 40%였다.",
-    "startingHint": "단계마다 남은 사용자 수를 깔때기처럼 계산"
-  },
-  {
-    "word": "코호트분석",
-    "definition": "가입 시점 등 기준 그룹별로 지표를 시간축으로 비교하는 분석이다.",
-    "origin": "loanword",
-    "englishSource": "cohort analysis",
-    "usage": "성장 팀은 주차별 잔존 곡선을 겹쳐 그린다.",
-    "example": "예: 캠페인 전후 가입 코호트의 4주 잔존을 비교했다.",
-    "startingHint": "같은 묶음 사용자의 행동을 기간별로 따라가기"
-  },
-  {
-    "word": "북극성",
-    "definition": "팀이 장기적으로 맞추는 단 하나의 핵심 성과 지표다.",
-    "origin": "korean",
-    "usage": "PO는 기능 우선순위를 이 숫자에 기여하는지로 판단한다.",
-    "example": "예: 분기 목표를 주간 활성 사용자 하나로 잡았다.",
-    "startingHint": "모든 결정이 결국 올리려는 대표 숫자 하나"
-  },
-  {
-    "word": "백로그",
-    "definition": "아직 하지 않았지만 할 일로 적어 둔 작업 목록이다.",
-    "origin": "loanword",
-    "englishSource": "backlog",
-    "usage": "스프린트 전에 PO가 항목을 정렬하고 설명을 붙인다.",
-    "example": "예: 버그 수정 12건이 대기 목록 상단에 있다.",
-    "startingHint": "개발·디자인이 앞으로 할 일을 쌓아 둔 리스트"
-  },
-  {
-    "word": "스프린트",
-    "definition": "보통 1~2주 동안 정해진 범위를 개발하는 주기다.",
-    "origin": "loanword",
-    "englishSource": "sprint",
-    "usage": "팀은 시작 회의에서 이번 주기 목표를 고정한다.",
-    "example": "예: 이번 주기에는 결제 API만 끝내기로 했다.",
-    "startingHint": "짧은 기간 안에 완료할 작업 묶음을 실행하는 단위"
-  },
-  {
-    "word": "릴리스",
-    "definition": "사용자에게 보이는 기능·버전을 출시하는 행위다.",
-    "origin": "loanword",
-    "englishSource": "release",
-    "usage": "PM은 릴리스 노트와 롤백 계획을 함께 준비한다.",
-    "example": "예: v2.3은 금요일 오후에 스토어에 올렸다.",
-    "startingHint": "완성된 빌드를 실제 서비스에 반영해 공개"
-  },
-  {
-    "word": "배포",
-    "definition": "코드나 모델을 서버·앱에 올려 실행 환경에 반영하는 일이다.",
-    "origin": "korean",
-    "usage": "엔지니어와 PM은 배포 시간대와 공지를 맞춘다.",
-    "example": "예: 새 모델은 새벽에만 서버에 반영했다.",
-    "startingHint": "만든 결과물을 운영 환경에 실제로 올리는 작업"
-  },
-  {
-    "word": "스키마",
-    "definition": "데이터나 API 필드 구조를 정의한 규격이다.",
-    "origin": "loanword",
-    "englishSource": "schema",
-    "usage": "PO는 이벤트 속성 이름을 문서로 고정해 혼선을 막는다.",
-    "example": "예: user_id 타입을 문자열로 통일했다.",
-    "startingHint": "어떤 필드가 있고 타입이 무엇인지 적힌 설계도"
-  },
-  {
-    "word": "엔드포인트",
-    "definition": "클라이언트가 서버 기능을 호출하는 URL·경로다.",
-    "origin": "loanword",
-    "englishSource": "endpoint",
-    "usage": "PM은 어떤 API가 어떤 화면에 쓰이는지 맵을 만든다.",
-    "example": "예: 검색 API 경로가 버전 2로 바뀌었다.",
-    "startingHint": "백엔드 기능에 요청을 보내는 정해진 주소"
-  },
-  {
-    "word": "웹훅",
-    "definition": "외부 시스템이 우리 서버로 이벤트를 푸시하는 HTTP 알림이다.",
-    "origin": "loanword",
-    "englishSource": "webhook",
-    "usage": "결제·슬랙 연동은 완료 시 이 채널로 신호를 받는다.",
-    "example": "예: Stripe 결제 성공 시 우리 URL로 POST가 왔다.",
-    "startingHint": "다른 서비스가 일이 생기면 우리에게 자동으로 알림"
-  },
-  {
-    "word": "벡터",
-    "definition": "의미나 특징을 숫자 배열로 표현한 데이터다.",
-    "origin": "loanword",
-    "englishSource": "vector",
-    "usage": "검색 제품은 질문과 문서 벡터의 각도로 순위를 매긴다.",
-    "example": "예: 두 문장 벡터가 가까우면 비슷한 주제로 판단했다.",
-    "startingHint": "여러 차원의 숫자로 표현한 의미 좌표"
-  },
-  {
-    "word": "검색",
-    "definition": "사용자 질의에 맞는 정보를 찾아 보여 주는 기능이다.",
-    "origin": "korean",
-    "usage": "PO는 정확도·속도·노출 순서를 KPI로 잡는다.",
-    "example": "예: 자동완성 클릭률이 검색 성공의 대리 지표였다.",
-    "startingHint": "키워드나 문장으로 원하는 내용을 찾아내기"
-  },
-  {
-    "word": "추천",
-    "definition": "사용자에게 맞다고 판단한 콘텐츠·상품을 제안하는 기능이다.",
-    "origin": "korean",
-    "usage": "PM은 클릭·체류로 추천 알고리즘을 평가한다.",
-    "example": "예: 홈 피드 상단 5개가 전체 클릭의 60%였다.",
-    "startingHint": "과거 행동을 보고 다음에 볼 만한 것을 골라 주기"
-  },
-  {
-    "word": "개인화",
-    "definition": "사용자별 데이터로 경험·콘텐츠를 다르게 맞추는 것이다.",
-    "origin": "loanword",
-    "englishSource": "personalization",
-    "usage": "마케팅은 세그먼트별 메시지로 전환을 올린다.",
-    "example": "예: 최근 본 카테고리 기준으로 배너를 바꿨다.",
-    "startingHint": "사람마다 다른 화면이나 제안을 보여 주는 맞춤화"
-  },
-  {
-    "word": "리랭킹",
-    "definition": "1차 검색 결과를 다시 점수 매겨 순서를 바꾸는 단계다.",
-    "origin": "loanword",
-    "englishSource": "reranking",
-    "usage": "AI 검색은 관련도 모델로 상위 목록을 재정렬한다.",
-    "example": "예: 초기 50건을 작은 모델로 다시 정렬했다.",
-    "startingHint": "먼저 찾은 후보들의 순위를 한 번 더 조정"
-  },
-  {
-    "word": "오케스트레이션",
-    "definition": "여러 모델·도구·단계를 순서대로 묶어 실행하는 설계다.",
-    "origin": "loanword",
-    "englishSource": "orchestration",
-    "usage": "복잡한 AI 기능은 검색→요약→검증을 파이프로 연다.",
-    "example": "예: 답 생성 전에 항상 사내 문서 조회를 호출한다.",
-    "startingHint": "여러 단계 작업을 지휘하듯 이어 붙이는 구조"
-  },
-  {
-    "word": "레드팀",
-    "definition": "의도적으로 시스템을 공격·검증해 취약점을 찾는 역할이다.",
-    "origin": "loanword",
-    "englishSource": "red team",
-    "usage": "AI 제품은 유해 질문과 탈옥 시나리오를 이 팀이 넣는다.",
-    "example": "예: 보안 팀이 프롬프트 인젝션 200건을 시도했다.",
-    "startingHint": "적군처럼 서비스를 깨 보며 약점을 찾는 검증"
-  },
-  {
-    "word": "평가",
-    "definition": "모델 출력이나 기능이 기준을 만족하는지 판정하는 일이다.",
-    "origin": "korean",
-    "usage": "PO는 사람 채점과 자동 점수를 함께 쓴다.",
-    "example": "예: 요약 품질을 5점 척도로 50건 샘플 검수했다.",
-    "startingHint": "답이나 기능이 목표 수준인지 가늠하는 과정"
-  },
-  {
-    "word": "트레이스",
-    "definition": "요청이 시스템을 지나간 전체 경로를 기록한 로그다.",
-    "origin": "loanword",
-    "englishSource": "trace",
-    "usage": "장애 시 어느 단계에서 지연됐는지 이 기록으로 본다.",
-    "example": "예: 한 요청이 DB 조회에서 2초 걸린 걸 확인했다.",
-    "startingHint": "한 번의 호출이 거친 서비스들의 연결 기록"
-  },
-  {
-    "word": "옵저버",
-    "definition": "분산 시스템에서 호출 관계를 수집·표시하는 관측 컴포넌트다.",
-    "origin": "loanword",
-    "englishSource": "observer",
-    "usage": "SRE와 PM은 지연 급증 시 이 도구로 병목을 찾는다.",
-    "example": "예: 결제 서비스만 빨간색으로 뜬 걸 보고 격리했다.",
-    "startingHint": "마이크로서비스 호출을 모아 보여 주는 감시 도구"
-  },
-  {
-    "word": "스팬",
-    "definition": "트레이스 안에서 한 작업 구간을 나타내는 단위다.",
-    "origin": "loanword",
-    "englishSource": "span",
-    "usage": "성능 개선은 가장 긴 구간부터 줄인다.",
-    "example": "예: 임베딩 계산 구간이 전체 지연의 70%였다.",
-    "startingHint": "전체 요청 흐름을 잘게 나눈 한 조각의 시간 구간"
-  },
-  {
-    "word": "아티팩트",
-    "definition": "빌드·학습·배포 과정에서 생성된 결과 파일이다.",
-    "origin": "loanword",
-    "englishSource": "artifact",
-    "usage": "ML 팀은 모델 가중치 파일을 버전으로 관리한다.",
-    "example": "예: 이번 배포 번들이 이전보다 30MB 컸다.",
-    "startingHint": "파이프라인이 만들어 낸 실행 파일이나 모델 묶음"
-  },
-  {
-    "word": "마이그레이션",
-    "definition": "데이터·스키마·시스템을 새 구조로 옮기는 작업이다.",
-    "origin": "loanword",
-    "englishSource": "migration",
-    "usage": "PM은 이 기간 동안 기능 출시를 줄이고 공지를 한다.",
-    "example": "예: 사용자 테이블 분할을 주말에 진행했다.",
-    "startingHint": "옛 저장 방식에서 새 방식으로 안전하게 이사"
-  },
-  {
-    "word": "인덱스",
-    "definition": "검색·조회 속도를 높이기 위해 만든 데이터 구조다.",
-    "origin": "loanword",
-    "englishSource": "index",
-    "usage": "대용량 로그는 적절한 인덱스 없으면 대시보드가 느려진다.",
-    "example": "예: 날짜 컬럼에 인덱스를 추가해 쿼리가 빨라졌다.",
-    "startingHint": "빠르게 찾도록 미리 만들어 둔 색인"
-  },
-  {
-    "word": "페르소나",
-    "definition": "대표 사용자 유형을 가상 인물로 정의한 프로필이다.",
-    "origin": "loanword",
-    "englishSource": "persona",
-    "usage": "디자인·PM은 이 프로필로 시나리오와 요구를 맞춘다.",
-    "example": "예: 바쁜 영업 담당자 페르소나로 온보딩을 짧게 했다.",
-    "startingHint": "목표 사용자를 이름·상황이 있는 캐릭터로 묘사"
-  },
-  {
-    "word": "스토리",
-    "definition": "사용자 가치를 한 문장 요구사항으로 쓴 항목이다.",
-    "origin": "loanword",
-    "englishSource": "user story",
-    "usage": "스프린트 계획은 “~로서 ~하고 싶다” 형태로 쪼갠다.",
-    "example": "예: 관리자로서 팀 사용량을 한눈에 보고 싶다.",
-    "startingHint": "누가 어떤 목적으로 무엇을 하려는지 적은 요구"
-  },
-  {
-    "word": "피드백",
-    "definition": "사용자·동료가 제품에 대해 남긴 의견과 반응이다.",
-    "origin": "loanword",
-    "englishSource": "feedback",
-    "usage": "PO는 NPS·인터뷰·앱 리뷰를 우선순위에 반영한다.",
-    "example": "예: 베타 사용자 8명이 검색 속도 불만을 말했다.",
-    "startingHint": "쓰면서 느낀 점이나 개선 요청을 모은 소리"
-  },
-  {
-    "word": "히트맵",
-    "definition": "클릭·시선이 많은 영역을 색으로 보여 주는 시각화다.",
-    "origin": "loanword",
-    "englishSource": "heatmap",
-    "usage": "UX 팀은 버튼이 안 보이는지 이 그림으로 확인한다.",
-    "example": "예: 하단 CTA가 거의 안 눌려 빨간색이 없었다.",
-    "startingHint": "어디를 많이 눌렀는지 뜨거운 색으로 표시한 그림"
-  },
-  {
-    "word": "세션리플레이",
-    "definition": "사용자 화면 조작을 녹화해 다시 보는 도구다.",
-    "origin": "loanword",
-    "englishSource": "session replay",
-    "usage": "PM은 결제 실패 구간에서 어디서 막혔는지 본다.",
-    "example": "예: 폼 제출 직전에 이탈한 녹화 20건을 봤다.",
-    "startingHint": "실제 클릭·스크롤을 영상처럼 재생해 보는 분석"
-  },
-  {
-    "word": "마스킹",
-    "definition": "로그·화면에서 개인정보를 가리거나 토큰화하는 처리다.",
-    "origin": "loanword",
-    "englishSource": "masking",
-    "usage": "컴플라이언스 팀은 분석 도구에도 이 규칙을 요구한다.",
-    "example": "예: 이메일은 앞 두 글자만 남기고 나머지를 숨겼다.",
-    "startingHint": "민감한 값을 보이지 않게 바꾸거나 가리는 일"
-  },
-  {
-    "word": "디플로이먼트",
-    "definition": "애플리케이션을 특정 환경에 배치해 실행하는 배포 단위다.",
-    "origin": "loanword",
-    "englishSource": "deployment",
-    "usage": "카나리 배포는 새 버전 디플로이먼트 비율만 올린다.",
-    "example": "예: 프로덕션에 세 번째 배포 슬롯을 추가했다.",
-    "startingHint": "서버에 올라간 실행 인스턴스 한 덩어리"
-  },
-  {
-    "word": "퍼센타일",
-    "definition": "전체 분포에서 상위 몇 % 위치인지 나타내는 통계값이다.",
-    "origin": "loanword",
-    "englishSource": "percentile",
-    "usage": "성능 SLA는 p95 지연 시간으로 자주 정한다.",
-    "example": "예: API p99가 800ms를 넘어 알림이 갔다.",
-    "startingHint": "100명 중 더 빠른 쪽이 몇 명인지로 잰 순위"
-  },
-  {
-    "word": "코호트리텐션",
-    "definition": "같은 가입 묶음의 사용자가 기간별로 남아 있는 비율이다.",
-    "origin": "loanword",
-    "englishSource": "cohort retention",
-    "usage": "SaaS PM은 1·4·12주 곡선으로 제품 건강을 본다.",
-    "example": "예: 1월 가입 코호트의 8주 잔존이 22%였다.",
-    "startingHint": "같은 시기에 들어온 사람들의 시간별 남음 비율"
-  },
-  {
-    "word": "활성사용자",
-    "definition": "정해진 기간 안에 실제로 서비스를 쓴 사용자 수다.",
-    "origin": "korean",
-    "usage": "대부분 팀은 일·주·월 단위로 이 숫자를 본다.",
-    "example": "예: 주간 활성이 전주 대비 5% 늘었다.",
-    "startingHint": "일정 기간 동안 한 번 이상 이용한 사람 수"
-  },
-  {
-    "word": "노출",
-    "definition": "사용자에게 콘텐츠·기능·광고가 보여진 횟수나 사실이다.",
-    "origin": "korean",
-    "usage": "실험에서는 노출 수 대비 클릭으로 효과를 잰다.",
-    "example": "예: 새 배너 노출 10만 중 클릭은 1.2%였다.",
-    "startingHint": "화면에 무언가가 실제로 보인 경우나 그 횟수"
-  },
-  {
-    "word": "변형",
-    "definition": "실험에서 대조군과 다른 버전의 UI·로직이다.",
-    "origin": "korean",
-    "usage": "PO는 한 번에 하나의 변형만 바꿔 인과를 본다.",
-    "example": "예: B안은 버튼 색만 파란색으로 달랐다.",
-    "startingHint": "A/B 테스트에서 비교 대상이 되는 다른 안"
-  },
-  {
-    "word": "기능플래그",
-    "definition": "특정 기능 전체를 켜고 끄는 제품 단위 스위치다.",
-    "origin": "loanword",
-    "englishSource": "feature flag",
-    "usage": "대규모 기능은 플래그로 끈 상태로 코드만 먼저 올린다.",
-    "example": "예: AI 요약은 사내 직원만 true로 켠 설정이었다.",
-    "startingHint": "한 기능의 공개 여부를 원격으로 제어하는 설정"
-  },
-  {
-    "word": "프록시",
-    "definition": "클라이언트와 서버 사이에서 요청을 대신 전달하는 중간 계층이다.",
-    "origin": "loanword",
-    "englishSource": "proxy",
-    "usage": "보안상 외부 API 키는 서버 프록시 뒤에 숨긴다.",
-    "example": "예: 모바일 앱은 직접 OpenAI가 아니라 우리 게이트웨이를 호출했다.",
-    "startingHint": "앞단 요청을 받아 뒤 서비스로 넘겨 주는 중간 문"
-  },
-  {
-    "word": "레이턴시",
-    "definition": "요청부터 응답까지 걸리는 지연 시간이다.",
-    "origin": "loanword",
-    "englishSource": "latency",
-    "usage": "실시간 AI 기능은 체감 품질을 이 숫자로 판단한다.",
-    "example": "예: 평균 응답 지연을 1.2초에서 800ms로 줄였다.",
-    "startingHint": "눌렀을 때 결과가 돌아오기까지 기다리는 시간"
-  },
-  {
-    "word": "스루풋",
-    "definition": "단위 시간에 처리할 수 있는 요청·작업량이다.",
-    "origin": "loanword",
-    "englishSource": "throughput",
-    "usage": "트래픽 급증 때는 스루풋 한계가 먼저 드러난다.",
-    "example": "예: 초당 500건까지는 안정적이었다.",
-    "startingHint": "일정 시간 안에 얼마나 많이 처리하는지 나타내는 처리량"
-  },
-  {
-    "word": "캐시",
-    "definition": "자주 쓰는 결과를 임시 저장해 빠르게 돌려주는 계층이다.",
-    "origin": "loanword",
-    "englishSource": "cache",
-    "usage": "PM은 캐시 적중률이 비용과 속도에 영향을 준다고 본다.",
-    "example": "예: 인기 FAQ 답은 5분간 메모리에 두었다.",
-    "startingHint": "같은 답을 다시 계산하지 않도록 잠깐 보관"
-  },
-  {
-    "word": "폴백",
-    "definition": "주 기능이 실패할 때 대체 경로나 기본값으로 넘어가는 처리다.",
-    "origin": "loanword",
-    "englishSource": "fallback",
-    "usage": "AI가 막히면 규칙 기반 답으로 자동 전환한다.",
-    "example": "예: 모델 오류 시 검색만 결과를 보여 줬다.",
-    "startingHint": "원래 방법이 안 될 때 쓰는 비상 대안"
-  },
-  {
-    "word": "샘플링",
-    "definition": "전체 데이터 중 일부만 추출해 분석·전송하는 방식이다.",
-    "origin": "loanword",
-    "englishSource": "sampling",
-    "usage": "고비용 로그는 1%만 수집해 대시보드를 만든다.",
-    "example": "예: 모든 요청 대신 10%만 트레이스에 남겼다.",
-    "startingHint": "전부가 아니라 일부만 골라 보는 추출"
-  },
-  {
-    "word": "프라이버시",
-    "definition": "개인정보 수집·이용을 최소화하고 보호하는 원칙이다.",
-    "origin": "loanword",
-    "englishSource": "privacy",
-    "usage": "PO는 기능 설계 단계에서 동의와 보관 기간을 정한다.",
-    "example": "예: 위치는 대략 구역만 저장하도록 바꿨다.",
-    "startingHint": "사용자 데이터를 안전하고 적게 다루는 태도"
-  },
-  {
-    "word": "동의",
-    "definition": "사용자가 데이터 수집·이용에 명시적으로 허락한 상태다.",
-    "origin": "korean",
-    "usage": "마케팅 푸시는 opt-in 동의 후에만 보낸다.",
-    "example": "예: 쿠키 배너에서 분석용만 체크한 비율을 봤다.",
-    "startingHint": "개인정보 쓰기 전 사용자가 OK한 기록"
-  },
-  {
-    "word": "퍼널스텝",
-    "definition": "전환 경로를 구성하는 개별 단계 하나다.",
-    "origin": "loanword",
-    "englishSource": "funnel step",
-    "usage": "PM은 각 스텝의 완료율을 이벤트로 잰다.",
-    "example": "예: 이메일 인증 스텝에서 15%가 빠졌다.",
-    "startingHint": "깔때기 여정을 나눈 순서상 한 칸"
-  },
-  {
-    "word": "이상치",
-    "definition": "분포에서 통계적으로 드문 극단값 데이터 포인트다.",
-    "origin": "korean",
-    "usage": "지표 급등이 진짜 성장인지 노이즈인지 먼저 본다.",
-    "example": "예: 하루 매출 스파이크는 봇 트래픽 이상값이었다.",
-    "startingHint": "평소와 너무 달라서 따로 봐야 하는 값"
-  },
-  {
-    "word": "정규화",
-    "definition": "서로 다른 스케일의 값을 비교 가능하게 맞추는 처리다.",
-    "origin": "korean",
-    "usage": "ML·분석에서는 0~1 범위로 맞추는 경우가 많다.",
-    "example": "예: 조회수와 클릭을 각각 비율로 바꿔 합쳤다.",
-    "startingHint": "단위가 다른 숫자를 같은 기준으로 맞추기"
-  },
-  {
-    "word": "라벨링",
-    "definition": "데이터에 정답·카테고리를 사람이나 규칙으로 붙이는 작업이다.",
-    "origin": "loanword",
-    "englishSource": "labeling",
-    "usage": "지도 학습 전에 PM이 가이드라인으로 태깅 기준을 준다.",
-    "example": "예: 1만 문장에 감성 라벨을 달았다.",
-    "startingHint": "학습용 예시마다 옳은 답 표시를 붙이는 일"
+    "definition": "모델·시스템 성능을 표준 과제로 비교하는 시험 세트다.",
+    "usage": "새 모델 발표나 버전 업그레이드 때 점수·순위를 논할 때 쓴다.",
+    "example": "예: 같은 벤치마크에서 3B와 8B 모델을 비교했다.",
+    "startingHint": "성능을 재는 공통 기준 시험",
+    "etymology": "영어 bench(작업대) + mark(표시) — 측량 기준점에서 유래."
   },
   {
     "word": "할루시네이션",
-    "definition": "모델이 그럴듯하지만 사실이 아닌 내용을 생성하는 현상이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "hallucination",
-    "usage": "PO는 출처 표시와 검증 단계로 이 위험을 줄인다.",
-    "example": "예: 존재하지 않는 법 조항을 인용한 답이 나왔다.",
-    "startingHint": "AI가 없는 사실을 마치 있는 것처럼 지어냄"
+    "definition": "모델이 그럴듯하지만 사실이 아닌 내용을 만들어 내는 현상이다.",
+    "usage": "뉴스·의료·법률처럼 정확도가 중요한 분야에서 특히 위험하다고 본다.",
+    "example": "예: 존재하지 않는 논문 링크를 할루시네이션으로 냈다.",
+    "startingHint": "AI가 없는 사실을 진짜처럼 지어내는 현상",
+    "etymology": "라틴 hallucinari(헛것을 보다)에서 온 심리·AI 용어."
   },
   {
-    "word": "프롬프트엔지니어링",
-    "definition": "입력 문장·구조를 조정해 모델 출력을 개선하는 기법이다.",
-    "origin": "loanword",
-    "englishSource": "prompt engineering",
-    "usage": "팀은 역할·형식·예시를 바꿔 품질을 올린다.",
-    "example": "예: JSON만 출력하라고 형식 예시를 넣었더니 파싱 오류가 줄었다.",
-    "startingHint": "지시문 설계만으로 답 품질을 끌어올리는 작업"
-  },
-  {
-    "word": "체인",
-    "definition": "여러 단계·모델 호출을 순서대로 이어 실행하는 패턴이다.",
-    "origin": "loanword",
-    "englishSource": "chain",
-    "usage": "복잡한 질문은 분해→검색→합성 순으로 처리한다.",
-    "example": "예: 요약 전에 항상 키워드 추출 단계를 거쳤다.",
-    "startingHint": "한 번에가 아니라 단계를 줄 세워 이어 붙이기"
-  },
-  {
-    "word": "리트리벌",
-    "definition": "질문과 관련된 문서·데이터를 찾아 꺼내 오는 단계다.",
-    "origin": "loanword",
-    "englishSource": "retrieval",
-    "usage": "RAG 제품의 핵심은 이 단계의 정확도다.",
-    "example": "예: 사내 위키에서 상위 5개 청크를 가져왔다.",
-    "startingHint": "답하기 전에 참고할 자료를 찾아오는 과정"
-  },
-  {
-    "word": "청크",
-    "definition": "긴 문서를 모델이 다루기 좋은 크기로 나눈 조각이다.",
-    "origin": "loanword",
-    "englishSource": "chunk",
-    "usage": "지식 베이스는 문단 단위로 잘라 임베딩한다.",
-    "example": "예: PDF 한 페이지를 500자 단위로 쪼갰다.",
-    "startingHint": "긴 글을 작은 덩어리로 잘라 낸 한 부분"
-  },
-  {
-    "word": "유사도",
-    "definition": "두 벡터·문장이 의미적으로 얼마나 가까운지 나타내는 값이다.",
+    "word": "환각",
+    "category": "ai",
     "origin": "korean",
-    "usage": "검색 랭킹은 이 점수가 높은 항목을 위에 둔다.",
-    "example": "예: 질문과 답변 쌍의 점수가 0.82였다.",
-    "startingHint": "서로 비슷한 정도를 숫자로 나타낸 척도"
+    "date": "2026-10-15",
+    "definition": "AI가 사실과 다른 내용을 그럴듯하게 생성하는 오류 현상이다.",
+    "usage": "할루시네이션과 같은 뜻으로 국내 기사·강의에서 자주 쓰인다.",
+    "example": "예: 출처 없는 통계를 환각으로 출력해 fact-check가 필요했다.",
+    "startingHint": "없는 사실을 진짜처럼 말하는 모델의 그릇된 출력",
+    "etymology": "漢字 幻(환상) + 覺(깨달음) — 원래는 감각 왜곡; AI에서는 허위 생성을 가리킨다."
+  },
+  {
+    "word": "컨텍스트",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "context",
+    "definition": "모델이 답할 때 함께 보는 대화·문서·설정 등 주변 정보다.",
+    "usage": "컨텍스트 창이 차면 오래된 메시지를 잘라 내거나 요약한다.",
+    "example": "예: 이전 턴 요약을 컨텍스트 맨 앞에 붙였다.",
+    "startingHint": "답변에 필요한 앞뒤 맥락 전체",
+    "etymology": "라틴 con(함께) + texere(짜다) → “함께 짜인 글”."
   },
   {
     "word": "모델",
-    "definition": "데이터로 학습해 입력에 출력을 만드는 AI·통계 함수다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "model",
-    "usage": "PO는 모델 버전마다 품질·비용·지연을 비교한다.",
-    "example": "예: GPT 계열 대신 작은 자체 모델을 검토했다.",
-    "startingHint": "학습된 가중치로 예측·생성을 하는 프로그램"
+    "definition": "데이터로 학습해 예측·생성을 수행하는 AI 프로그램·가중치 묶음이다.",
+    "usage": "GPT, Claude, Llama처럼 이름·크기·버전별로 선택·배포한다.",
+    "example": "예: 비용 때문에 작은 모델로 라우팅했다.",
+    "startingHint": "학습된 신경망 하나를 가리키는 말",
+    "etymology": "라틴 modulus(작은 단위) → model(본보기)."
   },
   {
     "word": "파라미터",
-    "definition": "모델·API 동작을 조절하는 설정 값이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "parameter",
-    "usage": "온도·top-p 같은 생성 옵션도 여기에 포함된다.",
-    "example": "예: 온도를 0.2로 낮춰 답을 더 일관되게 했다.",
-    "startingHint": "동작 방식을 바꾸는 숫자·플래그 설정"
+    "definition": "모델 내부에서 학습으로 바뀌는 가중치·설정 값이다.",
+    "usage": "“70B 파라미터”처럼 규모와 성능·비용을 가늠할 때 쓴다.",
+    "example": "예: 파라미터가 많을수록 VRAM이 더 필요했다.",
+    "startingHint": "학습으로 조정되는 모델 속 숫자들",
+    "etymology": "그리스 para(옆) + metron(측정) → “부수적 측정값”."
   },
   {
     "word": "배치",
-    "definition": "여러 입력을 묶어 한 번에 처리하는 실행 단위다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "batch",
-    "usage": "야간 배치로 추천 점수를 전 사용자에게 계산한다.",
-    "example": "예: 1만 건 요청을 묶어 GPU 한 번에 태웠다.",
-    "startingHint": "여러 건을 한꺼번에 처리하는 묶음"
+    "definition": "학습·추론에서 한 번에 GPU에 넣어 처리하는 입력 묶음이다.",
+    "usage": "배치 크기는 속도·메모리·수렴에 영향을 준다.",
+    "example": "예: 배치를 32에서 8로 줄여 OOM을 피했다.",
+    "startingHint": "한꺼번에 묶어 처리하는 데이터 묶음",
+    "etymology": "영어 batch(한 묶음) — 원래는 빵·세공 묶음에서."
   },
   {
     "word": "에폭",
-    "definition": "전체 학습 데이터를 한 바퀴 돌린 학습 반복 횟수다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "epoch",
-    "usage": "ML PM은 과적합 전에 몇 에폭에서 멈출지 본다.",
-    "example": "예: 3에폭에서 검증 점수가 최고였다.",
-    "startingHint": "학습 데이터 전체를 몇 번 반복했는지 세는 단위"
-  },
-  {
-    "word": "검증",
-    "definition": "학습에 쓰지 않은 데이터로 성능을 확인하는 단계다.",
-    "origin": "korean",
-    "usage": "출시 전에는 검증 세트 점수가 기준선을 넘어야 한다.",
-    "example": "예: 검증 정확도 91%에서 더 오르지 않았다.",
-    "startingHint": "모르는 문제집으로 실력을 확인하는 과정"
+    "definition": "전체 학습 데이터를 한 바퀴 도는 훈련 주기다.",
+    "usage": "에폭이 많을수록 과적합 위험이 커져 조기 종료를 쓰기도 한다.",
+    "example": "예: 3에폭에서 검증 손실이 최소라 거기서 멈췄다.",
+    "startingHint": "데이터 전체를 한 번 다 돈 학습 라운드",
+    "etymology": "그리스 epokhē(시대·구간)에서 천문·학습 주기로."
   },
   {
     "word": "오버피팅",
-    "definition": "학습 데이터에만 과하게 맞춰 새 데이터 성능이 떨어지는 상태다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "overfitting",
-    "usage": "PO는 베타에서 갑자기 나빠지면 이를 의심한다.",
-    "example": "예: 훈련 점수는 99%인데 실제 사용자 답은 엉망이었다.",
-    "startingHint": "연습 문제만 외워서 새 문제에 약한 상태"
+    "definition": "학습 데이터만 지나치게 맞춰 새 데이터 성능이 떨어지는 상태다.",
+    "usage": "검증 세트·드롭아웃·정규화로 막는다.",
+    "example": "예: 훈련 정확도 99%인데 실서비스에서 무너져 오버피팅이었다.",
+    "startingHint": "연습 문제만 외우고 새 문제를 못 푸는 상태",
+    "etymology": "over(과도한) + fitting(맞춤)의 합성어."
   },
   {
     "word": "언더피팅",
-    "definition": "모델이 데이터 패턴을 충분히 못 배운 상태다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "underfitting",
-    "usage": "PO는 단순 베이스라인보다 못하면 구조를 키운다.",
-    "example": "예: 너무 작은 모델이라 검색어 오타를 거의 못 잡았다.",
-    "startingHint": "아직 배울 게 남아 성능이 전반적으로 낮은 상태"
+    "definition": "모델이 너무 단순해 데이터 패턴을 충분히 못 배운 상태다.",
+    "usage": "용량·특징·학습 시간을 늘려 개선한다.",
+    "example": "예: 언더피팅이라 레이어를 하나 더 쌓았다.",
+    "startingHint": "너무 단순해서 패턴을 거의 못 배운 상태",
+    "etymology": "under(부족한) + fitting(맞춤)."
   },
   {
     "word": "드리프트",
-    "definition": "시간이 지나 데이터·사용자 행동이 학습 때와 달라지는 현상이다.",
+    "category": "ai",
     "origin": "loanword",
     "englishSource": "drift",
-    "usage": "모니터링은 입력 분포 변화를 감지해 재학습을 트리거한다.",
-    "example": "예: 신규 지역 사용자가 늘어 추천 정확도가 떨어졌다.",
-    "startingHint": "실제 세상이 바뀌어 모델과 어긋나는 흐름"
+    "definition": "시간이 지나 데이터·사용 패턴이 바뀌어 모델 성능이 떨어지는 현상이다.",
+    "usage": "모니터링으로 감지하고 재학습·재배포한다.",
+    "example": "예: 계절 이벤트 후 추천 정확도 드리프트가 보였다.",
+    "startingHint": "환경이 변해 모델이 서서히 어긋나는 현상",
+    "etymology": "영어 drift(표류) — 통계·ML에서 분포 이동을 비유."
   },
   {
-    "word": "모니터링",
-    "definition": "서비스·모델 지표를 계속 관찰해 이상을 찾는 활동이다.",
+    "word": "라벨링",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "monitoring",
-    "usage": "PM은 오류율·지연·비용 대시보드를 매일 본다.",
-    "example": "예: 배포 후 30분 동안 오류 그래프를 지켜봤다.",
-    "startingHint": "숫자와 로그를 계속 보며 건강 상태를 확인"
+    "englishSource": "labeling",
+    "definition": "학습용 데이터에 정답·태그를 붙이는 작업이다.",
+    "usage": "지도 학습 전에 사람·휴리스틱·모델로 라벨을 만든다.",
+    "example": "예: 스팸 메일 1만 통을 라벨링했다.",
+    "startingHint": "데이터마다 정답 표시를 붙이는 일",
+    "etymology": "영어 label(꼬리표) + -ing."
   },
   {
-    "word": "알림",
-    "definition": "지표·오류가 임계치를 넘으면 담당자에게 보내는 통지다.",
+    "word": "검증",
+    "category": "ai",
     "origin": "korean",
-    "usage": "온콜 엔지니어는 p99 지연 알림을 슬랙으로 받는다.",
-    "example": "예: 결제 실패율 5% 초과 시 PagerDuty가 울렸다.",
-    "startingHint": "문제가 생기면 사람에게 바로 알려 주는 경보"
+    "definition": "학습에 쓰지 않은 데이터로 모델 성능을 확인하는 단계다.",
+    "usage": "하이퍼파라미터·조기 종료·모델 선택에 쓴다.",
+    "example": "예: 검증 F1이 떨어지면 학습을 멈췄다.",
+    "startingHint": "공부 안 한 문제집으로 실력을 재는 단계",
+    "etymology": "漢字 檢(검사할) + 證(증명) — 확인·입증."
   },
   {
-    "word": "대기열",
-    "definition": "처리 순서를 기다리는 작업이 줄지어 있는 구조다.",
+    "word": "평가",
+    "category": "ai",
     "origin": "korean",
-    "usage": "AI 요청이 몰리면 대기열 길이가 UX에 영향을 준다.",
-    "example": "예: 밤 배치 작업이 큐에 2만 건 쌓였다.",
-    "startingHint": "차례를 기다리며 줄 서 있는 작업 목록"
+    "definition": "모델 출력 품질을 점수·기준·사람 채점으로 측정하는 일이다.",
+    "usage": "벤치마크·A/B·레드팀과 함께 릴리스 전에 돌린다.",
+    "example": "예: 요약 품질 평가를 사람 50명으로 진행했다.",
+    "startingHint": "모델 답이 얼마나 좋은지 재는 일",
+    "etymology": "漢字 評(평하다) + 價(값) — 가치를 매김."
   },
   {
-    "word": "스케일링",
-    "definition": "트래픽 증가에 맞춰 자원·인스턴스를 늘리는 것이다.",
+    "word": "체인",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "scaling",
-    "usage": "런칭 전에 자동 스케일링 규칙을 정한다.",
-    "example": "예: CPU 70% 넘으면 워커를 두 대 더 띄웠다.",
-    "startingHint": "사용자가 많아질 때 시스템 크기를 키우기"
+    "englishSource": "chain",
+    "definition": "여러 프롬프트·호출·도구 단계를 순서대로 이어 처리하는 패턴이다.",
+    "usage": "LangChain 등 프레임워크 이름에서도 이 패턴을 가리킨다.",
+    "example": "예: 검색 → 요약 → 번역 체인으로 파이프를 짰다.",
+    "startingHint": "단계를 사슬처럼 이어 붙인 AI 처리 흐름",
+    "etymology": "영어 chain(사슬) — chain of thought와 같은 계열."
   },
   {
-    "word": "샌드박스",
-    "definition": "실서비스와 격리된 안전한 테스트·실험 환경이다.",
+    "word": "오케스트레이션",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "sandbox",
-    "usage": "결제·AI는 샌드박스 키로 먼저 통합을 검증한다.",
-    "example": "예: 스테이징에서만 외부 API를 호출했다.",
-    "startingHint": "진짜 사용자 데이터 없이 맘대로 깨 볼 수 있는 공간"
+    "englishSource": "orchestration",
+    "definition": "여러 모델·도구·API 호출 순서와 조건을 조율하는 설계다.",
+    "usage": "복잡한 에이전트·RAG 파이프라인에서 중앙 로직이 이 역할을 한다.",
+    "example": "예: 오케스트레이션 레이어에서 재시도와 타임아웃을 관리했다.",
+    "startingHint": "여러 AI 부품의 호출 순서를 지휘하는 것",
+    "etymology": "그리스 orchestros(합주 지휘) → orchestra."
   },
   {
-    "word": "프로덕트",
-    "definition": "사용자에게 가치를 주는 제품·서비스 전체를 가리킨다.",
+    "word": "리트리벌",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "product",
-    "usage": "PO는 프로덕트 비전과 로드맵을 같은 문서에 묶는다.",
-    "example": "예: B2B SaaS의 핵심은 협업 워크플로다.",
-    "startingHint": "만들어서 판매·운영하는 소프트웨어 서비스 자체"
+    "englishSource": "retrieval",
+    "definition": "질문과 관련된 문서·청크를 먼저 찾아 모델에 넣는 RAG 단계다.",
+    "usage": "벡터 DB·키워드 검색·하이브리드로 후보를 고른다.",
+    "example": "예: 리트리벌 상위 5개 청크만 프롬프트에 넣었다.",
+    "startingHint": "답하기 전에 관련 글을 창고에서 꺼내는 단계",
+    "etymology": "영어 retrieve(되찾다) + -al."
   },
   {
-    "word": "로드맵",
-    "definition": "분기·월 단위로 무엇을 만들지 시간순으로 적은 계획이다.",
+    "word": "리랭킹",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "roadmap",
-    "usage": "이해관계자와 범위·일정 기대를 이걸로 맞춘다.",
-    "example": "예: Q3 계획에 모바일 앱만 넣기로 했다.",
-    "startingHint": "앞으로 출시할 기능을 달력에 펼쳐 둔 지도"
+    "englishSource": "reranking",
+    "definition": "1차 검색 결과를 더 정밀한 모델로 다시 정렬하는 단계다.",
+    "usage": "RAG에서 리트리벌 후 정확도를 올릴 때 쓴다.",
+    "example": "예: 리랭킹 모델로 질문과 무관한 문단을 밀어 냈다.",
+    "startingHint": "검색 결과 순위를 한 번 더 가늠해 고치기",
+    "etymology": "re-(다시) + ranking(순위 매기기)."
   },
   {
-    "word": "우선순위",
-    "definition": "한정된 자원으로 무엇을 먼저 할지 정한 순서다.",
+    "word": "청크",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "chunk",
+    "definition": "긴 문서를 검색·임베딩하기 위해 나눈 작은 텍스트 조각이다.",
+    "usage": "청크 크기·겹침(overlap)이 RAG 품질에 큰 영향을 준다.",
+    "example": "예: PDF를 512토큰 청크로 잘랐다.",
+    "startingHint": "긴 글을 나눈 작은 덩어리",
+    "etymology": "영어 chunk(덩어리) — 원래는 나무·석탄 덩어리."
+  },
+  {
+    "word": "유사도",
+    "category": "ai",
     "origin": "korean",
-    "usage": "PO는 임팩트·노력·리스크로 백로그를 정렬한다.",
-    "example": "예: 결제 버그를 신규 기능보다 위에 올렸다.",
-    "startingHint": "제한된 시간에 무엇부터 할지 매긴 순위"
+    "definition": "두 벡터·문장·이미지가 의미적으로 얼마나 가까운지 나타내는 값이다.",
+    "usage": "코사인 유사도 등으로 중복·추천·검색을 한다.",
+    "example": "예: 유사도 0.9 이상이면 같은 FAQ로 묶었다.",
+    "startingHint": "둘이 얼마나 비슷한지 재는 점수",
+    "etymology": "漢字 類(같을) + 似(닮을) + 度(정도)."
   },
   {
-    "word": "가설",
-    "definition": "변경이 지표에 어떤 영향을 줄지 적어 둔 예상이다.",
+    "word": "프롬프트엔지니어링",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "prompt engineering",
+    "definition": "원하는 출력을 얻도록 지시문·예시·형식을 설계·튜닝하는 기술이다.",
+    "usage": "코딩·분석·창작 등 업무에서 모델별로 문장 패턴을 다듬는다.",
+    "example": "예: 프롬프트엔지니어링으로 JSON만 나오게 고정했다.",
+    "startingHint": "지시문을 손봐서 답 품질을 올리는 기술",
+    "etymology": "prompt + engineering(공학) — 2020년대 생성 AI와 함께 부상."
+  },
+  {
+    "word": "레드팀",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "red team",
+    "definition": "의도적으로 공격·우회·유해 입력을 시도해 AI·시스템을 검증하는 역할이다.",
+    "usage": "출시 전 jailbreak·프라이버시·편향 테스트에 쓴다.",
+    "example": "예: 레드팀이 시스템 프롬프트 유출을 시도했다.",
+    "startingHint": "적군 역할을 맡아 AI를 공격해 보는 팀",
+    "etymology": "군사 훈련의 red team(적팀) / blue team(아군)에서."
+  },
+  {
+    "word": "머신러닝",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "machine learning",
+    "definition": "데이터에서 규칙을 직접 짜지 않고 학습으로 패턴을 찾는 AI 분야다.",
+    "usage": "추천·분류·예측·생성의 기반이 된다.",
+    "example": "예: 머신러닝으로 스팸 필터를 다시 학습했다.",
+    "startingHint": "기계가 데이터로 스스로 배우는 방식",
+    "etymology": "machine(기계) + learning(학습) — 1959년대 Samuel 등."
+  },
+  {
+    "word": "딥러닝",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "deep learning",
+    "definition": "여러 층의 신경망으로 표현을 학습하는 머신러닝 방식이다.",
+    "usage": "이미지·음성·언어에서 트랜스포머 이전·이후 핵심 기술이다.",
+    "example": "예: 딥러닝으로 OCR 정확도를 올렸다.",
+    "startingHint": "층을 깊게 쌓은 신경망 학습",
+    "etymology": "deep(깊은) + learning — 다층 perceptron 부활에서."
+  },
+  {
+    "word": "신경망",
+    "category": "ai",
     "origin": "korean",
-    "usage": "실험 설계 전에 성공·실패 기준과 함께 쓴다.",
-    "example": "예: 온보딩 단축이 7일 잔존을 2%p 올릴 것이다.",
-    "startingHint": "아직 검증 전인 “이렇게 하면 좋아질 것”이라는 짐작"
+    "definition": "뉴런 연결을 본떠 입력에서 출력까지 변환을 학습하는 모델 구조다.",
+    "usage": "CNN, RNN, 트랜스포머 모두 신경망 계열이다.",
+    "example": "예: 작은 신경망으로 탭 fraud를 잡았다.",
+    "startingHint": "뇌 세포 연결을 본떠 만든 계산 그래프",
+    "etymology": "neural network의 번역; neural은 nerve(신경)에서."
   },
   {
-    "word": "성공지표",
-    "definition": "실험·기능이 잘 됐다고 판단하는 핵심 측정값이다.",
+    "word": "트랜스포머",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "transformer",
+    "definition": "어텐션만으로 문맥을 모델링하는 신경망 아키텍처다.",
+    "usage": "GPT·BERT 등 대규모 언어 모델의 기반이 되었다.",
+    "example": "예: 트랜스포머 블록 수가 VRAM을 좌우했다.",
+    "startingHint": "2017년 논문으로 유명해진 어텐션 중심 구조",
+    "etymology": "영어 transform(변환) + -er — “Attention Is All You Need”."
+  },
+  {
+    "word": "어텐션",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "attention",
+    "definition": "입력 토큰 중 어디에 “집중”할지 가중치를 두는 메커니즘이다.",
+    "usage": "긴 문장·다중 모달에서 중요 부분을 골라 본다.",
+    "example": "예: 어텐션 맵으로 모델이 본 단어를 시각화했다.",
+    "startingHint": "중요한 부분에 더 시선을 두는 계산",
+    "etymology": "라틴 attendere(기울이다) → attention."
+  },
+  {
+    "word": "생성형",
+    "category": "ai",
     "origin": "korean",
-    "usage": "PO는 하나의 주 지표와 보조 지표를 고른다.",
-    "example": "예: 이번 릴리스 성공 기준은 가입 완료율이었다.",
-    "startingHint": "목표 달성 여부를 볼 때 먼저 보는 숫자"
+    "definition": "텍스트·이미지·음성·코드 등 새 결과물을 만들어 내는 AI 유형이다.",
+    "usage": "GenAI, 생성형 AI로 불리며 챗봇·Copilot 붐과 함께 확산했다.",
+    "example": "예: 생성형 모델로 마케팅 카피 초안을 뽑았다.",
+    "startingHint": "새 글·그림·소리를 만들어 내는 AI",
+    "etymology": "generative(생성하는)의 한국어 표현."
   },
   {
-    "word": "실패지표",
-    "definition": "기능이 해를 끼치거나 목표를 못 맞췄다고 보는 신호다.",
+    "word": "멀티모달",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "multimodal",
+    "definition": "텍스트·이미지·음성 등 여러 종류 입력·출력을 함께 다루는 모델이다.",
+    "usage": "스크린샷 질문, 음성+텍스트 어시스턴트에 쓴다.",
+    "example": "예: 멀티모달 모델에 차트 이미지와 질문을 같이 넣었다.",
+    "startingHint": "글·그림·소리 등 여러 양식을 한 모델이 처리",
+    "etymology": "multi(여러) + modal(양식·모드)."
+  },
+  {
+    "word": "사전학습",
+    "category": "ai",
     "origin": "korean",
-    "usage": "실험에서 전환은 올랐지만 이탈이 늘면 실패로 본다.",
-    "example": "예: 지원 티켓 증가를 이번 변경의 실패 신호로 잡았다.",
-    "startingHint": "좋아진 것처럼 보여도 경고등으로 쓰는 반대 지표"
+    "definition": "대규모 일반 데이터로 먼저 학습해 범용 표현을 만드는 단계다.",
+    "usage": "이후 파인튜닝·RLHF로 서비스용 모델을 만든다.",
+    "example": "예: 사전학습 체크포인트를 공개해 커뮤니티가 튜닝했다.",
+    "startingHint": "특정 일 전에 큰 데이터로 미리 배우기",
+    "etymology": "pre-(미리) + training(학습)의 개념 번역."
   },
   {
-    "word": "샘플크기",
-    "definition": "실험·조사에 포함된 관측 수 또는 사용자 수다.",
-    "origin": "loanword",
-    "englishSource": "sample size",
-    "usage": "통계적으로 유의하려면 최소 샘플을 미리 계산한다.",
-    "example": "예: 전환 차이를 보려면 최소 5천 명이 필요했다.",
-    "startingHint": "결론을 내기 위해 모은 데이터·사람의 개수"
-  },
-  {
-    "word": "유의성",
-    "definition": "관측된 차이가 우연일 가능성이 충분히 작다는 판정이다.",
+    "word": "증류",
+    "category": "ai",
     "origin": "korean",
-    "usage": "A/B 결과는 p-value나 신뢰구간으로 읽는다.",
-    "example": "예: p=0.03이라 우연보다 효과가 있다고 봤다.",
-    "startingHint": "숫자 차이가 운이 아니라 진짜일 가능성"
+    "definition": "큰 모델의 지식을 작은 모델에 옮기는 압축 학습 기법이다.",
+    "usage": "엣지·모바일 배포에서 latency·비용을 줄인다.",
+    "example": "예: teacher 모델로 증류해 1B 학생 모델을 만들었다.",
+    "startingHint": "큰 선생 모델에서 작은 모델로 지식 옮기기",
+    "etymology": "distillation(증류) — 화학 증류를 knowledge transfer에 비유."
   },
   {
-    "word": "트래픽",
-    "definition": "서비스로 들어오는 요청·방문·사용량 전체다.",
-    "origin": "loanword",
-    "englishSource": "traffic",
-    "usage": "실험은 트래픽이 너무 적으면 결과가 흔들린다.",
-    "example": "예: 런칭 주간 이용량이 예상의 세 배였다.",
-    "startingHint": "사이트·앱으로 몰려 오는 이용량"
-  },
-  {
-    "word": "바이럴",
-    "definition": "사용자가 스스로 공유해 성장이 빠르게 퍼지는 현상이다.",
-    "origin": "loanword",
-    "englishSource": "viral",
-    "usage": "초대 링크·공유 카드로 계수를 올리는 전략을 쓴다.",
-    "example": "예: 초대 한 번당 평균 1.4명이 새로 들어왔다.",
-    "startingHint": "입소문처럼 스스로 퍼져 나가는 성장"
-  },
-  {
-    "word": "리퍼럴",
-    "definition": "기존 사용자가 새 사용자를 초대해 주는 유입 경로다.",
-    "origin": "loanword",
-    "englishSource": "referral",
-    "usage": "프로모션 코드와 보상으로 리퍼럴 전환을 추적한다.",
-    "example": "예: 친구 초대 프로그램이 가입의 20%를 냈다.",
-    "startingHint": "남을 데려오면 혜택이 있는 추천 유입"
-  },
-  {
-    "word": "페이월",
-    "definition": "콘텐츠·기능 이용 전에 결제를 요구하는 장벽이다.",
-    "origin": "loanword",
-    "englishSource": "paywall",
-    "usage": "미디어·SaaS는 몇 회 무료 후 페이월을 둔다.",
-    "example": "예: 3편 읽은 뒤 구독 화면이 떴다.",
-    "startingHint": "무료 체험 끝에 결제를 막아 세우는 벽"
-  },
-  {
-    "word": "프리미엄",
-    "definition": "유료 구독·상위 요금제로 제공하는 기능 묶음이다.",
-    "origin": "loanword",
-    "englishSource": "premium",
-    "usage": "PO는 무료와 프리미엄 차별을 로드맵에 명시한다.",
-    "example": "예: 프리미엄만 고해상도보내기를 쓸 수 있다.",
-    "startingHint": "돈 내는 사용자에게만 열어 주는 상위 플랜"
-  },
-  {
-    "word": "이터레이션",
-    "definition": "피드백을 반영해 제품을 반복 개선하는 한 사이클이다.",
-    "origin": "loanword",
-    "englishSource": "iteration",
-    "usage": "스타트업은 작은 출시→학습→수정을 빠르게 돌린다.",
-    "example": "예: 이번 주는 온보딩만 두 번째 이터레이션했다.",
-    "startingHint": "만들고 배우고 고치는 반복 한 바퀴"
-  },
-  {
-    "word": "데모",
-    "definition": "기능·지표를 이해관계자에게 보여 주는 시연이다.",
-    "origin": "loanword",
-    "englishSource": "demo",
-    "usage": "세일즈·PM은 라이브 환경 대신 데모 테넌트를 쓴다.",
-    "example": "예: 투자 미팅에서 대시보드 데모를 10분 했다.",
-    "startingHint": "손으로 보여 주며 제품 가치를 설명하는 시연"
-  },
-  {
-    "word": "스크럼",
-    "definition": "짧은 주기로 계획·일일 점검·회고를 하는 애자일 프레임이다.",
-    "origin": "loanword",
-    "englishSource": "scrum",
-    "usage": "PO는 스프린트마다 목표와 백로그를 팀과 맞춘다.",
-    "example": "예: 2주 단위로 계획하고 매일 15분 서서 공유했다.",
-    "startingHint": "애자일 팀이 쓰는 역할·회의·주기 묶음의 방법론"
-  },
-  {
-    "word": "멘토링",
-    "definition": "경험 많은 동료가 성장·의사결정을 돕는 코칭 관계다.",
-    "origin": "loanword",
-    "englishSource": "mentoring",
-    "usage": "주니어 PM은 멘토링으로 우선순위 감을 배운다.",
-    "example": "예: 시니어 PO가 실험 설계 리뷰를 매주 해 줬다.",
-    "startingHint": "선배가 후배의 커리어와 일을 곁에서 돕는 것"
-  },
-  {
-    "word": "문서화",
-    "definition": "지식·결정·API를 글로 남겨 팀이 같이 쓰게 하는 작업이다.",
+    "word": "양자화",
+    "category": "ai",
     "origin": "korean",
-    "usage": "원격 팀은 PRD·회의록 없으면 맥락이 끊긴다.",
-    "example": "예: 이벤트 스키마를 노션에 올려 모두가 참조했다.",
-    "startingHint": "알아 둔 것을 글로 정리해 공유하는 일"
+    "definition": "가중치·연산 정밀도를 낮춰 모델 크기·속도를 개선하는 기법이다.",
+    "usage": "INT8, 4bit 등으로 GPU/CPU 추론 비용을 줄인다.",
+    "example": "예: 4bit 양자화 후 노트북에서도 돌아갔다.",
+    "startingHint": "숫자 자릿수를 줄여 모델을 가볍게 만들기",
+    "etymology": "quantization — quantum(양)의 양(量)과 구별되는 “양자화” 번역."
   },
   {
-    "word": "킥오프",
-    "definition": "프로젝트·스프린트를 시작할 때 목표와 역할을 맞추는 첫 모임이다.",
+    "word": "로라",
+    "category": "ai",
     "origin": "loanword",
-    "englishSource": "kickoff",
-    "usage": "PM은 범위·일정·리스크를 이 자리에서 공유한다.",
-    "example": "예: 분기 프로젝트 시작 회의에서 성공 지표를 합의했다.",
-    "startingHint": "일을 시작하기 전 팀이 모여 방향을 맞추는 첫 회의"
+    "englishSource": "LoRA",
+    "definition": "적은 추가 가중치만 학습해 대형 모델을 효율적으로 튜닝하는 방법이다.",
+    "usage": "개인·팀이 VRAM 없이 스타일·도메인 적응을 할 때 쓴다.",
+    "example": "예: LoRA 어댑터만 교체해 톤을 바꿨다.",
+    "startingHint": "Low-Rank Adaptation 줄임, 가벼운 파인튜닝",
+    "etymology": "Low-Rank Adaptation — Hu et al. 2021."
+  },
+  {
+    "word": "데이터셋",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "dataset",
+    "definition": "학습·평가에 쓰는 정리된 데이터 묶음이다.",
+    "usage": "라이선스·편향·품질 검수가 윤리·성능에 중요하다.",
+    "example": "예: 공개 데이터셋에 회사 문서를 섞지 않도록 검수했다.",
+    "startingHint": "학습용 표·파일 묶음",
+    "etymology": "data(데이터) + set(집합)."
+  },
+  {
+    "word": "역전파",
+    "category": "ai",
+    "origin": "korean",
+    "definition": "출력 오차를 거꾸로 전파해 가중치를 갱신하는 학습 알고리즘이다.",
+    "usage": "딥러닝 프레임워크가 autograd로 자동 계산한다.",
+    "example": "예: 역전파 그래프가 너무 깊어 메모리가 터졌다.",
+    "startingHint": "오차를 뒤에서부터 앞으로 전달하며 학습",
+    "etymology": "backpropagation — back(뒤) + propagation(전파)."
+  },
+  {
+    "word": "샘플링",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "sampling",
+    "definition": "생성 모델이 다음 토큰·픽셀을 확률에 따라 고르는 방식이다.",
+    "usage": "temperature, top-p로 창의성·다양성을 조절한다.",
+    "example": "예: 샘플링 temperature를 낮춰 답을 더 안정적으로 만들었다.",
+    "startingHint": "무작위가 아니라 확률표에서 고르기",
+    "etymology": "sample(견본) + -ing — 통계·생성 공통."
+  },
+  {
+    "word": "온도",
+    "category": "ai",
+    "origin": "korean",
+    "definition": "생성 시 확률 분포를 날카롭게·평평하게 만드는 하이퍼파라미터다.",
+    "usage": "temperature가 높으면 더 다양하고, 낮으면 더 보수적이다.",
+    "example": "예: 온도 0.2로 사실 위주 답을 받았다.",
+    "startingHint": "생성 AI 답의 “랜덤함”을 조절하는 숫자",
+    "etymology": "statistical mechanics temperature 비유에서 차용."
+  },
+  {
+    "word": "검색증강",
+    "category": "ai",
+    "origin": "korean",
+    "definition": "외부 검색 결과를 모델 입력에 붙여 답을 근거 있게 만드는 RAG 방식이다.",
+    "usage": "RAG(Retrieval-Augmented Generation)의 한국어 표현으로 쓴다.",
+    "example": "예: 검색증강으로 사내 위키만 참고하게 했다.",
+    "startingHint": "글 찾아서 붙인 뒤 생성하는 AI 패턴",
+    "etymology": "Retrieval-Augmented Generation의 직역·약칭 RAG."
+  },
+  {
+    "word": "개인화",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "personalization",
+    "definition": "사용자별 선호·행동에 맞춰 추천·UI·모델 출력을 바꾸는 것이다.",
+    "usage": "피드·광고·어시스턴트 톤에 ML이 쓰인다.",
+    "example": "예: 개인화 임베딩으로 홈 피드를 나눴다.",
+    "startingHint": "사람마다 다르게 맞추기",
+    "etymology": "personal(개인) + -ization."
+  },
+  {
+    "word": "추천",
+    "category": "ai",
+    "origin": "korean",
+    "definition": "사용자에게 다음에 볼·살 항목을 모델이 제안하는 기능이다.",
+    "usage": "협업 필터링·딥러닝·LLM 추천이 혼합된다.",
+    "example": "예: 추천 모델이 신규 콘텐츠 cold start에 약했다.",
+    "startingHint": "너에게 맞을 것 같은 다음 항목을 골라 주기",
+    "etymology": "recommendation의 개념; 推(밀) + 薦(천)."
+  },
+  {
+    "word": "파운데이션",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "foundation model",
+    "definition": "대규모 사전학습으로 만든 범용 기반 모델을 가리킨다.",
+    "usage": "GPT-4, Gemini 등이 foundation model로 분류된다.",
+    "example": "예: 파운데이션 위에 도메인 어댑터만 얹었다.",
+    "startingHint": "여러 작업의 밑바닥이 되는 큰 범용 모델",
+    "etymology": "foundation(기초) + model — Stanford CRFM 2021."
+  },
+  {
+    "word": "알고리즘",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "algorithm",
+    "definition": "문제를 풀기 위한 단계적 절차·규칙이다.",
+    "usage": "AI도 학습·추론·검색 알고리즘 위에서 동작한다.",
+    "example": "예: 정렬 알고리즘을 바꿔 속도를 10배 냈다.",
+    "startingHint": "컴퓨터가 따라 할 문제 풀이 순서",
+    "etymology": "9세기 페르시아 수학자 al-Khwārizmī(알호와리즈미) 이름에서."
+  },
+  {
+    "word": "서버",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "server",
+    "definition": "네트워크로 요청을 받아 처리·저장하는 컴퓨터·프로그램이다.",
+    "usage": "AI API·웹·DB가 서버에서 돌아간다.",
+    "example": "예: 추론 서버를 리전별로 두었다.",
+    "startingHint": "클라이언트 요청을 받아 처리하는 쪽",
+    "etymology": "serve(섬기다) + -er — “요청을 받는 자”."
+  },
+  {
+    "word": "클라우드",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "cloud",
+    "definition": "인터넷 너머 데이터센터에서 CPU·GPU·저장소를 빌려 쓰는 방식이다.",
+    "usage": "모델 학습·호스팅·벡터 DB를 AWS·GCP 등에 올린다.",
+    "example": "예: 클라우드 GPU spot으로 학습 비용을 줄였다.",
+    "startingHint": "내 컴퓨터가 아닌 원격 컴퓨터 자원",
+    "etymology": "네트워크 다이어그램의 구름(cloud) 아이콘에서."
+  },
+  {
+    "word": "데이터베이스",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "database",
+    "definition": "구조화된 데이터를 저장·조회·갱신하는 시스템이다.",
+    "usage": "앱·로그·임베딩 메타데이터 저장에 쓴다.",
+    "example": "예: 사용자 이벤트를 데이터베이스에 적재했다.",
+    "startingHint": "표처럼 정리해 두고 꺼내 쓰는 저장소",
+    "etymology": "data + base(기반) — 1960년대 IBM 등."
+  },
+  {
+    "word": "스키마",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "schema",
+    "definition": "데이터·API 필드 이름·타입·관계를 정의한 설계도다.",
+    "usage": "이벤트 로깅·프롬프트 JSON·DB 테이블에 필요하다.",
+    "example": "예: 스키마 변경 때문에 마이그레이션을 돌렸다.",
+    "startingHint": "데이터가 어떤 칸을 갖는지 적어 둔 설계",
+    "etymology": "그리스 schēma(형태·도식)."
+  },
+  {
+    "word": "쿼리",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "query",
+    "definition": "데이터베이스·검색엔진에 조건을 넣어 결과를 요청하는 질의다.",
+    "usage": "SQL, 벡터 검색, GraphQL 모두 쿼리다.",
+    "example": "예: 느린 쿼리에 인덱스를 추가했다.",
+    "startingHint": "DB나 검색에 “이거 찾아줘”라고 보내는 문장",
+    "etymology": "라틴 quaere(묻다) → query."
+  },
+  {
+    "word": "인덱스",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "index",
+    "definition": "조회·검색 속도를 위해 미리 만든 정렬·찾기 구조다.",
+    "usage": "DB B-tree, 벡터 인덱스(HNSW) 등.",
+    "example": "예: 벡터 인덱스를 rebuild했다.",
+    "startingHint": "책 색인처럼 빨리 찾게 해 주는 목차",
+    "etymology": "라틴 index(손가락·지시) → 목차·색인."
+  },
+  {
+    "word": "엔드포인트",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "endpoint",
+    "definition": "API에서 특정 기능을 호출하는 URL·경로 한 곳이다.",
+    "usage": "REST `/v1/chat/completions` 같은 주소.",
+    "example": "예: 새 엔드포인트에 rate limit을 걸었다.",
+    "startingHint": "API 호출이 도착하는 문 주소",
+    "etymology": "end(끝) + point(점) — 연결의 끝단."
+  },
+  {
+    "word": "웹훅",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "webhook",
+    "definition": "이벤트 발생 시 미리 등록한 URL로 HTTP 알림을 보내는 콜백이다.",
+    "usage": "결제 완료·CI 빌드·Slack 연동에 쓴다.",
+    "example": "예: 배포 웹훅으로 Slack에 알림이 갔다.",
+    "startingHint": "일이 생기면 우리 서버 URL로 자동 POST",
+    "etymology": "web + hook(걸다) — Jeff Lindsay, 2000년대."
+  },
+  {
+    "word": "벡터",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "vector",
+    "definition": "크기와 방향(또는 숫자 나열)을 갖는 데이터 표현이다.",
+    "usage": "임베딩·그래픽스·물리 시뮬레이션에 쓴다.",
+    "example": "예: 768차원 벡터를 float32로 저장했다.",
+    "startingHint": "숫자들의 한 줄, AI에서는 의미 좌표",
+    "etymology": "라틴 vector(나르는 자) — 수학·물리에서."
+  },
+  {
+    "word": "캐시",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "cache",
+    "definition": "자주 쓰는 결과를 빠른 저장소에 복사해 두는 기법이다.",
+    "usage": "CDN, Redis, KV cache(LLM) 등.",
+    "example": "예: 프롬프트 캐시로 토큰 비용을 줄였다.",
+    "startingHint": "다음에 빨리 쓰려고 미리 복사해 둔 저장",
+    "etymology": "프랑스 cacher(숨기다) — 원래는 은신처."
+  },
+  {
+    "word": "프록시",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "proxy",
+    "definition": "클라이언트와 서버 사이에서 요청·응답을 중계하는 게이트다.",
+    "usage": "보안, 로드밸런싱, API 키 숨김에 쓴다.",
+    "example": "예: LLM 프록시에서 키를 서버만 갖게 했다.",
+    "startingHint": "대신 전달해 주는 중간 문",
+    "etymology": "라틴 procurare(돌보다) → proxy(대리)."
+  },
+  {
+    "word": "레이턴시",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "latency",
+    "definition": "요청부터 첫 바이트·완료까지 걸리는 지연 시간이다.",
+    "usage": "챗봇 TTFT, API p99 등 SLA 지표.",
+    "example": "예: 레이턴시 p95가 2초를 넘어 튜닝했다.",
+    "startingHint": "눌렀을 때부터 반응까지 걸리는 시간",
+    "etymology": "라틴 latere(숨다) → latent(잠재) → latency."
+  },
+  {
+    "word": "스루풋",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "throughput",
+    "definition": "단위 시간에 처리할 수 있는 요청·토큰·작업량이다.",
+    "usage": "GPU batch, API QPS와 함께 본다.",
+    "example": "예: 스루풋을 올리려 batch size를 키웠다.",
+    "startingHint": "한 시간에 얼마나 많이 처리하는지",
+    "etymology": "through(통과) + put(넣다) — 공장 생산량에서."
+  },
+  {
+    "word": "배포",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "코드·모델·설정을 실행 환경에 올려 사용자에게 제공하는 과정이다.",
+    "usage": "CI/CD, blue-green, 카나리 배포.",
+    "example": "예: 새 모델을 5% 트래픽에만 배포했다.",
+    "startingHint": "만든 것을 서버에 올려 실제로 쓰게 하기",
+    "etymology": "deploy(전개하다)의 번역 — 군사 “전개”에서 IT로."
+  },
+  {
+    "word": "컨테이너",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "container",
+    "definition": "앱과 의존성을 하나의 격리된 실행 단위로 묶는 기술이다.",
+    "usage": "Docker로 추론 서버·학습 job을 패키징한다.",
+    "example": "예: GPU 컨테이너 이미지를 레지스트리에 push했다.",
+    "startingHint": "앱을 상자에 넣어 어디서나 같이 돌리기",
+    "etymology": "contain(담다) + -er — 화물 container에서."
   },
   {
     "word": "스택",
-    "definition": "앱을 만들 때 쓰는 언어·프레임워크·인프라 묶음이다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "stack",
-    "usage": "PO는 스택 제약 때문에 일정이 달라질 수 있다고 이해한다.",
-    "example": "예: 프론트는 React, 백엔드는 Go 스택이다.",
-    "startingHint": "기술을 층층이 쌓아 둔 개발 도구 조합"
+    "definition": "앱을 만들 때 쓰는 언어·프레임워크·DB·인프라 묶음이다.",
+    "usage": "MLOps stack, web stack 등.",
+    "example": "예: Python·FastAPI·Postgres 스택으로 API를 만들었다.",
+    "startingHint": "기술 층층이 쌓인 조합",
+    "etymology": "stack(더미) — LIFO 자료구조·기술 조합 모두."
   },
   {
     "word": "레거시",
-    "definition": "오래되어 바꾸기 어렵지만 아직 돌아가는 코드·시스템이다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "legacy",
-    "usage": "신규 기능은 레거시 API에 의존하는 경우가 많다.",
-    "example": "예: 10년 된 결제 모듈을 건드리기 겁났다.",
-    "startingHint": "낡았지만 당장 끄기 어려운 옛 시스템"
+    "definition": "오래되어 바꾸기 어렵지만 아직 돌아가는 코드·시스템이다.",
+    "usage": "레거시 API 위에 AI 기능을 얹기도 한다.",
+    "example": "예: 레거시 배치 job만 Python 2에 남아 있다.",
+    "startingHint": "무료한 옛 시스템",
+    "etymology": "라틴 legatus(파견) → legacy(유산)."
   },
   {
     "word": "리팩터링",
-    "definition": "동작은 유지하며 코드 구조를 깔끔히 고치는 작업이다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "refactoring",
-    "usage": "PM은 사용자 변화 없이 속도·안정만 올리는 릴리스다.",
-    "example": "예: 결제 로직만 분리해 테스트하기 쉽게 했다.",
-    "startingHint": "겉보기 기능은 같고 안쪽 설계만 다듬기"
+    "definition": "동작은 유지하며 코드 구조·이름을 개선하는 작업이다.",
+    "usage": "모델 파이프라인 코드도 리팩터링 대상이다.",
+    "example": "예: 추론 경로 리팩터링으로 버그를 줄였다.",
+    "startingHint": "겉동작은 같게, 코드만 정리",
+    "etymology": "factor(인수) + re- — Beck 1990년대."
   },
   {
     "word": "테스트",
-    "definition": "버그를 줄이려고 자동·수동으로 동작을 검증하는 일이다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "test",
-    "usage": "CI에서 회귀 테스트가 실패하면 배포가 막힌다.",
-    "example": "예: 결제 플로우 E2E 40개를 매 PR에 돌렸다.",
-    "startingHint": "기대한 대로 동작하는지 확인하는 검증"
+    "definition": "코드·모델·API가 기대대로 동작하는지 자동·수동으로 검증하는 일이다.",
+    "usage": "unit, e2e, eval harness.",
+    "example": "예: 회귀 테스트로 프롬프트 변경을 막았다.",
+    "startingHint": "깨지지 않았는지 확인하는 검사",
+    "etymology": "라틴 testum(도자기 그릇) → 시험."
   },
   {
     "word": "회귀",
-    "definition": "고친 뒤 예전에 되던 기능이 다시 깨지는 버그다.",
+    "category": "it-foundation",
     "origin": "korean",
-    "usage": "릴리스 전 회귀 테스트로 이런 이슈를 잡는다.",
-    "example": "예: 로그인 수정 후 비밀번호 재설정이 망가졌다.",
-    "startingHint": "과거에 고쳤던 문제가 다시 나타나는 퇴보"
+    "definition": "수정 후 예전에 되던 기능·지표가 다시 나빠지는 현상이다.",
+    "usage": "regression test, model regression.",
+    "example": "예: 번역 품질 회귀가 릴리스를 막았다.",
+    "startingHint": "고쳤는데 예전 문제가 되살아남",
+    "etymology": "regression — 통계 “회귀”와 같은 어원, SW에서는 퇴행."
   },
   {
     "word": "핫픽스",
-    "definition": "긴급히 작은 패치를 배포해 장애를 막는 조치다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "hotfix",
-    "usage": "PM은 핫픽스 범위를 최소화하고 공지를 동시에 낸다.",
-    "example": "예: 결제 오류만 고치는 패치를 새벽에 올렸다.",
-    "startingHint": "본 릴리스와 별도로 급히 넣는 작은 수정"
+    "definition": "운영 장애를 막기 위해 긴급히 작은 패치를 배포하는 조치다.",
+    "usage": "프롬프트·가드레일 버그에도 쓴다.",
+    "example": "예: 환각 이슈에 핫픽스 프롬프트를 올렸다.",
+    "startingHint": "당장 불 끄는 긴급 패치",
+    "etymology": "hot(뜨거운·긴급) + fix(고치다)."
   },
   {
     "word": "인시던트",
-    "definition": "서비스 장애·보안 사건을 기록하고 대응하는 사건 단위다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "incident",
-    "usage": "SRE는 심각도별로 온콜과 커뮤니케이션을 연다.",
-    "example": "예: DB 장애 인시던트가 47분 동안 열려 있었다.",
-    "startingHint": "장애나 사고가 발생했을 때 공식적으로 다루는 건"
+    "definition": "서비스 장애·보안 사건을 기록하고 대응하는 과정·티켓이다.",
+    "usage": "on-call, status page, postmortem과 연결.",
+    "example": "예: API 500 급증으로 인시던트를 선언했다.",
+    "startingHint": "장애·사고 대응 건",
+    "etymology": "라틴 incidere(떨어지다·발생하다)."
+  },
+  {
+    "word": "모니터링",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "monitoring",
+    "definition": "지표·로그·트레이스를 계속 보고 이상을 감지하는 활동이다.",
+    "usage": "모델 drift, GPU, API 오류율.",
+    "example": "예: 모니터링 알림으로 drift를 잡았다.",
+    "startingHint": "시스템 상태를 계속 지켜보기",
+    "etymology": "monit(경고) + -or — Latin monere(경고하다)."
+  },
+  {
+    "word": "트레이스",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "trace",
+    "definition": "요청이 지나간 단계별 기록으로 병목·오류를 찾게 한다.",
+    "usage": "OpenTelemetry, LangSmith trace.",
+    "example": "예: 트레이스에서 느린 DB 호출을 찾았다.",
+    "startingHint": "요청이 거친 길을 따라가 보기",
+    "etymology": "라틴 tractus(끌림) → trace."
+  },
+  {
+    "word": "스팬",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "span",
+    "definition": "분산 추적에서 하나의 작업 구간(예: DB 쿼리) 단위다.",
+    "usage": "parent/child span으로 트리를 만든다.",
+    "example": "예: LLM 호출 span이 전체 latency의 80%였다.",
+    "startingHint": "추적 로그의 한 구간",
+    "etymology": "span(범위) — 다리 span에서 “한 구간”."
+  },
+  {
+    "word": "샌드박스",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "sandbox",
+    "definition": "실서비스와 격리된 안전한 시험 환경이다.",
+    "usage": "코드 실행, API 키 테스트, agent tool sandbox.",
+    "example": "예: 샌드박스에서만 shell tool을 허용했다.",
+    "startingHint": "모래상자처럼 망쳐도 되는 연습 공간",
+    "etymology": "아이들 모래 놀이 sandbox에서."
+  },
+  {
+    "word": "스케일링",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "scaling",
+    "definition": "트래픽·부하에 맞춰 인스턴스·GPU 수를 늘리거나 줄이는 것이다.",
+    "usage": "auto-scaling, horizontal scaling.",
+    "example": "예: 피크 시간에 스케일링 규칙이 pod를 추가했다.",
+    "startingHint": "사람·서버 수를 부하에 맞게 조절",
+    "etymology": "scale(저울·크기) + -ing."
+  },
+  {
+    "word": "대기열",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "처리 순서를 기다리며 쌓아 두는 작업·메시지 줄이다.",
+    "usage": "queue, Kafka, inference queue.",
+    "example": "예: 대기열이 길어져 latency SLA를 넘겼다.",
+    "startingHint": "차례를 기다리는 줄",
+    "etymology": "queue의 번역; 待(기다릴) + 行列(줄)."
+  },
+  {
+    "word": "폴백",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "fallback",
+    "definition": "주 기능·모델이 실패할 때 쓰는 대체 경로·모델이다.",
+    "usage": "LLM routing, cached answer.",
+    "example": "예: 메인 모델 timeout 시 작은 모델로 폴백했다.",
+    "startingHint": "Plan B 동작",
+    "etymology": "fall(떨어지다) + back — “뒤로 물러서 대안”."
+  },
+  {
+    "word": "마이그레이션",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "migration",
+    "definition": "데이터·스키마·서비스를 새 환경·구조로 옮기는 작업이다.",
+    "usage": "DB, cloud, embedding index rebuild.",
+    "example": "예: 벡터 DB 마이그레이션 중 검색이 잠시 꺼졌다.",
+    "startingHint": "데이터·시스템 이사",
+    "etymology": "migrate(이주하다) — 새·옛 DB “이민”."
+  },
+  {
+    "word": "기능플래그",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "feature flag",
+    "definition": "코드 배포 없이 기능을 켜고 끄는 원격 설정 스위치다.",
+    "usage": "점진 롤아웃, A/B, kill switch.",
+    "example": "예: 기능플래그로 새 모델을 1%만 켰다.",
+    "startingHint": "배포 없이 기능 on/off",
+    "etymology": "feature + flag(깃발) — “기능 표시”."
+  },
+  {
+    "word": "프라이버시",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "privacy",
+    "definition": "개인정보 수집·저장·학습 시 지키는 비공개·통제 원칙이다.",
+    "usage": "GDPR, opt-in, PII 마스킹, federated learning.",
+    "example": "예: 학습 데이터에서 프라이버시 필터를 돌렸다.",
+    "startingHint": "내 정보가 남의 손에 안 가게 지키기",
+    "etymology": "라틴 privatus(개인의) → private."
+  },
+  {
+    "word": "암호화",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "데이터를 키 없이는 읽기 어렵게 변환하는 보안 기법이다.",
+    "usage": "전송(TLS), 저장(at rest), API 키.",
+    "example": "예: 디스크 암호화를 켜 두었다.",
+    "startingHint": "글을 비밀번호 없이 못 읽게 바꾸기",
+    "etymology": "crypto(숨기다) + graphy(쓰다) — κρυπτός."
+  },
+  {
+    "word": "인증",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "사용자·서비스가 정말 그 주체인지 확인하는 절차다.",
+    "usage": "OAuth, API key, mTLS.",
+    "example": "예: API 인증 실패로 401이 났다.",
+    "startingHint": "너 누구인지 증명하기",
+    "etymology": "authentication — auth(자) + ent(행위)."
+  },
+  {
+    "word": "네트워크",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "network",
+    "definition": "컴퓨터·서비스가 데이터를 주고받는 연결망이다.",
+    "usage": "LAN, VPC, CDN, model mesh.",
+    "example": "예: 네트워크 ACL로 DB 포트를 막았다.",
+    "startingHint": "기기들이 이어진 통신 그물",
+    "etymology": "net(그물) + work — fisher’s net."
+  },
+  {
+    "word": "프로토콜",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "protocol",
+    "definition": "통신·API에서 메시지 형식과 순서를 정한 규약이다.",
+    "usage": "HTTP, gRPC, WebSocket, MCP.",
+    "example": "예: REST 대신 gRPC 프로토콜을 썼다.",
+    "startingHint": "대화 규칙·약속",
+    "etymology": "그리스 prōtokollon(첫 페이지·절차)."
+  },
+  {
+    "word": "오픈소스",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "open source",
+    "definition": "소스 코드가 공개되어 누구나 보고·수정·배포할 수 있는 소프트웨어다.",
+    "usage": "Llama, PyTorch, Hugging Face 모델.",
+    "example": "예: 오픈소스 LLM을 사내에 fine-tune했다.",
+    "startingHint": "코드가 공개된 소프트웨어",
+    "etymology": "open + source — OSI 1998."
+  },
+  {
+    "word": "리포지토리",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "repository",
+    "definition": "코드·모델 가중치·설정 버전을 저장하는 저장소다.",
+    "usage": "Git, Hugging Face repo, Docker registry.",
+    "example": "예: 모델 리포지토리에 태그 v2를 push했다.",
+    "startingHint": "GitHub 같은 코드 창고",
+    "etymology": "re-(다시) + repository(보관소) — Latin repositorium."
+  },
+  {
+    "word": "병렬",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "여러 작업·GPU 코어가 동시에 같은 종류 일을 처리하는 방식이다.",
+    "usage": "data parallel, tensor parallel.",
+    "example": "예: 학습을 8GPU 병렬로 돌렸다.",
+    "startingHint": "여러 줄로 동시에 처리",
+    "etymology": "parallel — para(옆) + allelos(서로)."
+  },
+  {
+    "word": "분산",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "작업·데이터를 여러 머신에 나눠 처리하는 구조다.",
+    "usage": "distributed training, sharded DB.",
+    "example": "예: 분산 추론으로 한 노드 메모리를 넘겼다.",
+    "startingHint": "한 컴퓨터가 아니라 여러 대에 나눠",
+    "etymology": "distribute(나눠 주다)의 개념."
+  },
+  {
+    "word": "정규화",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "데이터 scale·형식을 통일하거나 DB 중복을 줄이는 작업이다.",
+    "usage": "feature scaling, DB normal form.",
+    "example": "예: 입력 정규화로 학습이 안정됐다.",
+    "startingHint": "형식·크기를 통일하거나 표를 깔끔히",
+    "etymology": "normal(정상) + -ization."
+  },
+  {
+    "word": "이상치",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "평균에서 크게 벗어난 값으로 품질·모델을 흔들 수 있다.",
+    "usage": "로그 이상 탐지, training outlier removal.",
+    "example": "예: 이상치 때문에 loss spike가 났다.",
+    "startingHint": "그래프에서 동떨어진 점",
+    "etymology": "outlier — out(밖) + lier."
+  },
+  {
+    "word": "검색",
+    "category": "it-foundation",
+    "origin": "korean",
+    "definition": "질의·키워드·벡터로 문서·항목을 찾아 주는 기능이다.",
+    "usage": "keyword, semantic, hybrid search.",
+    "example": "예: 하이브리드 검색으로 정확도를 올렸다.",
+    "startingHint": "찾고 싶은 것을 글·색인에서 꺼내기",
+    "etymology": "search — Latin circare(둘러싸다)."
+  },
+  {
+    "word": "마스킹",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "masking",
+    "definition": "민감 정보를 로그·화면·학습 데이터에서 가리는 처리다.",
+    "usage": "PII, session replay, attention mask.",
+    "example": "예: 카드 번호 마스킹 규칙을 추가했다.",
+    "startingHint": "비밀번호·주민번호 등을 ***로 가리기",
+    "etymology": "mask(가면) + -ing."
+  },
+  {
+    "word": "아티팩트",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "artifact",
+    "definition": "빌드·학습·배포 과정에서 만들어진 파일·모델 산출물이다.",
+    "usage": "CI artifact, model checkpoint.",
+    "example": "예: 학습 아티팩트를 S3에 올렸다.",
+    "startingHint": "파이프라인이 뱉어 낸 결과물 파일",
+    "etymology": "Latin arte(기술) + factum(만든 것)."
   },
   {
     "word": "포스트모템",
-    "definition": "사고 후 원인·타임라인·재발 방지책을 정리하는 회고다.",
+    "category": "it-foundation",
     "origin": "loanword",
     "englishSource": "postmortem",
-    "usage": "비난 없이 학습하는 문화에서 PM도 액션 아이템을 받는다.",
-    "example": "예: 장애 포스트모템에 모니터링 갭 3건이 적혔다.",
-    "startingHint": "사고가 끝난 뒤 왜 생겼는지 차분히 쓰는 보고"
+    "definition": "장애 후 원인·타임라인·재발 방지책을 정리하는 회고 문서다.",
+    "usage": "blameless postmortem 문화.",
+    "example": "예: 포스트모템에 프롬프트 변경을 action item으로 넣었다.",
+    "startingHint": "사고 난 뒤 “왜”를 정리하는 보고",
+    "etymology": "post(후) + mortem(사망) — 의학에서 IT로."
   },
   {
-    "word": "슬로건",
-    "definition": "팀·제품 방향을 한 문장으로 표현한 말이다.",
+    "word": "지피유",
+    "category": "it-foundation",
     "origin": "loanword",
-    "englishSource": "slogan",
-    "usage": "내부 슬로건은 우선순위 논쟁 때 기준으로 쓰인다.",
-    "example": "예: “10초 안에 답”이 올해 제품 슬로건이었다.",
-    "startingHint": "짧은 한 줄로 미션을 외우게 하는 문구"
+    "englishSource": "GPU",
+    "definition": "그래픽·행렬 연산에 특화된 병렬 처리 칩으로 AI 학습·추론에 쓴다.",
+    "usage": "NVIDIA CUDA, VRAM 용량이 모델 크기를 제한한다.",
+    "example": "예: 지피유 메모리 부족으로 batch를 줄였다.",
+    "startingHint": "AI 학습에 필수인 그래픽카드 칩",
+    "etymology": "Graphics Processing Unit — 1990년대 3D 그래픽에서 범용 GPGPU로."
   },
   {
-    "word": "데일리",
-    "definition": "매일 팀이 모여 진행·막힘을 짧게 공유하는 정기 회의다.",
-    "date": "2026-10-15",
+    "word": "에이피아이",
+    "category": "it-foundation",
     "origin": "loanword",
-    "englishSource": "daily",
-    "usage": "애자일 팀은 보통 아침 15분 서서 이 회의를 한다.",
-    "example": "예: 오늘 데일리에서 배포 지연 이슈만 공유했다.",
-    "startingHint": "매일 같은 시간에 서서 진행 상황을 나누는 짧은 모임"
+    "englishSource": "API",
+    "definition": "프로그램끼리 기능을 호출하기 위한 정해진 인터페이스다.",
+    "usage": "REST, OpenAI API, SDK.",
+    "example": "예: 에이피아이 키를 환경 변수에 넣었다.",
+    "startingHint": "앱끼리 기능 빌려 쓰는 약속된 창구",
+    "etymology": "Application Programming Interface — 1960–70년대."
+  },
+  {
+    "word": "옵저버",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "observer",
+    "definition": "시스템 상태·메트릭·로그를 수집·관측하는 컴포넌트·도구다.",
+    "usage": "Prometheus exporter, OTel collector.",
+    "example": "예: 옵저버가 GPU 사용률을 스크래핑했다.",
+    "startingHint": "옆에서 지표만 수집하는 관찰자",
+    "etymology": "observe(관찰) + -er."
+  },
+  {
+    "word": "플래그",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "flag",
+    "definition": "기능·실험·동작을 켜거나 끄는 불리언 설정 값이다.",
+    "usage": "feature flag, debug flag.",
+    "example": "예: 디버그 플래그를 켜면 verbose 로그가 나온다.",
+    "startingHint": "true/false로 기능을 표시하는 스위치",
+    "etymology": "flag(깃발) — “표시하다”."
+  },
+  {
+    "word": "롤아웃",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "rollout",
+    "definition": "새 버전·모델을 점진적으로 더 많은 사용자에게 적용하는 방식이다.",
+    "usage": "카나리, percentage rollout.",
+    "example": "예: 새 임베딩 모델 롤아웃을 10%에서 시작했다.",
+    "startingHint": "조금씩 넓혀 가며 배포",
+    "etymology": "roll(구르다) + out — “밖으로 굴려 내다”."
+  },
+  {
+    "word": "코호트",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "cohort",
+    "definition": "같은 시점·조건으로 묶어 비교하는 사용자·샘플 그룹이다.",
+    "usage": "analytics, ML evaluation cohort.",
+    "example": "예: 9월 가입 코호트만 retention을 봤다.",
+    "startingHint": "같은 조건으로 묶은 한 무리",
+    "etymology": "Latin cohors(울타리·군단) — Roman cohort."
   }
 ]

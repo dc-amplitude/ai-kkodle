@@ -30,7 +30,7 @@ export function firstSyllableClue(word: string): string {
 export function hintMessage(tier: HintTier, puzzle: Puzzle): string {
   switch (tier) {
     case 1:
-      return definitionClue(puzzle.definition, puzzle.word);
+      return definitionClue(puzzle.startingHint, puzzle.word);
     case 2: {
       const { position, jamo } = jamoPositionClue(puzzle.word, 0);
       return `${position}번째 자모는 「${jamo}」입니다.`;

@@ -25,7 +25,12 @@ import {
   getSeoulDateString,
   type Puzzle,
 } from './lib/puzzle';
-import { originBadgeLabel, successDefinitionHtml } from './lib/puzzleOrigin';
+import {
+  answerExplanationHtml,
+  categoryBadgeLabel,
+  originBadgeLabel,
+  successDefinitionHtml,
+} from './lib/puzzleOrigin';
 import {
   loadStreak,
   markDailyPlayed,
@@ -222,17 +227,13 @@ function render(): void {
         ${paidHintItems}
       </ul>`;
 
-  const originBadge = `<p class="origin-badge">${originBadgeLabel(puzzle)}</p>`;
+  const originBadge = `<p class="origin-badge">${categoryBadgeLabel(puzzle)} · ${originBadgeLabel(puzzle)}</p>`;
 
   const resultLine =
     finished && won
       ? successDefinitionHtml(puzzle)
       : finished
-        ? `<p class="fail">정답: <strong>${puzzle.word}</strong> — ${puzzle.definition}${
-            puzzle.origin === 'loanword' && puzzle.englishSource
-              ? ` (영어: ${puzzle.englishSource})`
-              : ''
-          }</p>`
+        ? `<p class="fail">정답: <strong>${puzzle.word}</strong></p>${answerExplanationHtml(puzzle)}`
         : '';
 
   const touchPrimary = isTouchPrimary();

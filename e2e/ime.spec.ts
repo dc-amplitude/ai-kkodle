@@ -45,34 +45,34 @@ test.describe('Korean IME composition', () => {
     await page.evaluate(() => {
       const el = document.querySelector('#guess-input') as HTMLInputElement;
       el.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true, data: '' }));
-      el.value = '기';
+      el.value = '환';
       el.dispatchEvent(
-        new InputEvent('input', { bubbles: true, inputType: 'insertCompositionText', data: '기' }),
+        new InputEvent('input', { bubbles: true, inputType: 'insertCompositionText', data: '환' }),
       );
     });
-    await expect(input).toHaveValue('기');
+    await expect(input).toHaveValue('환');
 
     await page.evaluate(() => {
       const el = document.querySelector('#guess-input') as HTMLInputElement;
-      el.value = '기획';
+      el.value = '환';
       el.dispatchEvent(
-        new InputEvent('input', { bubbles: true, inputType: 'insertCompositionText', data: '획' }),
+        new InputEvent('input', { bubbles: true, inputType: 'insertCompositionText', data: '환' }),
       );
     });
-    await expect(input).toHaveValue('기획');
+    await expect(input).toHaveValue('환');
 
     await page.evaluate(() => {
       const el = document.querySelector('#guess-input') as HTMLInputElement;
-      el.value = '기획서';
+      el.value = '환각';
       el.dispatchEvent(
-        new CompositionEvent('compositionend', { bubbles: true, data: '기획서' }),
+        new CompositionEvent('compositionend', { bubbles: true, data: '환각' }),
       );
       el.dispatchEvent(
-        new InputEvent('input', { bubbles: true, inputType: 'insertFromComposition', data: '기획서' }),
+        new InputEvent('input', { bubbles: true, inputType: 'insertFromComposition', data: '환각' }),
       );
     });
 
-    await expect(input).toHaveValue('기획서');
+    await expect(input).toHaveValue('환각');
     const end = await input.evaluate((el) => ({
       start: el.selectionStart,
       end: el.selectionEnd,
@@ -101,7 +101,7 @@ test.describe('Chromium CDP IME', () => {
     await input.click();
 
     await client.send('Input.imeSetComposition', {
-      text: '기',
+      text: '환',
       selectionStart: 1,
       selectionEnd: 1,
       replacementStart: 0,
@@ -110,31 +110,31 @@ test.describe('Chromium CDP IME', () => {
     await page.evaluate(() => {
       const el = document.querySelector('#guess-input') as HTMLInputElement;
       el.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true, data: '' }));
-      el.value = '기';
+      el.value = '환';
       el.dispatchEvent(
-        new InputEvent('input', { bubbles: true, inputType: 'insertCompositionText', data: '기' }),
+        new InputEvent('input', { bubbles: true, inputType: 'insertCompositionText', data: '환' }),
       );
     });
-    await expect(input).toHaveValue('기');
+    await expect(input).toHaveValue('환');
 
     await client.send('Input.imeSetComposition', {
-      text: '기획서',
-      selectionStart: 3,
-      selectionEnd: 3,
+      text: '환각',
+      selectionStart: 2,
+      selectionEnd: 2,
       replacementStart: 0,
       replacementEnd: 1,
     });
     await page.evaluate(() => {
       const el = document.querySelector('#guess-input') as HTMLInputElement;
-      el.value = '기획서';
+      el.value = '환각';
       el.dispatchEvent(
-        new CompositionEvent('compositionend', { bubbles: true, data: '기획서' }),
+        new CompositionEvent('compositionend', { bubbles: true, data: '환각' }),
       );
       el.dispatchEvent(
-        new InputEvent('input', { bubbles: true, inputType: 'insertFromComposition', data: '기획서' }),
+        new InputEvent('input', { bubbles: true, inputType: 'insertFromComposition', data: '환각' }),
       );
     });
-    await expect(input).toHaveValue('기획서');
+    await expect(input).toHaveValue('환각');
   });
 });
 
@@ -142,6 +142,6 @@ test('WebKit compositionend commits full word', async ({ page, browserName }) =>
   test.skip(browserName !== 'webkit', 'WebKit-specific project');
   await skipHowTo(page);
   await page.goto('./');
-  await composeHangulWord(page, '기획서');
-  await expect(page.locator('#guess-input')).toHaveValue('기획서');
+  await composeHangulWord(page, '환각');
+  await expect(page.locator('#guess-input')).toHaveValue('환각');
 });
