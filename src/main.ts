@@ -19,6 +19,12 @@ import {
   type Puzzle,
 } from './lib/puzzle';
 import {
+  HINT_TIER_COUNT,
+  hintMessage,
+  hintsRemaining,
+  type HintTier,
+} from './lib/hints';
+import {
   loadStreak,
   markDailyPlayed,
   updateStreakOnWin,
@@ -40,7 +46,7 @@ type GameState = {
   statuses: JamoState[][];
   finished: boolean;
   won: boolean;
-  hintUsed: boolean;
+  hintsRevealed: number;
   practiceSeed: number;
 };
 
@@ -56,7 +62,7 @@ function createInitialState(mode: Mode, practiceSeed: number): GameState {
     statuses: [],
     finished: false,
     won: false,
-    hintUsed: false,
+    hintsRevealed: 0,
     practiceSeed,
   };
 }
@@ -117,9 +123,21 @@ function render(): void {
       </div>`;
   }).join('');
 
-  const hintLine =
-    state.hintUsed && !won
-      ? `<p class="hint">힌트: 첫 자모는 <strong>${jamos[0]}</strong></p>`
+  const hintsUnlocked =
+    mode === 'practice' || attempts.length >= flags.hintAfterAttempt || finished;
+  const remaining = hintsRemaining(state.hintsRevealed);
+  const hintButtonLabel =
+    remaining > 0 ? `힌트 (${remaining}개 남음)` : '힌트 모두 사용함';
+  const hintLockNote =
+    !hintsUnlocked && !finished
+      ? `<p class="hint-lock">${flags.hintAfterAttempt}번째 시도부터 힌트를 쓸 수 있어요.</p>`
+      : '';
+  const revealedHints =
+    state.hintsRevealed > 0
+      ? `<ul class="hint-list">${Array.from({ length: state.hintsRevealed }, (_, i) => {
+          const tier = (i + 1) as HintTier;
+          return `<li><span class="hint-tier">힌트 ${tier}</span> ${hintMessage(tier, puzzle)}</li>`;
+        }).join('')}</ul>`
       : '';
 
   const resultLine =
@@ -147,17 +165,25 @@ function render(): void {
       <button type="button" id="mode-practice" class="${mode === 'practice' ? 'active' : ''}">연습</button>
       <button type="button" id="btn-share" ${finished ? '' : 'disabled'}>결과 공유</button>
       <button type="button" id="btn-new" style="${mode === 'practice' ? '' : 'display:none'}">새 단어</button>
+      <button
+        type="button"
+        id="btn-hint"
+        class="hint-btn"
+        ${!finished && hintsUnlocked && remaining > 0 ? '' : 'disabled'}
+        title="${hintsUnlocked ? hintButtonLabel : `${flags.hintAfterAttempt}번 시도 후 힌트 잠금 해제`}"
+      >💡 ${hintButtonLabel}</button>
     </section>
+    ${hintLockNote}
+    ${revealedHints}
 
     <p class="info">자모 ${puzzle.jamoCount}칸 · 음절 ${syllableCount(puzzle.word)}글자 · 기회 ${maxAttempts}번</p>
 
     <p class="play-hint">${syllableCount(puzzle.word)}글자 단어를 입력하세요</p>
 
-    <section class="board" id="board" role="grid" aria-live="polite" tabindex="0" aria-label="자모 보드 — 탭하면 입력칸으로 이동">
+    <section class="board" id="board" data-jamo-count="${jamos.length}" style="--jamo-count: ${jamos.length}" role="grid" aria-live="polite" tabindex="0" aria-label="자모 보드 — 탭하면 입력칸으로 이동">
       ${rows}
     </section>
 
-    ${hintLine}
     ${resultLine}
 
     <section class="input-area">
@@ -181,10 +207,6 @@ function render(): void {
     <p class="message" id="message"></p>
 
     ${finished ? '' : renderKeyboardHtml(keyStates)}
-
-    <footer class="footer">
-      <p>Amplitude · Session Replay · Experiment 데모용 시드 데이터만 사용합니다.</p>
-    </footer>
   `;
 
   bindHandlers();
@@ -264,6 +286,10 @@ function bindHandlers(): void {
     }
     if (target.closest('#btn-howto')) {
       openHowToPlay(flags.maxAttempts, 'help_button', trackHowToPlayOpened);
+      return;
+    }
+    if (target.closest('#btn-hint')) {
+      useNextHint();
       return;
     }
     if (target.closest('#board')) {
@@ -381,8 +407,6 @@ function submitCurrent(): void {
 
   if (msg) msg.textContent = '';
 
-  maybeOfferHint();
-
   if (isWin(states)) {
     finishGame(true);
   } else if (state.attempts.length >= flags.maxAttempts) {
@@ -392,17 +416,42 @@ function submitCurrent(): void {
   render();
 }
 
-function maybeOfferHint(): void {
-  if (state.hintUsed || state.finished) return;
-  if (state.attempts.length >= flags.hintAfterAttempt) {
-    state.hintUsed = true;
-    track('hint_used', {
-      mode: state.mode,
-      after_attempt: state.attempts.length,
-      flag_hint_after: flags.hintAfterAttempt,
-    });
+function hintsUnlockedNow(): boolean {
+  return (
+    state.mode === 'practice' ||
+    state.attempts.length >= flags.hintAfterAttempt ||
+    state.finished
+  );
+}
+
+function useNextHint(): void {
+  if (state.finished) return;
+  if (!hintsUnlockedNow()) {
+    const msg = document.querySelector('#message');
+    if (msg) {
+      msg.textContent = `데일리 모드에서는 ${flags.hintAfterAttempt}번 시도 후 힌트를 쓸 수 있어요.`;
+    }
+    return;
+  }
+  if (state.hintsRevealed >= HINT_TIER_COUNT) return;
+
+  const tier = (state.hintsRevealed + 1) as HintTier;
+  state.hintsRevealed = tier;
+
+  track('hint_used', {
+    mode: state.mode,
+    hint_level: tier,
+    hints_revealed: state.hintsRevealed,
+    after_attempt: state.attempts.length,
+    flag_hint_after: flags.hintAfterAttempt,
+  });
+  if (state.mode === 'daily' && tier === 1 && state.attempts.length >= flags.hintAfterAttempt) {
     exposure('hint_after_attempt');
   }
+
+  const msg = document.querySelector('#message');
+  if (msg) msg.textContent = '';
+  render();
 }
 
 function finishGame(won: boolean): void {
@@ -429,7 +478,8 @@ function finishGame(won: boolean): void {
 function buildShareText(): string {
   const grid = state.statuses.map((s) => statesToEmoji(s)).join('\n');
   const title = flags.shareTitle;
-  return `${title} ${seoulToday} · ${state.won ? state.attempts.length : 'X'}/${flags.maxAttempts}\n${grid}\n${flags.shareSuffix}`;
+  const hintMark = state.hintsRevealed > 0 ? ` · 💡${state.hintsRevealed}` : '';
+  return `${title} ${seoulToday} · ${state.won ? state.attempts.length : 'X'}/${flags.maxAttempts}${hintMark}\n${grid}\n${flags.shareSuffix}`;
 }
 
 async function shareResult(): Promise<void> {

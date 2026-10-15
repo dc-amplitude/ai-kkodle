@@ -75,7 +75,7 @@ Repository → Settings → Secrets and variables → Actions:
 | `game_start` | `mode`, `puzzle_id`, `jamo_count`, `seoul_date`, `max_attempts` |
 | `guess_submitted` | `mode`, `attempt`, `jamo_count`, `correct_jamos` |
 | `guess_rejected` | `reason`, `mode` |
-| `hint_used` | `mode`, `after_attempt`, `flag_hint_after` |
+| `hint_used` | `mode`, `hint_level` (1–3), `hints_revealed`, `after_attempt`, `flag_hint_after` |
 | `game_complete` | `mode`, `success`, `attempts`, `puzzle_id` |
 | `share_clicked` | `mode`, `success`, `attempts` |
 | `streak_day` | `streak_count`, `seoul_date`, `already_played` |

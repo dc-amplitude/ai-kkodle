@@ -50,6 +50,18 @@ test.describe('AI 제품 꼬들 production build', () => {
     await expect(page.locator('.row').first().locator('.tile.correct')).not.toHaveCount(0);
   });
 
+  test('practice mode progressive hints from start', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+    await page.goto('./');
+    await page.locator('#mode-practice').click();
+    await expect(page.locator('#btn-hint')).toBeEnabled();
+    await page.locator('#btn-hint').click();
+    await expect(page.locator('.hint-list li')).toHaveCount(1);
+    await page.locator('#btn-hint').click();
+    await expect(page.locator('.hint-list li')).toHaveCount(2);
+    await expect(page.locator('#btn-hint')).toContainText('1개 남음');
+  });
+
   test('physical keyboard hangul fill submits without length error', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
