@@ -514,3 +514,218 @@ button:disabled {
     border-width: 1.5px;
   }
 }
+
+.mobile-ime-toggle {
+  display: none;
+  margin: 0 0 0.45rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.78rem;
+  border-radius: 999px;
+  border: 1px dashed #475569;
+  background: transparent;
+  color: var(--muted);
+}
+
+html.device-touch .mobile-ime-toggle {
+  display: inline-block;
+}
+
+html.device-touch {
+  height: 100%;
+}
+
+html.device-touch body {
+  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+html.device-touch #app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100dvh;
+  padding: 0.45rem clamp(0.45rem, 2.5vw, 0.75rem) 0.35rem;
+  overflow: hidden;
+}
+
+html.device-touch .game-shell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+html.device-touch .header {
+  margin-bottom: 0.35rem;
+  flex-shrink: 0;
+}
+
+html.device-touch h1 {
+  font-size: 1.05rem;
+}
+
+html.device-touch .subtitle {
+  font-size: 0.72rem;
+  margin-top: 0.15rem;
+}
+
+html.device-touch .meta {
+  gap: 0.2rem;
+}
+
+html.device-touch .toolbar {
+  margin-bottom: 0.35rem;
+  gap: 0.28rem;
+  flex-shrink: 0;
+}
+
+html.device-touch .toolbar button {
+  padding: 0.32rem 0.45rem;
+  font-size: 0.72rem;
+}
+
+html.device-touch .info,
+html.device-touch .play-hint {
+  display: none;
+}
+
+html.device-touch .hint-lock {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+html.device-touch .hint-list {
+  margin: 0 0 0.35rem;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  flex-shrink: 0;
+  max-height: 3.2rem;
+  overflow: hidden;
+}
+
+html.device-touch .hint-list li + li {
+  margin-top: 0.25rem;
+}
+
+html.device-touch .origin-badge {
+  margin: 0.15rem 0 0;
+  font-size: 0.68rem;
+  padding: 0.15rem 0.45rem;
+  flex-shrink: 0;
+}
+
+html.device-touch .board {
+  margin: 0.25rem 0;
+  gap: 0.2rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+html.device-touch .board .tile {
+  max-width: 1.65rem;
+  min-width: 1rem;
+  font-size: clamp(0.58rem, 2.4vw, 0.82rem);
+}
+
+html.device-touch .input-area {
+  margin: 0.2rem 0 0.25rem;
+  flex-shrink: 0;
+}
+
+html.device-touch .input-label {
+  font-size: 0.78rem;
+  margin-bottom: 0.1rem;
+}
+
+html.device-touch .input-hint-touch {
+  display: none;
+}
+
+html.device-touch .guess-input {
+  font-size: 0.95rem;
+  padding: 0.45rem 0.55rem;
+}
+
+html.device-touch .guess-input[readonly] {
+  cursor: default;
+  caret-color: transparent;
+}
+
+html.device-touch .draft-preview {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  min-height: 1rem;
+}
+
+html.device-touch .input-message {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  min-height: 0.95rem;
+}
+
+html.device-touch .message {
+  font-size: 0.78rem;
+  margin: 0.15rem 0;
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+html.device-touch .keyboard {
+  margin-top: 0.2rem;
+  gap: 0.22rem;
+  flex-shrink: 0;
+}
+
+html.device-touch .kb-key {
+  min-height: 2rem;
+  min-width: clamp(1.35rem, 7.5vw, 1.75rem);
+  padding: 0.28rem 0.18rem;
+  font-size: clamp(0.68rem, 2.8vw, 0.82rem);
+}
+
+html.device-touch .kb-enter {
+  min-width: 3rem;
+}
+
+html.device-touch.native-kb-open .keyboard {
+  display: none;
+}
+
+html.device-touch.native-kb-open #app {
+  max-height: var(--vv-height, 100dvh);
+}
+
+html.device-touch.native-kb-open body {
+  height: var(--vv-height, 100dvh);
+}
+
+@media (max-height: 740px) {
+  html.device-touch h1 {
+    font-size: 0.95rem;
+  }
+
+  html.device-touch .hint-list {
+    max-height: 2.5rem;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.72rem;
+  }
+
+  html.device-touch .board {
+    gap: 0.15rem;
+  }
+
+  html.device-touch .board .tile {
+    max-width: 1.45rem;
+    min-width: 0.92rem;
+  }
+
+  html.device-touch .kb-key {
+    min-height: 1.85rem;
+  }
+}

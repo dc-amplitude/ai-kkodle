@@ -38,6 +38,14 @@ import {
   isHowToPlayVisible,
   openHowToPlay,
 } from './ui/howToPlay';
+import {
+  applyDeviceClasses,
+  isTouchPrimary,
+  setMobileImeEnabled,
+  shouldAutoFocusGuessInput,
+  shouldUseOnScreenKeyboardPrimary,
+} from './lib/deviceInput';
+import { initMobileViewport } from './mobileViewport';
 import { jamosForKey, renderKeyboardHtml } from './ui/keyboard';
 
 type Mode = 'daily' | 'practice';
@@ -83,6 +91,7 @@ let imeComposing = false;
 let inputInlineMessage = '';
 let handlersBound = false;
 let inputHandlersBound = false;
+let mobileGuardsBound = false;
 
 function maxSyllablesForPuzzle(): number {
   return syllableCount(state.puzzle.word);
@@ -133,8 +142,26 @@ function syncDraftFromKeyboard(): void {
 }
 
 function focusGuessInput(): void {
-  if (state.finished) return;
-  document.querySelector<HTMLInputElement>('#guess-input')?.focus();
+  if (state.finished || !shouldAutoFocusGuessInput()) return;
+  document.querySelector<HTMLInputElement>('#guess-input')?.focus({ preventScroll: true });
+}
+
+function configureGuessInput(input: HTMLInputElement, finished: boolean): void {
+  const touchPrimary = shouldUseOnScreenKeyboardPrimary();
+  if (finished) {
+    input.removeAttribute('readonly');
+    input.inputMode = 'text';
+    return;
+  }
+  if (touchPrimary) {
+    input.readOnly = true;
+    input.inputMode = 'none';
+    input.setAttribute('aria-readonly', 'true');
+  } else {
+    input.readOnly = false;
+    input.inputMode = 'text';
+    input.removeAttribute('aria-readonly');
+  }
 }
 
 function updateBoardPreviewFromInput(raw: string): void {
@@ -208,7 +235,17 @@ function render(): void {
           }</p>`
         : '';
 
+  const touchPrimary = isTouchPrimary();
+  const onScreenKbPrimary = shouldUseOnScreenKeyboardPrimary();
+  const inputHintHtml = onScreenKbPrimary
+    ? '<p class="input-hint input-hint-touch">아래 <strong>자모 키보드</strong>로 입력하세요. 휴대폰 키보드는 아래 버튼으로 켤 수 있어요.</p>'
+    : '<p class="input-hint">아래 <strong>자모 키보드</strong>를 누르거나, 이 칸에 한글 키보드(IME)로 입력하세요.</p>';
+  const mobileImeToggle = touchPrimary && !finished
+    ? `<button type="button" id="btn-mobile-ime" class="mobile-ime-toggle">${onScreenKbPrimary ? '휴대폰 키보드로 입력' : '자모 키보드로 입력'}</button>`
+    : '';
+
   app.innerHTML = `
+    <div class="game-shell">
     <header class="header">
       <div>
         <h1>${flags.shareTitle}</h1>
@@ -251,7 +288,8 @@ function render(): void {
 
     <section class="input-area">
       <label for="guess-input" class="input-label">한글 ${syllableCount(puzzle.word)}음절 · 자모 ${puzzle.jamoCount}칸 맞추기</label>
-      <p class="input-hint">아래 <strong>자모 키보드</strong>를 누르거나, 이 칸에 한글 키보드(IME)로 입력하세요.</p>
+      ${inputHintHtml}
+      ${mobileImeToggle}
       <input
         id="guess-input"
         class="guess-input"
@@ -271,19 +309,32 @@ function render(): void {
     <p class="message" id="message"></p>
 
     ${finished ? '' : renderKeyboardHtml(keyStates)}
+    </div>
   `;
 
   bindHandlers();
   bindInputHandlers();
+  bindMobileInputGuards();
 
   const input = document.querySelector<HTMLInputElement>('#guess-input');
   if (input && !finished) {
+    configureGuessInput(input, false);
     if (!imeComposing) {
       setInputAtEnd(input, draftHangul);
     }
-    if (!isHowToPlayVisible()) {
+    if (!isHowToPlayVisible() && shouldAutoFocusGuessInput()) {
       input.focus({ preventScroll: true });
     }
+  }
+
+  const board = document.querySelector('#board');
+  if (board) {
+    board.setAttribute(
+      'aria-label',
+      onScreenKbPrimary
+        ? '자모 보드'
+        : '자모 보드 — 탭하면 입력칸으로 이동',
+    );
   }
 }
 
@@ -299,6 +350,23 @@ function updateDraftUi(): void {
   const preview = document.querySelector('.draft-preview');
   if (preview) preview.textContent = draftPreviewLabel();
   updateBoardPreviewFromInput(draftHangul);
+}
+
+function bindMobileInputGuards(): void {
+  if (mobileGuardsBound) return;
+  mobileGuardsBound = true;
+
+  document.addEventListener(
+    'focusin',
+    (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.matches('#guess-input')) return;
+      if (shouldUseOnScreenKeyboardPrimary()) {
+        target.blur();
+      }
+    },
+    true,
+  );
 }
 
 function bindInputHandlers(): void {
@@ -397,8 +465,14 @@ function bindHandlers(): void {
       useNextHint();
       return;
     }
+    if (target.closest('#btn-mobile-ime')) {
+      toggleMobileIme();
+      return;
+    }
     if (target.closest('#board')) {
-      focusGuessInput();
+      if (!shouldUseOnScreenKeyboardPrimary()) {
+        focusGuessInput();
+      }
       return;
     }
 
@@ -430,6 +504,20 @@ function bindHandlers(): void {
   });
 }
 
+function toggleMobileIme(): void {
+  const enabling = shouldUseOnScreenKeyboardPrimary();
+  setMobileImeEnabled(enabling);
+  render();
+  const input = document.querySelector<HTMLInputElement>('#guess-input');
+  if (!input || state.finished) return;
+  configureGuessInput(input, false);
+  if (enabling) {
+    input.focus({ preventScroll: true });
+  } else {
+    input.blur();
+  }
+}
+
 function appendJamoKeys(units: string[]): void {
   if (state.finished) return;
   keyboardJamos = appendKeyboardJamos(keyboardJamos, units, targetJamoCount());
@@ -437,7 +525,9 @@ function appendJamoKeys(units: string[]): void {
   const input = document.querySelector<HTMLInputElement>('#guess-input');
   if (input) setInputAtEnd(input, draftHangul);
   updateDraftUi();
-  focusGuessInput();
+  if (!shouldUseOnScreenKeyboardPrimary()) {
+    focusGuessInput();
+  }
 }
 
 function resetDraft(): void {
@@ -642,6 +732,12 @@ function trackHowToPlayOpened(source: 'auto' | 'help_button'): void {
 }
 
 async function boot(): Promise<void> {
+  applyDeviceClasses();
+  initMobileViewport();
+  window.matchMedia('(pointer: coarse)').addEventListener('change', () => {
+    applyDeviceClasses();
+  });
+
   await initAnalytics();
   flags = await initExperiments();
   setUserProps({
