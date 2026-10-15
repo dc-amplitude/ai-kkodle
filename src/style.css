@@ -164,12 +164,113 @@ button:disabled {
   font-size: 0.75rem;
 }
 
-.visually-hidden {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  height: 0;
-  width: 0;
+.input-area {
+  margin: 1rem 0 0.75rem;
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.input-hint {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.guess-input {
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 2px solid #334155;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.guess-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.35);
+}
+
+.draft-preview {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-height: 1.25rem;
+}
+
+.board:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 0.35rem;
+}
+
+.tile.tbd {
+  border-color: #64748b;
+  background: #2a364a;
+}
+
+.keyboard {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+  user-select: none;
+}
+
+.kb-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: center;
+}
+
+.kb-key {
+  min-width: 2rem;
+  padding: 0.55rem 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 0.35rem;
+  border: 1px solid #334155;
+  background: #243044;
+  color: var(--text);
+  touch-action: manipulation;
+}
+
+.kb-key.correct {
+  background: var(--correct);
+  border-color: var(--correct);
+  color: #062a1a;
+}
+
+.kb-key.present {
+  background: var(--present);
+  border-color: var(--present);
+  color: #3b2f00;
+}
+
+.kb-key.absent {
+  background: var(--absent);
+  border-color: var(--absent);
+  color: #94a3b8;
+}
+
+.kb-row-actions {
+  margin-top: 0.15rem;
+}
+
+.kb-wide {
+  min-width: 3.5rem;
+}
+
+.kb-enter {
+  min-width: 4.5rem;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
 }
 
 @media (max-width: 480px) {
