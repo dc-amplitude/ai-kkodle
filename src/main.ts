@@ -19,12 +19,14 @@ import {
   wordToJamos,
   type JamoState,
 } from './lib/jamo';
+import { processInputText } from './lib/inputLatin';
 import {
   getDailyPuzzle,
   getPracticePuzzle,
   getSeoulDateString,
   type Puzzle,
 } from './lib/puzzle';
+import { originBadgeLabel, successDefinitionHtml } from './lib/puzzleOrigin';
 import {
   loadStreak,
   markDailyPlayed,
@@ -79,6 +81,7 @@ let draftHangul = '';
 /** Parallel jamo buffer for on-screen keyboard live assembly. */
 let keyboardJamos: string[] = [];
 let imeComposing = false;
+let inputInlineMessage = '';
 let handlersBound = false;
 let inputHandlersBound = false;
 
@@ -96,10 +99,31 @@ function draftJamosForBoard(): string[] {
   return wordToJamos(extractHangulSyllables(draftHangul, maxSyllablesForPuzzle()));
 }
 
+function setInputInlineMessage(text: string): void {
+  inputInlineMessage = text;
+  const el = document.querySelector('#input-message');
+  if (el) el.textContent = text;
+}
+
 function commitInputToDraft(input: HTMLInputElement): void {
-  draftHangul = extractHangulSyllables(input.value, maxSyllablesForPuzzle());
+  const result = processInputText(input.value, maxSyllablesForPuzzle());
+
+  if (result.rejectedNonHangul) {
+    track('guess_rejected', { reason: 'non_hangul', mode: state.mode });
+    setInputInlineMessage(result.inlineMessage ?? '');
+    draftHangul = '';
+    keyboardJamos = [];
+    updateBoardPreviewFromInput('');
+    return;
+  }
+
+  draftHangul = result.hangul;
   keyboardJamos = hangulToKeyboardJamos(draftHangul);
-  setInputAtEnd(input, draftHangul);
+  setInputInlineMessage(result.inlineMessage ?? '');
+
+  if (result.convertedFromQwerty || draftHangul !== input.value) {
+    setInputAtEnd(input, draftHangul);
+  }
 }
 
 /** Live keyboard path: keep es-hangul assemble output (may include in-progress jamo). */
@@ -167,11 +191,17 @@ function render(): void {
         }).join('')}</ul>`
       : '';
 
+  const originBadge = `<p class="origin-badge">${originBadgeLabel(puzzle)}</p>`;
+
   const resultLine =
     finished && won
-      ? `<p class="definition">${puzzle.definition}</p>`
+      ? successDefinitionHtml(puzzle)
       : finished
-        ? `<p class="fail">정답: <strong>${puzzle.word}</strong> — ${puzzle.definition}</p>`
+        ? `<p class="fail">정답: <strong>${puzzle.word}</strong> — ${puzzle.definition}${
+            puzzle.origin === 'loanword' && puzzle.englishSource
+              ? ` (영어: ${puzzle.englishSource})`
+              : ''
+          }</p>`
         : '';
 
   app.innerHTML = `
@@ -205,6 +235,8 @@ function render(): void {
 
     <p class="info">자모 ${puzzle.jamoCount}칸 · 음절 ${syllableCount(puzzle.word)}글자 · 기회 ${maxAttempts}번 · 음절 테두리 초록 = 해당 글자 전체 정답</p>
 
+    ${finished ? '' : originBadge}
+
     <p class="play-hint">${syllableCount(puzzle.word)}글자 단어를 입력하세요 (사전 제한 없음)</p>
 
     <section class="board" id="board" data-jamo-count="${jamos.length}" style="--jamo-count: ${jamos.length}" role="grid" aria-live="polite" tabindex="0" aria-label="자모 보드 — 탭하면 입력칸으로 이동">
@@ -229,6 +261,7 @@ function render(): void {
         ${finished ? 'disabled' : ''}
       />
       <p class="draft-preview" aria-live="polite">${draftPreviewLabel()}</p>
+      <p class="input-message" id="input-message" aria-live="polite">${inputInlineMessage}</p>
     </section>
 
     <p class="message" id="message"></p>
@@ -407,6 +440,7 @@ function resetDraft(): void {
   draftHangul = '';
   keyboardJamos = [];
   imeComposing = false;
+  inputInlineMessage = '';
 }
 
 function switchMode(mode: Mode): void {

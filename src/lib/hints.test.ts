@@ -13,6 +13,8 @@ const sample: Puzzle = {
   word: '프롬프트',
   definition: 'AI에게 지시·맥락을 전달하는 입력 문장이에요.',
   jamoCount: 9,
+  origin: 'loanword',
+  englishSource: 'prompt',
 };
 
 describe('hints', () => {

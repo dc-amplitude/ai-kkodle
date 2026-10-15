@@ -26,6 +26,15 @@ describe('puzzle seed words', () => {
       expect(jamosToHangul(jamos)).toBe(p.word);
     }
   });
+
+  it('every puzzle has origin metadata', () => {
+    for (const p of getAllPuzzles()) {
+      expect(['loanword', 'korean']).toContain(p.origin);
+      if (p.origin === 'loanword') {
+        expect(p.englishSource?.trim().length).toBeGreaterThan(0);
+      }
+    }
+  });
 });
 
 describe('practice pool', () => {

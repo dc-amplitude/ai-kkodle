@@ -2,10 +2,14 @@ import puzzles from '../../data/puzzles.json';
 import type { DifficultyTier } from '../experiment';
 import { syllableCount, wordToJamos } from './jamo';
 
+export type PuzzleOrigin = 'loanword' | 'korean';
+
 export type PuzzleEntry = {
   word: string;
   definition: string;
   date?: string;
+  origin: PuzzleOrigin;
+  englishSource?: string;
 };
 
 export type Puzzle = PuzzleEntry & {

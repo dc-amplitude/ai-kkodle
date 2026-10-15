@@ -62,6 +62,26 @@ test.describe('AI 제품 꼬들 production build', () => {
     await expect(page.locator('#btn-hint')).toContainText('1개 남음');
   });
 
+  test('shows hangul hint for plain English and converts qwerty', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+    await page.goto('./');
+    const input = page.locator('#guess-input');
+    await input.fill('12345');
+    await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
+    await expect(page.locator('#input-message')).toContainText('한글로 입력해 주세요');
+
+    await input.fill('rlghlrtj');
+    await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
+    await expect(input).toHaveValue('기획서');
+  });
+
+  test('shows origin badge during play', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+    await page.goto('./');
+    await expect(page.locator('.origin-badge')).toBeVisible();
+    await expect(page.locator('.origin-badge')).toContainText(/외래어|한국어/);
+  });
+
   test('physical keyboard hangul fill submits without length error', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');

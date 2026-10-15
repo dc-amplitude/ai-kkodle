@@ -1,121 +1,690 @@
 [
-  { "word": "프롬프트", "definition": "AI에게 지시·맥락을 전달하는 입력 문장이에요." },
-  { "word": "퍼널", "definition": "사용자가 목표까지 거치는 단계별 전환 경로예요." },
-  { "word": "리텐션", "definition": "일정 기간 후에도 사용자가 남아 있는 비율이에요." },
-  { "word": "코호트", "definition": "같은 시점·조건으로 묶어 비교하는 사용자 그룹이에요." },
-  { "word": "임베딩", "definition": "텍스트·이미지를 벡터로 바꿔 의미를 표현하는 방식이에요." },
-  { "word": "추론", "definition": "학습된 모델이 새 입력에 답을 생성하는 단계예요." },
-  { "word": "파인튜닝", "definition": "기존 모델을 특정 데이터로 추가 학습하는 과정이에요." },
-  { "word": "토큰", "definition": "모델이 처리하는 텍스트의 최소 단위 조각이에요." },
-  { "word": "컨텍스트", "definition": "답변에 필요한 주변 정보·대화 맥락을 뜻해요." },
-  { "word": "에이전트", "definition": "도구를 쓰며 목표를 스스로 수행하는 AI 프로그램이에요." },
-  { "word": "가드레일", "definition": "위험·오류를 막기 위한 안전 규칙과 제한이에요." },
-  { "word": "벤치마크", "definition": "모델·기능 성능을 표준 데이터로 비교하는 시험이에요." },
-  { "word": "플래그", "definition": "기능을 켜고 끄거나 실험군을 나누는 설정 스위치예요." },
-  { "word": "실험", "definition": "두 버전을 나눠 어떤 쪽이 더 나은지 검증하는 A/B 테스트예요." },
-  { "word": "롤아웃", "definition": "새 기능을 점진적으로 더 많은 사용자에게 배포하는 방식이에요." },
-  { "word": "온보딩", "definition": "신규 사용자가 첫 가치를 빠르게 경험하게 돕는 흐름이에요." },
-  { "word": "전환율", "definition": "한 단계에서 다음 목표 행동으로 넘어간 비율이에요." },
-  { "word": "이탈률", "definition": "특정 단계에서 사용자가 떠나는 비율을 말해요." },
-  { "word": "세그먼트", "definition": "행동·속성 기준으로 나눈 사용자 묶음이에요." },
-  { "word": "대시보드", "definition": "핵심 지표를 한 화면에서 보는 분석 패널이에요." },
-  { "word": "이벤트", "definition": "제품 안에서 사용자 행동을 기록하는 분석 단위예요." },
-  { "word": "세션", "definition": "사용자의 연속된 방문·사용 구간을 추적하는 단위예요." },
-  { "word": "퍼널분석", "definition": "단계별 이탈과 전환을 숫자로 보는 분석 방법이에요." },
-  { "word": "코호트분석", "definition": "가입 시점별 그룹의 장기 행동을 비교하는 분석이에요." },
-  { "word": "북극성", "definition": "팀이 장기적으로 맞추는 단 하나의 핵심 성과 지표예요." },
-  { "word": "백로그", "definition": "아직 하지 않은 기능·작업이 쌓여 있는 목록이에요." },
-  { "word": "스프린트", "definition": "짧은 주기로 일정 묶음을 실행하는 애자일 단위예요." },
-  { "word": "릴리스", "definition": "사용자에게 새 버전을 배포해 제공하는 행위예요." },
-  { "word": "배포", "definition": "코드·모델을 서비스 환경에 올려 적용하는 과정이에요." },
-  { "word": "스키마", "definition": "데이터·API 필드 구조를 정의한 설계도예요." },
-  { "word": "엔드포인트", "definition": "클라이언트가 호출하는 API 주소 한 곳을 말해요." },
-  { "word": "웹훅", "definition": "특정 이벤트가 생기면 외부 URL로 알려주는 콜백이에요." },
-  { "word": "벡터", "definition": "임베딩처럼 다차원 숫자 배열로 표현된 데이터예요." },
-  { "word": "검색", "definition": "질의와 가장 가까운 문서·항목을 찾아 주는 기능이에요." },
-  { "word": "추천", "definition": "사용자 취향·행동에 맞춰 다음 항목을 제안하는 기능이에요." },
-  { "word": "개인화", "definition": "사용자마다 다른 경험·콘텐츠를 보여 주는 것이에요." },
-  { "word": "리랭킹", "definition": "1차 검색 결과를 모델로 다시 정렬해 정확도를 높이는 단계예요." },
-  { "word": "오케스트레이션", "definition": "여러 모델·도구 호출 순서를 조율하는 설계예요." },
-  { "word": "레드팀", "definition": "의도적으로 취약점을 찾아 시스템을 검증하는 역할이에요." },
-  { "word": "평가", "definition": "모델 출력 품질을 점수·기준으로 측정하는 작업이에요." },
-  { "word": "트레이스", "definition": "요청이 지나간 단계별 기록으로 디버깅에 쓰여요." },
-  { "word": "옵저버", "definition": "시스템 상태·성능을 외부에서 수집·관측하는 도구예요." },
-  { "word": "스팬", "definition": "분산 추적에서 하나의 작업 구간을 나타내는 단위예요." },
-  { "word": "아티팩트", "definition": "빌드·학습 결과로 생성된 배포 가능 산출물이에요." },
-  { "word": "마이그레이션", "definition": "데이터·스키마를 새 구조로 옮기는 변경 작업이에요." },
-  { "word": "인덱스", "definition": "검색·조회 속도를 위해 미리 만들어 둔 정렬 구조예요." },
-  { "word": "페르소나", "definition": "대표 사용자 유형을 가상 인물로 정의한 프로필이에요." },
-  { "word": "스토리", "definition": "사용자 가치 관점에서 쓰는 작은 요구사항 단위예요." },
-  { "word": "피드백", "definition": "사용자 의견을 모아 제품 개선에 반영하는 루프예요." },
-  { "word": "히트맵", "definition": "클릭·스크롤이 많은 구역을 색으로 보여 주는 차트예요." },
-  { "word": "세션리플레이", "definition": "사용자 화면·입력을 다시 재생해 UX를 분석하는 기능이에요." },
-  { "word": "마스킹", "definition": "민감 입력을 녹화·로그에서 가리는 보호 설정이에요." },
-  { "word": "디플로이먼트", "definition": "실험·기능 플래그를 배포 환경에 연결하는 Amplitude 설정이에요." },
-  { "word": "퍼센타일", "definition": "값 분포에서 하위 몇 %에 해당하는지 보는 통계 지표예요." },
-  { "word": "코호트리텐션", "definition": "가입 주별로 남아 있는 사용자 비율 곡선을 말해요." },
-  { "word": "활성사용자", "definition": "일·주·월 단위로 실제로 서비스를 쓴 사용자 수예요." },
-  { "word": "노출", "definition": "실험에서 특정 변형을 보게 된 사용자·세션 수예요." },
-  { "word": "변형", "definition": "실험에서 비교하는 A/B 등 서로 다른 버전을 뜻해요." },
-  { "word": "기능플래그", "definition": "코드 배포 없이 기능을 켜고 끄는 원격 스위치예요." },
-  { "word": "프록시", "definition": "클라이언트와 서버 사이에서 요청을 중계하는 게이트예요." },
-  { "word": "레이턴시", "definition": "요청부터 응답까지 걸린 시간, 지연을 말해요." },
-  { "word": "스루풋", "definition": "단위 시간에 처리할 수 있는 요청·작업량이에요." },
-  { "word": "캐시", "definition": "자주 쓰는 결과를 임시 저장해 속도를 높이는 저장소예요." },
-  { "word": "폴백", "definition": "주 기능이 실패할 때 대체로 동작하는 안전장치예요." },
-  { "word": "샘플링", "definition": "전체 대신 일부만 기록·분석해 비용을 줄이는 방식이에요." },
-  { "word": "프라이버시", "definition": "개인정보를 수집·저장할 때 지키는 보호 원칙이에요." },
-  { "word": "동의", "definition": "추적·데이터 사용 전 사용자에게 받는 명시적 허용이에요." },
-  { "word": "퍼널스텝", "definition": "퍼널 안에서 전환을 재는 각 단계 이름이에요." },
-  { "word": "이상치", "definition": "평균에서 크게 벗어난 값으로 데이터 품질을 흔들 수 있어요." },
-  { "word": "정규화", "definition": "데이터 형식·스케일을 통일해 비교 가능하게 만드는 작업이에요." },
-  { "word": "라벨링", "definition": "학습용 데이터에 정답 태그를 붙이는 작업이에요." },
-  { "word": "할루시네이션", "definition": "모델이 사실처럼 그럴듯한 잘못된 내용을 만드는 현상이에요." },
-  { "word": "프롬프트엔지니어링", "definition": "원하는 출력을 얻도록 프롬프트를 설계·다듬는 기술이에요." },
-  { "word": "체인", "definition": "여러 프롬프트·호출을 순서대로 이어 처리하는 패턴이에요." },
-  { "word": "리트리벌", "definition": "질문과 관련 문서를 먼저 찾아 모델에 넣는 RAG 단계예요." },
-  { "word": "청크", "definition": "긴 문서를 검색·임베딩하기 위해 나눈 작은 조각이에요." },
-  { "word": "유사도", "definition": "두 벡터·문장이 의미적으로 얼마나 가까운지 나타내는 값이에요." },
-  { "word": "모델", "definition": "데이터로 학습해 예측·생성을 수행하는 AI 프로그램이에요." },
-  { "word": "파라미터", "definition": "모델 내부에서 학습으로 조정되는 가중치 값들이에요." },
-  { "word": "배치", "definition": "한 번에 묶어 GPU에 넣어 처리하는 입력 묶음이에요." },
-  { "word": "에폭", "definition": "전체 학습 데이터를 한 바퀴 도는 훈련 주기예요." },
-  { "word": "검증", "definition": "학습에 쓰지 않은 데이터로 모델 성능을 확인하는 단계예요." },
-  { "word": "오버피팅", "definition": "학습 데이터만 너무 맞춰 새 데이터 성능이 떨어지는 상태예요." },
-  { "word": "언더피팅", "definition": "모델이 너무 단순해 패턴을 충분히 못 배운 상태예요." },
-  { "word": "드리프트", "definition": "시간이 지나 데이터·사용 패턴이 바뀌는 현상을 말해요." },
-  { "word": "모니터링", "definition": "서비스·모델 지표를 계속 보고 이상을 감지하는 활동이에요." },
-  { "word": "알림", "definition": "지표가 임계값을 넘을 때 팀에 보내는 경고예요." },
-  { "word": "대기열", "definition": "처리 순서를 기다리며 쌓아 두는 작업 줄이에요." },
-  { "word": "스케일링", "definition": "트래픽에 맞춰 서버·자원을 늘리거나 줄이는 것이에요." },
-  { "word": "샌드박스", "definition": "실서비스 전 안전하게 시험하는 격리 환경이에요." },
-  { "word": "프로덕트", "definition": "사용자에게 가치를 주는 완성된 소프트웨어·서비스예요." },
-  { "word": "로드맵", "definition": "기능·목표를 시간 순으로 정리한 제품 계획표예요." },
-  { "word": "우선순위", "definition": "한정된 시간에 무엇을 먼저 만들지 정하는 순서예요." },
-  { "word": "가설", "definition": "실험·기능 전에 검증하려는 예상 문장이에요." },
-  { "word": "성공지표", "definition": "실험이 성공했는지 판단하는 측정 기준이에요." },
-  { "word": "실패지표", "definition": "실험을 중단해야 할 때 보는 가드 지표예요." },
-  { "word": "샘플크기", "definition": "통계적으로 의미 있는 결론에 필요한 데이터 양이에요." },
-  { "word": "유의성", "definition": "관찰된 차이가 우연이 아닐 가능성을 말해요." },
-  { "word": "트래픽", "definition": "서비스로 들어오는 방문·요청의 양이에요." },
-  { "word": "바이럴", "definition": "사용자 초대 등으로 급격히 퍼지는 성장 패턴이에요." },
-  { "word": "리퍼럴", "definition": "추천 링크·코드로 새 사용자를 데려오는 방식이에요." },
-  { "word": "페이월", "definition": "유료 전환 지점에서 접근을 제한하는 장치예요." },
-  { "word": "프리미엄", "definition": "유료로 제공하는 상위 기능·플랜을 말해요." },
-  { "word": "이터레이션", "definition": "만들고 배우고 고치는 짧은 제품 개선 반복이에요." },
-  { "word": "데모", "definition": "기능·지표를 보여 주기 위한 시연용 환경이에요." },
-  { "word": "주니어", "definition": "경력 초반, 기본기를 쌓는 단계의 실무자를 뜻해요." },
-  { "word": "멘토링", "definition": "경험 많은 동료가 성장을 돕는 코칭 관계예요." },
-  { "word": "문서화", "definition": "지식을 글로 남겨 팀이 같이 쓰게 만드는 작업이에요." },
-  { "word": "협업", "definition": "디자인·개발·데이터가 함께 문제를 푸는 방식이에요." },
-  { "word": "스택", "definition": "앱을 만들 때 쓰는 언어·프레임워크·도구 묶음이에요." },
-  { "word": "레거시", "definition": "오래되어 바꾸기 어렵지만 아직 돌아가는 코드·시스템이에요." },
-  { "word": "리팩터링", "definition": "동작은 유지하며 코드 구조를 깔끔히 고치는 작업이에요." },
-  { "word": "테스트", "definition": "버그를 줄이려고 자동·수동으로 동작을 검증하는 일이에요." },
-  { "word": "회귀", "definition": "고친 뒤 예전에 되던 기능이 다시 깨지는 버그예요." },
-  { "word": "핫픽스", "definition": "긴급히 작은 패치를 배포해 장애를 막는 조치예요." },
-  { "word": "인시던트", "definition": "서비스 장애·보안 사건을 기록하고 대응하는 과정이에요." },
-  { "word": "포스트모템", "definition": "사고 후 원인과 재발 방지책을 정리하는 회고예요." },
-  { "word": "슬로건", "definition": "팀·제품의 방향을 한 문장으로 표현한 말이에요." },
-  { "word": "데일리", "definition": "매일 같은 퍼즐을 푸는 이 게임의 오늘의 챌린지 모드예요.", "date": "2026-10-15" }
+  {
+    "word": "프롬프트",
+    "definition": "AI에게 지시·맥락을 전달하는 입력 문장이에요.",
+    "origin": "loanword",
+    "englishSource": "prompt"
+  },
+  {
+    "word": "퍼널",
+    "definition": "사용자가 목표까지 거치는 단계별 전환 경로예요.",
+    "origin": "loanword",
+    "englishSource": "funnel"
+  },
+  {
+    "word": "리텐션",
+    "definition": "일정 기간 후에도 사용자가 남아 있는 비율이에요.",
+    "origin": "loanword",
+    "englishSource": "retention"
+  },
+  {
+    "word": "코호트",
+    "definition": "같은 시점·조건으로 묶어 비교하는 사용자 그룹이에요.",
+    "origin": "loanword",
+    "englishSource": "cohort"
+  },
+  {
+    "word": "임베딩",
+    "definition": "텍스트·이미지를 벡터로 바꿔 의미를 표현하는 방식이에요.",
+    "origin": "loanword",
+    "englishSource": "embedding"
+  },
+  {
+    "word": "추론",
+    "definition": "학습된 모델이 새 입력에 답을 생성하는 단계예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "파인튜닝",
+    "definition": "기존 모델을 특정 데이터로 추가 학습하는 과정이에요.",
+    "origin": "loanword",
+    "englishSource": "fine-tuning"
+  },
+  {
+    "word": "토큰",
+    "definition": "모델이 처리하는 텍스트의 최소 단위 조각이에요.",
+    "origin": "loanword",
+    "englishSource": "token"
+  },
+  {
+    "word": "컨텍스트",
+    "definition": "답변에 필요한 주변 정보·대화 맥락을 뜻해요.",
+    "origin": "loanword",
+    "englishSource": "context"
+  },
+  {
+    "word": "에이전트",
+    "definition": "도구를 쓰며 목표를 스스로 수행하는 AI 프로그램이에요.",
+    "origin": "loanword",
+    "englishSource": "agent"
+  },
+  {
+    "word": "가드레일",
+    "definition": "위험·오류를 막기 위한 안전 규칙과 제한이에요.",
+    "origin": "loanword",
+    "englishSource": "guardrail"
+  },
+  {
+    "word": "벤치마크",
+    "definition": "모델·기능 성능을 표준 데이터로 비교하는 시험이에요.",
+    "origin": "loanword",
+    "englishSource": "benchmark"
+  },
+  {
+    "word": "플래그",
+    "definition": "기능을 켜고 끄거나 실험군을 나누는 설정 스위치예요.",
+    "origin": "loanword",
+    "englishSource": "flag"
+  },
+  {
+    "word": "실험",
+    "definition": "두 버전을 나눠 어떤 쪽이 더 나은지 검증하는 A/B 테스트예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "롤아웃",
+    "definition": "새 기능을 점진적으로 더 많은 사용자에게 배포하는 방식이에요.",
+    "origin": "loanword",
+    "englishSource": "rollout"
+  },
+  {
+    "word": "온보딩",
+    "definition": "신규 사용자가 첫 가치를 빠르게 경험하게 돕는 흐름이에요.",
+    "origin": "loanword",
+    "englishSource": "onboarding"
+  },
+  {
+    "word": "전환율",
+    "definition": "한 단계에서 다음 목표 행동으로 넘어간 비율이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "이탈률",
+    "definition": "특정 단계에서 사용자가 떠나는 비율을 말해요.",
+    "origin": "korean"
+  },
+  {
+    "word": "세그먼트",
+    "definition": "행동·속성 기준으로 나눈 사용자 묶음이에요.",
+    "origin": "loanword",
+    "englishSource": "segment"
+  },
+  {
+    "word": "대시보드",
+    "definition": "핵심 지표를 한 화면에서 보는 분석 패널이에요.",
+    "origin": "loanword",
+    "englishSource": "dashboard"
+  },
+  {
+    "word": "이벤트",
+    "definition": "제품 안에서 사용자 행동을 기록하는 분석 단위예요.",
+    "origin": "loanword",
+    "englishSource": "event"
+  },
+  {
+    "word": "세션",
+    "definition": "사용자의 연속된 방문·사용 구간을 추적하는 단위예요.",
+    "origin": "loanword",
+    "englishSource": "session"
+  },
+  {
+    "word": "퍼널분석",
+    "definition": "단계별 이탈과 전환을 숫자로 보는 분석 방법이에요.",
+    "origin": "loanword",
+    "englishSource": "funnel analysis"
+  },
+  {
+    "word": "코호트분석",
+    "definition": "가입 시점별 그룹의 장기 행동을 비교하는 분석이에요.",
+    "origin": "loanword",
+    "englishSource": "cohort analysis"
+  },
+  {
+    "word": "북극성",
+    "definition": "팀이 장기적으로 맞추는 단 하나의 핵심 성과 지표예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "백로그",
+    "definition": "아직 하지 않은 기능·작업이 쌓여 있는 목록이에요.",
+    "origin": "loanword",
+    "englishSource": "backlog"
+  },
+  {
+    "word": "스프린트",
+    "definition": "짧은 주기로 일정 묶음을 실행하는 애자일 단위예요.",
+    "origin": "loanword",
+    "englishSource": "sprint"
+  },
+  {
+    "word": "릴리스",
+    "definition": "사용자에게 새 버전을 배포해 제공하는 행위예요.",
+    "origin": "loanword",
+    "englishSource": "release"
+  },
+  {
+    "word": "배포",
+    "definition": "코드·모델을 서비스 환경에 올려 적용하는 과정이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "스키마",
+    "definition": "데이터·API 필드 구조를 정의한 설계도예요.",
+    "origin": "loanword",
+    "englishSource": "schema"
+  },
+  {
+    "word": "엔드포인트",
+    "definition": "클라이언트가 호출하는 API 주소 한 곳을 말해요.",
+    "origin": "loanword",
+    "englishSource": "endpoint"
+  },
+  {
+    "word": "웹훅",
+    "definition": "특정 이벤트가 생기면 외부 URL로 알려주는 콜백이에요.",
+    "origin": "loanword",
+    "englishSource": "webhook"
+  },
+  {
+    "word": "벡터",
+    "definition": "임베딩처럼 다차원 숫자 배열로 표현된 데이터예요.",
+    "origin": "loanword",
+    "englishSource": "vector"
+  },
+  {
+    "word": "검색",
+    "definition": "질의와 가장 가까운 문서·항목을 찾아 주는 기능이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "추천",
+    "definition": "사용자 취향·행동에 맞춰 다음 항목을 제안하는 기능이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "개인화",
+    "definition": "사용자마다 다른 경험·콘텐츠를 보여 주는 것이에요.",
+    "origin": "loanword",
+    "englishSource": "personalization"
+  },
+  {
+    "word": "리랭킹",
+    "definition": "1차 검색 결과를 모델로 다시 정렬해 정확도를 높이는 단계예요.",
+    "origin": "loanword",
+    "englishSource": "reranking"
+  },
+  {
+    "word": "오케스트레이션",
+    "definition": "여러 모델·도구 호출 순서를 조율하는 설계예요.",
+    "origin": "loanword",
+    "englishSource": "orchestration"
+  },
+  {
+    "word": "레드팀",
+    "definition": "의도적으로 취약점을 찾아 시스템을 검증하는 역할이에요.",
+    "origin": "loanword",
+    "englishSource": "red team"
+  },
+  {
+    "word": "평가",
+    "definition": "모델 출력 품질을 점수·기준으로 측정하는 작업이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "트레이스",
+    "definition": "요청이 지나간 단계별 기록으로 디버깅에 쓰여요.",
+    "origin": "loanword",
+    "englishSource": "trace"
+  },
+  {
+    "word": "옵저버",
+    "definition": "시스템 상태·성능을 외부에서 수집·관측하는 도구예요.",
+    "origin": "loanword",
+    "englishSource": "observer"
+  },
+  {
+    "word": "스팬",
+    "definition": "분산 추적에서 하나의 작업 구간을 나타내는 단위예요.",
+    "origin": "loanword",
+    "englishSource": "span"
+  },
+  {
+    "word": "아티팩트",
+    "definition": "빌드·학습 결과로 생성된 배포 가능 산출물이에요.",
+    "origin": "loanword",
+    "englishSource": "artifact"
+  },
+  {
+    "word": "마이그레이션",
+    "definition": "데이터·스키마를 새 구조로 옮기는 변경 작업이에요.",
+    "origin": "loanword",
+    "englishSource": "migration"
+  },
+  {
+    "word": "인덱스",
+    "definition": "검색·조회 속도를 위해 미리 만들어 둔 정렬 구조예요.",
+    "origin": "loanword",
+    "englishSource": "index"
+  },
+  {
+    "word": "페르소나",
+    "definition": "대표 사용자 유형을 가상 인물로 정의한 프로필이에요.",
+    "origin": "loanword",
+    "englishSource": "persona"
+  },
+  {
+    "word": "스토리",
+    "definition": "사용자 가치 관점에서 쓰는 작은 요구사항 단위예요.",
+    "origin": "loanword",
+    "englishSource": "user story"
+  },
+  {
+    "word": "피드백",
+    "definition": "사용자 의견을 모아 제품 개선에 반영하는 루프예요.",
+    "origin": "loanword",
+    "englishSource": "feedback"
+  },
+  {
+    "word": "히트맵",
+    "definition": "클릭·스크롤이 많은 구역을 색으로 보여 주는 차트예요.",
+    "origin": "loanword",
+    "englishSource": "heatmap"
+  },
+  {
+    "word": "세션리플레이",
+    "definition": "사용자 화면·입력을 다시 재생해 UX를 분석하는 기능이에요.",
+    "origin": "loanword",
+    "englishSource": "session replay"
+  },
+  {
+    "word": "마스킹",
+    "definition": "민감 입력을 녹화·로그에서 가리는 보호 설정이에요.",
+    "origin": "loanword",
+    "englishSource": "masking"
+  },
+  {
+    "word": "디플로이먼트",
+    "definition": "실험·기능 플래그를 배포 환경에 연결하는 Amplitude 설정이에요.",
+    "origin": "loanword",
+    "englishSource": "deployment"
+  },
+  {
+    "word": "퍼센타일",
+    "definition": "값 분포에서 하위 몇 %에 해당하는지 보는 통계 지표예요.",
+    "origin": "loanword",
+    "englishSource": "percentile"
+  },
+  {
+    "word": "코호트리텐션",
+    "definition": "가입 주별로 남아 있는 사용자 비율 곡선을 말해요.",
+    "origin": "loanword",
+    "englishSource": "cohort retention"
+  },
+  {
+    "word": "활성사용자",
+    "definition": "일·주·월 단위로 실제로 서비스를 쓴 사용자 수예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "노출",
+    "definition": "실험에서 특정 변형을 보게 된 사용자·세션 수예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "변형",
+    "definition": "실험에서 비교하는 A/B 등 서로 다른 버전을 뜻해요.",
+    "origin": "korean"
+  },
+  {
+    "word": "기능플래그",
+    "definition": "코드 배포 없이 기능을 켜고 끄는 원격 스위치예요.",
+    "origin": "loanword",
+    "englishSource": "feature flag"
+  },
+  {
+    "word": "프록시",
+    "definition": "클라이언트와 서버 사이에서 요청을 중계하는 게이트예요.",
+    "origin": "loanword",
+    "englishSource": "proxy"
+  },
+  {
+    "word": "레이턴시",
+    "definition": "요청부터 응답까지 걸린 시간, 지연을 말해요.",
+    "origin": "loanword",
+    "englishSource": "latency"
+  },
+  {
+    "word": "스루풋",
+    "definition": "단위 시간에 처리할 수 있는 요청·작업량이에요.",
+    "origin": "loanword",
+    "englishSource": "throughput"
+  },
+  {
+    "word": "캐시",
+    "definition": "자주 쓰는 결과를 임시 저장해 속도를 높이는 저장소예요.",
+    "origin": "loanword",
+    "englishSource": "cache"
+  },
+  {
+    "word": "폴백",
+    "definition": "주 기능이 실패할 때 대체로 동작하는 안전장치예요.",
+    "origin": "loanword",
+    "englishSource": "fallback"
+  },
+  {
+    "word": "샘플링",
+    "definition": "전체 대신 일부만 기록·분석해 비용을 줄이는 방식이에요.",
+    "origin": "loanword",
+    "englishSource": "sampling"
+  },
+  {
+    "word": "프라이버시",
+    "definition": "개인정보를 수집·저장할 때 지키는 보호 원칙이에요.",
+    "origin": "loanword",
+    "englishSource": "privacy"
+  },
+  {
+    "word": "동의",
+    "definition": "추적·데이터 사용 전 사용자에게 받는 명시적 허용이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "퍼널스텝",
+    "definition": "퍼널 안에서 전환을 재는 각 단계 이름이에요.",
+    "origin": "loanword",
+    "englishSource": "funnel step"
+  },
+  {
+    "word": "이상치",
+    "definition": "평균에서 크게 벗어난 값으로 데이터 품질을 흔들 수 있어요.",
+    "origin": "korean"
+  },
+  {
+    "word": "정규화",
+    "definition": "데이터 형식·스케일을 통일해 비교 가능하게 만드는 작업이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "라벨링",
+    "definition": "학습용 데이터에 정답 태그를 붙이는 작업이에요.",
+    "origin": "loanword",
+    "englishSource": "labeling"
+  },
+  {
+    "word": "할루시네이션",
+    "definition": "모델이 사실처럼 그럴듯한 잘못된 내용을 만드는 현상이에요.",
+    "origin": "loanword",
+    "englishSource": "hallucination"
+  },
+  {
+    "word": "프롬프트엔지니어링",
+    "definition": "원하는 출력을 얻도록 프롬프트를 설계·다듬는 기술이에요.",
+    "origin": "loanword",
+    "englishSource": "prompt engineering"
+  },
+  {
+    "word": "체인",
+    "definition": "여러 프롬프트·호출을 순서대로 이어 처리하는 패턴이에요.",
+    "origin": "loanword",
+    "englishSource": "chain"
+  },
+  {
+    "word": "리트리벌",
+    "definition": "질문과 관련 문서를 먼저 찾아 모델에 넣는 RAG 단계예요.",
+    "origin": "loanword",
+    "englishSource": "retrieval"
+  },
+  {
+    "word": "청크",
+    "definition": "긴 문서를 검색·임베딩하기 위해 나눈 작은 조각이에요.",
+    "origin": "loanword",
+    "englishSource": "chunk"
+  },
+  {
+    "word": "유사도",
+    "definition": "두 벡터·문장이 의미적으로 얼마나 가까운지 나타내는 값이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "모델",
+    "definition": "데이터로 학습해 예측·생성을 수행하는 AI 프로그램이에요.",
+    "origin": "loanword",
+    "englishSource": "model"
+  },
+  {
+    "word": "파라미터",
+    "definition": "모델 내부에서 학습으로 조정되는 가중치 값들이에요.",
+    "origin": "loanword",
+    "englishSource": "parameter"
+  },
+  {
+    "word": "배치",
+    "definition": "한 번에 묶어 GPU에 넣어 처리하는 입력 묶음이에요.",
+    "origin": "loanword",
+    "englishSource": "batch"
+  },
+  {
+    "word": "에폭",
+    "definition": "전체 학습 데이터를 한 바퀴 도는 훈련 주기예요.",
+    "origin": "loanword",
+    "englishSource": "epoch"
+  },
+  {
+    "word": "검증",
+    "definition": "학습에 쓰지 않은 데이터로 모델 성능을 확인하는 단계예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "오버피팅",
+    "definition": "학습 데이터만 너무 맞춰 새 데이터 성능이 떨어지는 상태예요.",
+    "origin": "loanword",
+    "englishSource": "overfitting"
+  },
+  {
+    "word": "언더피팅",
+    "definition": "모델이 너무 단순해 패턴을 충분히 못 배운 상태예요.",
+    "origin": "loanword",
+    "englishSource": "underfitting"
+  },
+  {
+    "word": "드리프트",
+    "definition": "시간이 지나 데이터·사용 패턴이 바뀌는 현상을 말해요.",
+    "origin": "loanword",
+    "englishSource": "drift"
+  },
+  {
+    "word": "모니터링",
+    "definition": "서비스·모델 지표를 계속 보고 이상을 감지하는 활동이에요.",
+    "origin": "loanword",
+    "englishSource": "monitoring"
+  },
+  {
+    "word": "알림",
+    "definition": "지표가 임계값을 넘을 때 팀에 보내는 경고예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "대기열",
+    "definition": "처리 순서를 기다리며 쌓아 두는 작업 줄이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "스케일링",
+    "definition": "트래픽에 맞춰 서버·자원을 늘리거나 줄이는 것이에요.",
+    "origin": "loanword",
+    "englishSource": "scaling"
+  },
+  {
+    "word": "샌드박스",
+    "definition": "실서비스 전 안전하게 시험하는 격리 환경이에요.",
+    "origin": "loanword",
+    "englishSource": "sandbox"
+  },
+  {
+    "word": "프로덕트",
+    "definition": "사용자에게 가치를 주는 완성된 소프트웨어·서비스예요.",
+    "origin": "loanword",
+    "englishSource": "product"
+  },
+  {
+    "word": "로드맵",
+    "definition": "기능·목표를 시간 순으로 정리한 제품 계획표예요.",
+    "origin": "loanword",
+    "englishSource": "roadmap"
+  },
+  {
+    "word": "우선순위",
+    "definition": "한정된 시간에 무엇을 먼저 만들지 정하는 순서예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "가설",
+    "definition": "실험·기능 전에 검증하려는 예상 문장이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "성공지표",
+    "definition": "실험이 성공했는지 판단하는 측정 기준이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "실패지표",
+    "definition": "실험을 중단해야 할 때 보는 가드 지표예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "샘플크기",
+    "definition": "통계적으로 의미 있는 결론에 필요한 데이터 양이에요.",
+    "origin": "loanword",
+    "englishSource": "sample size"
+  },
+  {
+    "word": "유의성",
+    "definition": "관찰된 차이가 우연이 아닐 가능성을 말해요.",
+    "origin": "korean"
+  },
+  {
+    "word": "트래픽",
+    "definition": "서비스로 들어오는 방문·요청의 양이에요.",
+    "origin": "loanword",
+    "englishSource": "traffic"
+  },
+  {
+    "word": "바이럴",
+    "definition": "사용자 초대 등으로 급격히 퍼지는 성장 패턴이에요.",
+    "origin": "loanword",
+    "englishSource": "viral"
+  },
+  {
+    "word": "리퍼럴",
+    "definition": "추천 링크·코드로 새 사용자를 데려오는 방식이에요.",
+    "origin": "loanword",
+    "englishSource": "referral"
+  },
+  {
+    "word": "페이월",
+    "definition": "유료 전환 지점에서 접근을 제한하는 장치예요.",
+    "origin": "loanword",
+    "englishSource": "paywall"
+  },
+  {
+    "word": "프리미엄",
+    "definition": "유료로 제공하는 상위 기능·플랜을 말해요.",
+    "origin": "loanword",
+    "englishSource": "premium"
+  },
+  {
+    "word": "이터레이션",
+    "definition": "만들고 배우고 고치는 짧은 제품 개선 반복이에요.",
+    "origin": "loanword",
+    "englishSource": "iteration"
+  },
+  {
+    "word": "데모",
+    "definition": "기능·지표를 보여 주기 위한 시연용 환경이에요.",
+    "origin": "loanword",
+    "englishSource": "demo"
+  },
+  {
+    "word": "주니어",
+    "definition": "경력 초반, 기본기를 쌓는 단계의 실무자를 뜻해요.",
+    "origin": "loanword",
+    "englishSource": "junior"
+  },
+  {
+    "word": "멘토링",
+    "definition": "경험 많은 동료가 성장을 돕는 코칭 관계예요.",
+    "origin": "loanword",
+    "englishSource": "mentoring"
+  },
+  {
+    "word": "문서화",
+    "definition": "지식을 글로 남겨 팀이 같이 쓰게 만드는 작업이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "협업",
+    "definition": "디자인·개발·데이터가 함께 문제를 푸는 방식이에요.",
+    "origin": "korean"
+  },
+  {
+    "word": "스택",
+    "definition": "앱을 만들 때 쓰는 언어·프레임워크·도구 묶음이에요.",
+    "origin": "loanword",
+    "englishSource": "stack"
+  },
+  {
+    "word": "레거시",
+    "definition": "오래되어 바꾸기 어렵지만 아직 돌아가는 코드·시스템이에요.",
+    "origin": "loanword",
+    "englishSource": "legacy"
+  },
+  {
+    "word": "리팩터링",
+    "definition": "동작은 유지하며 코드 구조를 깔끔히 고치는 작업이에요.",
+    "origin": "loanword",
+    "englishSource": "refactoring"
+  },
+  {
+    "word": "테스트",
+    "definition": "버그를 줄이려고 자동·수동으로 동작을 검증하는 일이에요.",
+    "origin": "loanword",
+    "englishSource": "test"
+  },
+  {
+    "word": "회귀",
+    "definition": "고친 뒤 예전에 되던 기능이 다시 깨지는 버그예요.",
+    "origin": "korean"
+  },
+  {
+    "word": "핫픽스",
+    "definition": "긴급히 작은 패치를 배포해 장애를 막는 조치예요.",
+    "origin": "loanword",
+    "englishSource": "hotfix"
+  },
+  {
+    "word": "인시던트",
+    "definition": "서비스 장애·보안 사건을 기록하고 대응하는 과정이에요.",
+    "origin": "loanword",
+    "englishSource": "incident"
+  },
+  {
+    "word": "포스트모템",
+    "definition": "사고 후 원인과 재발 방지책을 정리하는 회고예요.",
+    "origin": "loanword",
+    "englishSource": "postmortem"
+  },
+  {
+    "word": "슬로건",
+    "definition": "팀·제품의 방향을 한 문장으로 표현한 말이에요.",
+    "origin": "loanword",
+    "englishSource": "slogan"
+  },
+  {
+    "word": "데일리",
+    "definition": "매일 같은 퍼즐을 푸는 이 게임의 오늘의 챌린지 모드예요.",
+    "date": "2026-10-15",
+    "origin": "loanword",
+    "englishSource": "daily"
+  }
 ]
