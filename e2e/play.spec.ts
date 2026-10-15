@@ -22,7 +22,7 @@ test.describe('AI 제품 꼬들 production build', () => {
   test('shows board play hint with syllable count', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
-    await expect(page.locator('.play-hint')).toHaveText('3글자 단어를 입력하세요');
+    await expect(page.locator('.play-hint')).toContainText('3글자 단어를 입력하세요');
   });
 
   test('shows keyboard, input, and accepts daily word without jamo mismatch', async ({ page }) => {

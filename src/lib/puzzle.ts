@@ -1,5 +1,6 @@
 import puzzles from '../../data/puzzles.json';
-import { wordToJamos } from './jamo';
+import type { DifficultyTier } from '../experiment';
+import { syllableCount, wordToJamos } from './jamo';
 
 export type PuzzleEntry = {
   word: string;
@@ -48,8 +49,18 @@ export function getDailyPuzzle(dateStr = getSeoulDateString()): Puzzle {
   return enrich(picked, `daily-${dateStr}`);
 }
 
-export function getPracticePuzzle(seed: number): Puzzle {
+function practicePool(tier: DifficultyTier): PuzzleEntry[] {
   const pool = (puzzles as PuzzleEntry[]).filter((p) => !p.date);
+  if (tier === 'hard') return pool;
+  const short = pool.filter((p) => {
+    const n = syllableCount(p.word);
+    return n >= 2 && n <= 3;
+  });
+  return short.length > 0 ? short : pool;
+}
+
+export function getPracticePuzzle(seed: number, tier: DifficultyTier = 'normal'): Puzzle {
+  const pool = practicePool(tier);
   const index = ((seed % pool.length) + pool.length) % pool.length;
   const picked = pool[index]!;
   return enrich(picked, `practice-${seed}`);

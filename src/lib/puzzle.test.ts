@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { jamosToHangul, wordToJamos } from './jamo';
-import { getAllPuzzles, getDailyPuzzle, getSeoulDateString } from './puzzle';
+import { jamosToHangul, syllableCount, wordToJamos } from './jamo';
+import { getAllPuzzles, getDailyPuzzle, getPracticePuzzle, getSeoulDateString } from './puzzle';
 
 describe('daily puzzle', () => {
   it('returns the same puzzle for the same Seoul date', () => {
@@ -25,5 +25,23 @@ describe('puzzle seed words', () => {
       expect(p.jamoCount).toBe(jamos.length);
       expect(jamosToHangul(jamos)).toBe(p.word);
     }
+  });
+});
+
+describe('practice pool', () => {
+  it('defaults to 2-3 syllable words for easy/normal tiers', () => {
+    for (let seed = 0; seed < 20; seed++) {
+      const p = getPracticePuzzle(seed, 'normal');
+      expect(syllableCount(p.word)).toBeGreaterThanOrEqual(2);
+      expect(syllableCount(p.word)).toBeLessThanOrEqual(3);
+    }
+  });
+
+  it('hard tier can pick longer words', () => {
+    const words = new Set(
+      Array.from({ length: 120 }, (_, i) => getPracticePuzzle(i, 'hard').word),
+    );
+    const hasLong = [...words].some((w) => syllableCount(w) >= 4);
+    expect(hasLong).toBe(true);
   });
 });

@@ -1,11 +1,14 @@
 import { Experiment, type ExperimentClient } from '@amplitude/experiment-js-client';
 
+export type DifficultyTier = 'easy' | 'normal' | 'hard';
+
 export type GameFlags = {
   maxAttempts: number;
   hintAfterAttempt: number;
   shareTitle: string;
   shareSuffix: string;
   difficultyLabel: string;
+  difficultyTier: DifficultyTier;
 };
 
 const DEFAULTS: GameFlags = {
@@ -14,6 +17,7 @@ const DEFAULTS: GameFlags = {
   shareTitle: 'AI 제품 꼬들',
   shareSuffix: '주니어 PM·PO 용어 퀴즈',
   difficultyLabel: '보통',
+  difficultyTier: 'normal',
 };
 
 let flags: GameFlags = { ...DEFAULTS };
@@ -55,6 +59,12 @@ export async function initExperiments(): Promise<GameFlags> {
           : client.variant('difficulty').value === 'easy'
             ? '쉬움'
             : DEFAULTS.difficultyLabel,
+      difficultyTier:
+        client.variant('difficulty').value === 'hard'
+          ? 'hard'
+          : client.variant('difficulty').value === 'easy'
+            ? 'easy'
+            : 'normal',
     };
   } catch (e) {
     console.warn('[experiment] 플래그 로드 실패, 기본값 사용', e);

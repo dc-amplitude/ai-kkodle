@@ -94,6 +94,32 @@ const STATE_RANK: Record<JamoState, number> = {
 };
 
 /** Best Wordle-style hint per jamo key from submitted rows. */
+/** Maps each jamo column index → syllable index for a word's board layout. */
+export function jamoSyllableIndexMap(word: string): number[] {
+  const groups = disassembleToGroups(normalizeGuess(word));
+  const map: number[] = [];
+  groups.forEach((group, sylIdx) => {
+    group.forEach(() => map.push(sylIdx));
+  });
+  return map;
+}
+
+/** True when every jamo in this syllable slot is `correct` (submitted rows). */
+export function isSyllableFullyCorrect(
+  states: JamoState[] | undefined,
+  map: number[],
+  syllableIdx: number,
+): boolean {
+  if (!states?.length) return false;
+  let hasTile = false;
+  for (let i = 0; i < map.length; i++) {
+    if (map[i] !== syllableIdx) continue;
+    hasTile = true;
+    if (states[i] !== 'correct') return false;
+  }
+  return hasTile;
+}
+
 export function aggregateKeyStates(
   attempts: string[],
   statuses: JamoState[][],

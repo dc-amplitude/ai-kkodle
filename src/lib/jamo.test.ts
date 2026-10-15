@@ -3,7 +3,9 @@ import {
   aggregateKeyStates,
   evaluateGuess,
   extractHangulSyllables,
+  isSyllableFullyCorrect,
   isWin,
+  jamoSyllableIndexMap,
   jamosToHangul,
   wordToJamos,
 } from './jamo';
@@ -44,6 +46,13 @@ describe('jamo', () => {
     const states = evaluateGuess('퍼널', '터널');
     expect(states.filter((s) => s === 'correct').length).toBeGreaterThan(0);
     expect(states.some((s) => s === 'present' || s === 'absent')).toBe(true);
+  });
+
+  it('marks syllable groups fully correct', () => {
+    const map = jamoSyllableIndexMap('데일');
+    const states = evaluateGuess('데일', '데일');
+    expect(isSyllableFullyCorrect(states, map, 0)).toBe(true);
+    expect(isSyllableFullyCorrect(states, map, 1)).toBe(true);
   });
 
   it('detects win', () => {
