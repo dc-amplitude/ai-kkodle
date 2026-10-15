@@ -8,7 +8,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "puzzles:build": "node scripts/build-puzzles.mjs",
+    "content:export": "node scripts/export-terms-csv.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.1",
