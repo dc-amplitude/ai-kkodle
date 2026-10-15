@@ -16,11 +16,11 @@ describe('puzzle content quality', () => {
     }
   });
 
-  it('every entry has sources (1–2 https URLs)', () => {
+  it('every entry has sources (1–3 https URLs)', () => {
     for (const p of list) {
       expect(Array.isArray(p.sources)).toBe(true);
       expect(p.sources.length).toBeGreaterThanOrEqual(1);
-      expect(p.sources.length).toBeLessThanOrEqual(2);
+      expect(p.sources.length).toBeLessThanOrEqual(3);
       for (const url of p.sources) {
         expect(url).toMatch(/^https:\/\//);
       }

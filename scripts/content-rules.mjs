@@ -56,8 +56,8 @@ export function contentValidationErrors(entry) {
     }
   }
 
-  if (!Array.isArray(entry.sources) || entry.sources.length < 1 || entry.sources.length > 2) {
-    errors.push(`${word}: sources must be an array of 1–2 URLs`);
+  if (!Array.isArray(entry.sources) || entry.sources.length < 1 || entry.sources.length > 3) {
+    errors.push(`${word}: sources must be an array of 1–3 URLs`);
   } else {
     for (const url of entry.sources) {
       if (typeof url !== 'string' || !/^https:\/\/.+/i.test(url)) {

@@ -24,6 +24,7 @@ test.describe('AI 제품 꼬들 production build', () => {
     await page.goto('./');
     await expect(page.locator('.hint-free')).toBeVisible();
     await expect(page.locator('#btn-hint')).toBeDisabled();
+    await expect(page.locator('.definition .def-example')).toHaveCount(0);
   });
 
   test('shows board play hint with syllable count', async ({ page }) => {

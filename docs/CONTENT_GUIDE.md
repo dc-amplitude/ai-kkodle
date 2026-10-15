@@ -13,7 +13,7 @@ Editorial rules for `scripts/puzzle-catalog.mjs`, `scripts/english-catalog.mjs`,
 | `example` | Starts with **`예:`** then one **natural** sentence. |
 | `startingHint` | Free hint; **must not** contain the answer (any casing) or spoil the word. |
 | `etymology` | Only if **verifiable** from dictionaries, encyclopedias, or official naming docs. Otherwise write **`설이 있음`** or omit detail and state the documented part only. |
-| `sources` | **1–2 HTTPS URLs** used to verify meaning and etymology (Wikipedia, Wiktionary, official docs, standards). |
+| `sources` | **1–3 HTTPS URLs** used to verify meaning and etymology (Wikipedia, Wiktionary, official docs, standards). |
 
 ## Examples
 
