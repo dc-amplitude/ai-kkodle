@@ -46,10 +46,31 @@ test('mobile screenshot mid-typing 바보', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
   await typeBabo(page);
+
+  const box = await page.locator('#board-preview .tile-preview').first().boundingBox();
+  expect(box).not.toBeNull();
+  if (box) {
+    expect(box.width).toBeGreaterThanOrEqual(62);
+    expect(box.height).toBeGreaterThanOrEqual(62);
+  }
+
   await page.screenshot({
     path: testInfo.outputPath('board-mobile-mid-babo.png'),
     fullPage: false,
   });
+});
+
+test('desktop preview tiles are large squares', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('./');
+  await typeBabo(page);
+  const box = await page.locator('#board-preview .tile-preview').first().boundingBox();
+  expect(box).not.toBeNull();
+  if (box) {
+    expect(box.width).toBeGreaterThanOrEqual(76);
+    expect(box.height).toBeGreaterThanOrEqual(76);
+  }
 });
 
 test('desktop screenshot after one submitted guess', async ({ page }, testInfo) => {
