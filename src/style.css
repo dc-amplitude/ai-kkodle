@@ -164,10 +164,15 @@ h1 {
   margin-bottom: 0.65rem;
 }
 
-.howto-row .tile {
-  width: 1.85rem;
-  height: 2.1rem;
-  font-size: 0.9rem;
+.howto-row .tile-syllable {
+  width: 2.25rem;
+  font-size: 1.1rem;
+}
+
+.howto-row .tile-jamo {
+  width: 1.05rem;
+  min-width: 1.05rem;
+  font-size: 0.65rem;
 }
 
 .howto-legend {
@@ -265,6 +270,7 @@ button:disabled {
   gap: 0.35rem;
   width: 100%;
   --jamo-count: 7;
+  --syllable-count: 2;
 }
 
 .board-latin .row {
@@ -272,8 +278,11 @@ button:disabled {
 }
 
 .board-latin .tile {
+  flex: 0 1 auto;
+  width: calc((100% - 0.28rem * (var(--jamo-count) - 1)) / var(--jamo-count));
   max-width: 2.35rem;
   min-width: 1.5rem;
+  aspect-ratio: 0.88;
   font-size: clamp(0.85rem, 3.5vw, 1.05rem);
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   text-transform: uppercase;
@@ -294,26 +303,32 @@ button:disabled {
   max-width: 100%;
 }
 
-.syl-group {
-  display: inline-flex;
-  flex-wrap: nowrap;
-  gap: clamp(0.1rem, 0.6vw, 0.22rem);
-  padding: 2px;
-  border-radius: 0.4rem;
+.syllable-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.08rem, 0.5vw, 0.15rem);
+  padding: 3px;
+  border-radius: 0.55rem;
   border: 2px solid transparent;
+  flex: 0 1 auto;
+  max-width: calc((100% - 0.35rem * (var(--syllable-count) - 1)) / var(--syllable-count));
 }
 
-.syl-group.syl-correct {
+.syllable-unit.syl-correct {
   border-color: var(--correct);
   box-shadow: 0 0 0 1px rgba(61, 214, 140, 0.35);
 }
 
+.jamo-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: clamp(0.06rem, 0.45vw, 0.12rem);
+  width: 100%;
+}
+
 .tile {
-  flex: 0 1 auto;
-  width: calc((100% - 0.28rem * (var(--jamo-count) - 1)) / var(--jamo-count));
-  max-width: 2.1rem;
-  min-width: 1.22rem;
-  aspect-ratio: 0.88;
   display: grid;
   place-items: center;
   border-radius: 0.35rem;
@@ -321,8 +336,22 @@ button:disabled {
   border: 2px solid #334155;
   font-weight: 700;
   text-transform: none;
-  font-size: clamp(0.62rem, 2.8vw, 0.95rem);
   line-height: 1;
+}
+
+.tile-syllable {
+  width: min(100%, clamp(2.35rem, 14vw, 3.4rem));
+  aspect-ratio: 1;
+  font-size: clamp(1.05rem, 5.5vw, 1.85rem);
+  border-radius: 0.45rem;
+}
+
+.tile-jamo {
+  flex: 1 1 0;
+  min-width: clamp(0.72rem, 3.2vw, 1.05rem);
+  max-width: 1.35rem;
+  aspect-ratio: 0.88;
+  font-size: clamp(0.52rem, 2.4vw, 0.78rem);
 }
 
 .tile.correct {
@@ -680,10 +709,15 @@ html.device-touch .board {
   overscroll-behavior: contain;
 }
 
-html.device-touch .board .tile {
-  max-width: 1.65rem;
-  min-width: 1rem;
-  font-size: clamp(0.58rem, 2.4vw, 0.82rem);
+html.device-touch .board .tile-syllable {
+  width: min(100%, clamp(1.75rem, 11vw, 2.45rem));
+  font-size: clamp(0.88rem, 4.5vw, 1.25rem);
+}
+
+html.device-touch .board .tile-jamo {
+  min-width: 0.62rem;
+  max-width: 1rem;
+  font-size: clamp(0.46rem, 1.9vw, 0.65rem);
 }
 
 html.device-touch .input-area {
@@ -779,9 +813,14 @@ html.device-touch.native-kb-open body {
     gap: 0.15rem;
   }
 
-  html.device-touch .board .tile {
-    max-width: 1.45rem;
-    min-width: 0.92rem;
+  html.device-touch .board .tile-syllable {
+    width: min(100%, clamp(1.55rem, 10vw, 2rem));
+    font-size: clamp(0.8rem, 4vw, 1.05rem);
+  }
+
+  html.device-touch .board .tile-jamo {
+    max-width: 0.92rem;
+    min-width: 0.58rem;
   }
 
   html.device-touch .kb-key {

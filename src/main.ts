@@ -20,7 +20,6 @@ import {
   aggregatePuzzleKeyStates,
   draftUnitsToDisplay,
   evaluatePuzzleGuess,
-  extractDraftForPuzzle,
   isEnglishPuzzle,
   isWin as isWinBoard,
   unitCount,
@@ -228,23 +227,29 @@ function configureGuessInput(input: HTMLInputElement, finished: boolean): void {
   }
 }
 
-function updateBoardPreviewFromInput(raw: string): void {
-  const preview = isEn()
-    ? extractDraftForPuzzle(state.puzzle, raw)
-    : extractHangulSyllables(raw, maxSyllablesForPuzzle());
-  const previewUnits = isEn() ? [...preview.toUpperCase()] : wordToJamos(preview);
+function updateBoardPreviewFromInput(_raw: string): void {
   const activeRow = state.attempts.length;
   const row = document.querySelectorAll('.row')[activeRow];
   if (!row || state.finished) return;
-  const colCount = targetUnitCount();
-  Array.from({ length: colCount }).forEach((_, colIdx) => {
-    const tile = row.querySelectorAll('.tile')[colIdx] as HTMLElement | undefined;
-    if (!tile) return;
-    const letter = previewUnits[colIdx] ?? '';
-    tile.textContent = letter;
-    tile.className = `tile ${letter ? 'tbd' : 'empty'}`;
-    tile.dataset.state = letter ? 'tbd' : 'empty';
-  });
+  if (isEn()) {
+    const previewUnits = draftUnitsForBoard();
+    const colCount = targetUnitCount();
+    Array.from({ length: colCount }).forEach((_, colIdx) => {
+      const tile = row.querySelectorAll('.tile')[colIdx] as HTMLElement | undefined;
+      if (!tile) return;
+      const letter = previewUnits[colIdx] ?? '';
+      tile.textContent = letter ? letter.toUpperCase() : '';
+      tile.className = `tile ${letter ? 'tbd' : 'empty'}`;
+      tile.dataset.state = letter ? 'tbd' : 'empty';
+    });
+    return;
+  }
+  row.innerHTML = renderBoardRowHtml(
+    state.puzzle.word,
+    draftUnitsForBoard(),
+    undefined,
+    'tbd',
+  );
 }
 
 function render(): void {
@@ -255,6 +260,7 @@ function render(): void {
   const keyStates = aggregatePuzzleKeyStates(puzzle, attempts, statuses);
   const activeRow = attempts.length;
   const en = isEnglishPuzzle(puzzle);
+  const sylN = en ? unitsN : syllableCount(puzzle.word);
 
   const rows = Array.from({ length: maxAttempts }, (_, rowIdx) => {
     const isActive = rowIdx === activeRow && !finished;
@@ -369,7 +375,7 @@ function render(): void {
 
     <p class="play-hint">${playHintLine}</p>
 
-    <section class="${boardClass}" id="board" data-jamo-count="${unitsN}" style="--jamo-count: ${unitsN}" role="grid" aria-live="polite" tabindex="0" aria-label="${boardAria}">
+    <section class="${boardClass}" id="board" data-jamo-count="${unitsN}" data-syllable-count="${sylN}" style="--jamo-count: ${unitsN}; --syllable-count: ${sylN}" role="grid" aria-live="polite" tabindex="0" aria-label="${boardAria}">
       ${rows}
     </section>
 

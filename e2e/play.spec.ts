@@ -97,6 +97,6 @@ test.describe('AI 제품 꼬들 production build', () => {
     await input.fill('환각');
     await input.press('Enter');
     await expect(page.locator('#message')).not.toContainText('자모 길이');
-    await expect(page.locator('.row').first().locator('.tile.correct')).toHaveCount(7);
+    await expect(page.locator('.row').first().locator('.tile-jamo.correct')).toHaveCount(7);
   });
 });

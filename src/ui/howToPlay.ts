@@ -28,17 +28,26 @@ export function isHowToPlayVisible(): boolean {
 function exampleRowHtml(): string {
   return `
     <div class="howto-example" aria-hidden="true">
-      <p class="howto-example-label">예시 (정답 <strong>토큰</strong> · 추측 <strong>토끼</strong>)</p>
-      <div class="row howto-row">
-        <div class="tile absent" title="회색: 정답 단어에 없음">ㅌ</div>
-        <div class="tile correct" title="초록: 자리·자모 모두 맞음">ㅓ</div>
-        <div class="tile present" title="노랑: 단어에 있으나 다른 칸">ㄹ</div>
-        <div class="tile correct" title="초록">ㅓ</div>
-        <div class="tile present" title="노랑">ㄴ</div>
+      <p class="howto-example-label">예시 (정답 <strong>토큰</strong> 2음절 · 추측 <strong>토끼</strong>)</p>
+      <div class="row howto-row" style="--syllable-count: 2">
+        <div class="syllable-unit">
+          <div class="tile tile-syllable absent" title="1음절">토</div>
+          <div class="jamo-strip">
+            <div class="tile tile-jamo correct" title="초록">ㅌ</div>
+            <div class="tile tile-jamo correct" title="초록">ㅗ</div>
+          </div>
+        </div>
+        <div class="syllable-unit">
+          <div class="tile tile-syllable absent" title="2음절">끼</div>
+          <div class="jamo-strip">
+            <div class="tile tile-jamo present" title="노랑">ㄲ</div>
+            <div class="tile tile-jamo absent" title="회색">ㅣ</div>
+          </div>
+        </div>
       </div>
       <ul class="howto-legend">
-        <li><span class="swatch correct"></span> 초록 — 자모·위치 모두 정답</li>
-        <li><span class="swatch present"></span> 노랑 — 정답 단어에 있으나 다른 칸</li>
+        <li><span class="swatch correct"></span> 작은 칸 — 자모·위치 (Wordle 색)</li>
+        <li><span class="swatch correct"></span> 큰 칸 테두리 초록 — 해당 음절 전체 정답</li>
         <li><span class="swatch absent"></span> 회색 — 정답 단어에 없음</li>
       </ul>
     </div>`;
@@ -51,7 +60,7 @@ function modalHtml(maxAttempts: number): string {
       <ol class="howto-steps">
         <li>오늘의 <strong>AI·IT 용어</strong>를 <strong>${maxAttempts}번</strong> 안에 맞혀 보세요.</li>
         <li>한글 정답은 <strong>음절 수</strong>에 맞는 단어를 자모 키보드 또는 한글 IME로 입력합니다. <strong>영어 정답</strong> 배지가 있으면 A–Z만, QWERTY·글자 칸으로 맞힙니다.</li>
-        <li>한글은 <strong>자모 칸</strong>, 영어는 <strong>글자 칸</strong>으로 피드백이 표시됩니다. 글자 수가 다르면 제출할 수 없어요.</li>
+        <li>한글 보드는 <strong>음절마다 큰 칸</strong> 하나(입력한 글자)와 그 아래 <strong>작은 자모 칸</strong>으로 보입니다. 자모 색은 Wordle처럼, 음절 전체가 맞으면 큰 칸 테두리가 초록입니다.</li>
         <li>게임 시작 시 <strong>시작 힌트</strong>(단어를 직접 밝히지 않는 단서)가 공개됩니다. 맞히면 <strong>의미·쓰임·예문·어원</strong>을 배울 수 있어요. 💡로 자모·첫 음절 힌트를 더 받을 수 있습니다.</li>
         <li>제출 후 타일 색으로 맞춤 정도를 확인합니다. 맞히면 정답의 뜻이 공개됩니다. <strong>연습</strong> 모드는 무제한입니다.</li>
       </ol>
