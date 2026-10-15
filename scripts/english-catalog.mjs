@@ -82,7 +82,7 @@ export const ENGLISH_CATALOG = [
     usage: 'Claude 3·4 등 버전명으로 API와 앱에서 쓴다.',
     example: '예: Claude answered with a long context window.',
     startingHint: 'Anthropic의 AI 어시스턴트 이름',
-    etymology: '정보 이론가 Claude Shannon에서 이름을 따졌다고 알려짐.',
+    etymology: 'Anthropic이 정보 이론가 Claude Shannon을 기리는 이름이라 공식 소개함.',
   },
   {
     word: 'Gemini',

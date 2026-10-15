@@ -21,6 +21,7 @@ const sample: Puzzle = {
   jamoCount: 9,
   origin: 'loanword',
   englishSource: 'prompt',
+  sources: ['https://en.wiktionary.org/wiki/prompt'],
 };
 
 describe('hints', () => {

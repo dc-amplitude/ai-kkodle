@@ -57,7 +57,8 @@ npm run test:e2e # Playwright
 | `usage` | AI/IT 현장에서 어떻게 쓰이는지 |
 | `example` | `예:`로 시작하는 짧은 예문 |
 | `startingHint` | 시작 힌트 (**정답 단어·부분 문자열 포함 금지**) |
-| `etymology` | 어원 (영어·그리스·라틴·인명 등) |
+| `etymology` | 어원 (검증 가능할 때만; 불확실하면 `설이 있음`) |
+| `sources` | 의미·어원 검증용 HTTPS URL 1–2개 (`scripts/puzzle-sources.mjs`) |
 | `origin` | `loanword` \| `korean` |
 | `englishSource` | loanword일 때 영어 표기 |
 | `date` | (선택) `YYYY-MM-DD` 서울 기준 **데일리 고정일** |
@@ -66,7 +67,8 @@ npm run test:e2e # Playwright
 
 1. 한글은 `scripts/puzzle-catalog.mjs`, 영어 제품명·약어는 `scripts/english-catalog.mjs`의 배열에 추가합니다.
 2. `node scripts/build-puzzles.mjs`로 검증 후 `data/puzzles.json`을 재생성합니다.
-3. `npm test` — `puzzle-content.test.ts`가 필수 필드·게임 자기 언급·startingHint 규칙을 검사합니다.
+3. `npm test` — `puzzle-content.test.ts`가 필수 필드·sources·한글 예문·startingHint 규칙을 검사합니다.
+4. 스타일은 [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) 참고. 검수 CSV: `node scripts/export-terms-csv.mjs`.
 
 ### 특정 날짜 데일리 지정
 

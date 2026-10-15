@@ -28,6 +28,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Validate puzzle content
+        run: node scripts/build-puzzles.mjs && npm test
+
       - name: Build
         env:
           VITE_AMPLITUDE_API_KEY: ${{ secrets.VITE_AMPLITUDE_API_KEY }}

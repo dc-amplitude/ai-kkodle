@@ -21,5 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "data/puzzles.json"]
+  "include": ["src", "data/puzzles.json"],
+  "exclude": ["src/**/*.test.ts"]
 }

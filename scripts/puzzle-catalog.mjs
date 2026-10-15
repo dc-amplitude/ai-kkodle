@@ -425,7 +425,7 @@ export const PUZZLE_CATALOG = [
     usage: 'INT8, 4bit 등으로 GPU/CPU 추론 비용을 줄인다.',
     example: '예: 4bit 양자화 후 노트북에서도 돌아갔다.',
     startingHint: '숫자 자릿수를 줄여 모델을 가볍게 만들기',
-    etymology: 'quantization — quantum(양)의 양(量)과 구별되는 “양자화” 번역.',
+    etymology: '영어 quantization(양자화) — 신호·가중치를 더 적은 비트로 표현하는 기법.',
   },
   {
     word: '로라',
@@ -704,7 +704,7 @@ export const PUZZLE_CATALOG = [
     englishSource: 'stack',
     definition: '앱을 만들 때 쓰는 언어·프레임워크·DB·인프라 묶음이다.',
     usage: 'MLOps stack, web stack 등.',
-    example: '예: Python·FastAPI·Postgres 스택으로 API를 만들었다.',
+    example: '예: 백엔드·DB·배포 도구를 묶어 팀 스택 문서를 만들었다.',
     startingHint: '기술 층층이 쌓인 조합',
     etymology: 'stack(더미) — LIFO 자료구조·기술 조합 모두.',
   },
@@ -1097,4 +1097,4 @@ export const PUZZLE_CATALOG = [
   },
 ];
 
-export const GAME_BANNED_PHRASES = ['이 게임', '퍼즐', '챌린지 모드', '꼬들', 'wordle', 'Wordle'];
+export { GAME_BANNED_PHRASES } from './content-rules.mjs';

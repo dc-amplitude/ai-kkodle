@@ -18,6 +18,7 @@ export type PuzzleEntry = {
   example: string;
   startingHint: string;
   etymology: string;
+  sources: string[];
   category: PuzzleCategory;
   date?: string;
   origin: PuzzleOrigin;

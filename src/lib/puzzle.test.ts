@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { jamosToHangul, syllableCount, wordToJamos } from './jamo';
+import { wordToLetters } from './latin';
 import { getAllPuzzles, getDailyPuzzle, getPracticePuzzle, getSeoulDateString } from './puzzle';
 
 describe('daily puzzle', () => {
@@ -42,11 +43,17 @@ describe('puzzle seed words', () => {
 });
 
 describe('practice pool', () => {
-  it('defaults to 2-3 syllable words for easy/normal tiers', () => {
+  it('defaults to short words for easy/normal tiers', () => {
     for (let seed = 0; seed < 20; seed++) {
       const p = getPracticePuzzle(seed, 'normal');
-      expect(syllableCount(p.word)).toBeGreaterThanOrEqual(2);
-      expect(syllableCount(p.word)).toBeLessThanOrEqual(3);
+      if (p.script === 'en') {
+        const n = wordToLetters(p.word).length;
+        expect(n).toBeGreaterThanOrEqual(2);
+        expect(n).toBeLessThanOrEqual(6);
+      } else {
+        expect(syllableCount(p.word)).toBeGreaterThanOrEqual(2);
+        expect(syllableCount(p.word)).toBeLessThanOrEqual(3);
+      }
     }
   });
 
