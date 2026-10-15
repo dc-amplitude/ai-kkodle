@@ -34,9 +34,9 @@ describe('hints', () => {
     expect(hintMessage(3, sample)).toContain('첫 음절');
   });
 
-  it('counts remaining hints', () => {
-    expect(hintsRemaining(0)).toBe(3);
-    expect(hintsRemaining(2)).toBe(1);
-    expect(hintsRemaining(3)).toBe(0);
+  it('counts remaining paid hints (tier 1 is free)', () => {
+    expect(hintsRemaining(0)).toBe(2);
+    expect(hintsRemaining(1)).toBe(1);
+    expect(hintsRemaining(2)).toBe(0);
   });
 });

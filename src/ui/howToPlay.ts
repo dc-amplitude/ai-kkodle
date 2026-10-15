@@ -50,10 +50,10 @@ function modalHtml(maxAttempts: number): string {
       <h2 id="howto-title">게임 방법</h2>
       <ol class="howto-steps">
         <li>오늘의 <strong>AI·제품 용어</strong>를 <strong>${maxAttempts}번</strong> 안에 맞혀 보세요.</li>
-        <li>화면에 표시된 <strong>글자 수(음절)</strong>와 같은 한글 단어를 입력합니다. (아래 자모 키보드 또는 한글 IME)</li>
+        <li>화면에 표시된 <strong>글자 수(음절)</strong>와 같은 한글 단어를 입력합니다. <strong>아무 단어나 입력 가능</strong>합니다. (자모 키보드 또는 한글 IME)</li>
         <li>입력한 단어는 <strong>자모 칸</strong>으로 나뉘어 표시됩니다. 글자 수가 다르면 제출할 수 없어요.</li>
-        <li>제출 후 타일 색으로 힌트를 확인합니다.</li>
-        <li>맞히면 <strong>뜻(정의)</strong>이 공개됩니다. <strong>연습</strong> 모드에서는 단어를 바꿔가며 무제한으로 연습할 수 있어요.</li>
+        <li>게임 시작 시 <strong>뜻 힌트(시작 힌트)</strong>가 미리 공개됩니다. 💡 버튼으로 자모·첫 음절 힌트를 더 받을 수 있어요.</li>
+        <li>제출 후 타일 색으로 맞춤 정도를 확인합니다. 맞히면 정답의 뜻이 공개됩니다. <strong>연습</strong> 모드는 무제한입니다.</li>
       </ol>
       ${exampleRowHtml()}
       <button type="button" class="howto-close" id="howto-close">시작하기</button>

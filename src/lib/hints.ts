@@ -1,7 +1,10 @@
 import { wordToJamos } from './jamo';
 import type { Puzzle } from './puzzle';
 
+/** Tier 1 (definition) is free at game start; tiers 2–3 are progressive button hints. */
 export const HINT_TIER_COUNT = 3;
+export const PAID_HINT_COUNT = 2;
+export const FREE_HINT_TIER = 0 as const;
 
 export type HintTier = 1 | 2 | 3;
 
@@ -41,6 +44,11 @@ export function hintMessage(tier: HintTier, puzzle: Puzzle): string {
   }
 }
 
-export function hintsRemaining(revealed: number): number {
-  return Math.max(0, HINT_TIER_COUNT - revealed);
+/** Remaining button hints (excludes free tier-1 definition). */
+export function hintsRemaining(paidHintsRevealed: number): number {
+  return Math.max(0, PAID_HINT_COUNT - paidHintsRevealed);
+}
+
+export function paidHintTier(paidHintsRevealed: number): HintTier {
+  return (paidHintsRevealed + 1) as HintTier;
 }

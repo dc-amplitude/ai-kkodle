@@ -19,10 +19,17 @@ test.describe('AI 제품 꼬들 production build', () => {
     await page.locator('#howto-close').click();
   });
 
+  test('shows free starting hint on daily load', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
+    await page.goto('./');
+    await expect(page.locator('.hint-free')).toBeVisible();
+    await expect(page.locator('#btn-hint')).toBeDisabled();
+  });
+
   test('shows board play hint with syllable count', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
-    await expect(page.locator('.play-hint')).toContainText('3글자 단어를 입력하세요');
+    await expect(page.locator('.play-hint')).toContainText('아무 단어나 입력 가능');
   });
 
   test('shows keyboard, input, and accepts daily word without jamo mismatch', async ({ page }) => {
@@ -50,16 +57,18 @@ test.describe('AI 제품 꼬들 production build', () => {
     await expect(page.locator('.row').first().locator('.tile.correct')).not.toHaveCount(0);
   });
 
-  test('practice mode progressive hints from start', async ({ page }) => {
+  test('practice mode free definition hint and progressive hints', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
     await page.goto('./');
     await page.locator('#mode-practice').click();
+    await expect(page.locator('.hint-free')).toBeVisible();
     await expect(page.locator('#btn-hint')).toBeEnabled();
-    await page.locator('#btn-hint').click();
-    await expect(page.locator('.hint-list li')).toHaveCount(1);
+    await expect(page.locator('#btn-hint')).toContainText('2개 남음');
     await page.locator('#btn-hint').click();
     await expect(page.locator('.hint-list li')).toHaveCount(2);
-    await expect(page.locator('#btn-hint')).toContainText('1개 남음');
+    await page.locator('#btn-hint').click();
+    await expect(page.locator('.hint-list li')).toHaveCount(3);
+    await expect(page.locator('#btn-hint')).toContainText('모두 사용');
   });
 
   test('shows hangul hint for plain English and converts qwerty', async ({ page }) => {

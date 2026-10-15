@@ -31,7 +31,9 @@ npm test         # 자모·데일리 퍼즐 테스트
 
 화면 **자모 키보드**의 `ㅚ`·`ㅢ` 키는 위 규칙에 맞게 ㅗ+ㅣ, ㅡ+ㅣ 두 칸으로 입력됩니다. IME로 한글 음절을 입력해도 같은 방식으로 분해됩니다.
 
-플레이어는 **자모 칸 수를 채운 뒤 제출**하거나, **음절 수가 맞는 한글 단어**를 IME로 입력합니다. Wordle 규칙(초록/노랑/회색)은 자모 칸마다 적용됩니다.
+플레이어는 **자모 칸 수를 채운 뒤 제출**하거나, **음절 수가 맞는 한글 단어**를 IME로 입력합니다 (**아무 단어나 입력 가능**, 사전 검증 없음). Wordle 규칙(초록/노랑/회색)은 자모 칸마다 적용됩니다.
+
+**힌트:** 매 판 **시작 힌트**(용어 뜻)가 처음부터 표시됩니다. 💡 버튼으로 추가 힌트 2개(자모 위치·첫 음절)를 더 받을 수 있으며, 데일리 모드에서는 Experiment `hint_after_attempt` 이후에 추가 힌트 버튼이 열립니다.
 
 ## 게임 모드
 
@@ -72,10 +74,10 @@ Repository → Settings → Secrets and variables → Actions:
 
 | 이벤트 | 주요 properties |
 |--------|------------------|
-| `game_start` | `mode`, `puzzle_id`, `jamo_count`, `seoul_date`, `max_attempts` |
+| `game_start` | `mode`, `puzzle_id`, `jamo_count`, `seoul_date`, `max_attempts`, `starting_hint` (always `true` — free tier-1 definition) |
 | `guess_submitted` | `mode`, `attempt`, `jamo_count`, `correct_jamos` |
 | `guess_rejected` | `reason`, `mode` |
-| `hint_used` | `mode`, `hint_level` (1–3), `hints_revealed`, `after_attempt`, `flag_hint_after` |
+| `hint_used` | `mode`, `hint_level` (2–3 only; tier 1 is free at start), `paid_hints_revealed`, `after_attempt`, `flag_hint_after` |
 | `game_complete` | `mode`, `success`, `attempts`, `puzzle_id` |
 | `share_clicked` | `mode`, `success`, `attempts` |
 | `streak_day` | `streak_count`, `seoul_date`, `already_played` |

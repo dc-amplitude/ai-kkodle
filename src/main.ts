@@ -3,10 +3,9 @@ import { initAnalytics, setUserProps, track } from './analytics';
 import { exposure, getFlags, initExperiments } from './experiment';
 import { appendKeyboardJamos, hangulToKeyboardJamos, setInputAtEnd } from './lib/draft';
 import {
-  HINT_TIER_COUNT,
   hintMessage,
   hintsRemaining,
-  type HintTier,
+  paidHintTier,
 } from './lib/hints';
 import {
   aggregateKeyStates,
@@ -50,7 +49,7 @@ type GameState = {
   statuses: JamoState[][];
   finished: boolean;
   won: boolean;
-  hintsRevealed: number;
+  paidHintsRevealed: number;
   practiceSeed: number;
 };
 
@@ -68,7 +67,7 @@ function createInitialState(mode: Mode, practiceSeed: number): GameState {
     statuses: [],
     finished: false,
     won: false,
-    hintsRevealed: 0,
+    paidHintsRevealed: 0,
     practiceSeed,
   };
 }
@@ -176,20 +175,25 @@ function render(): void {
 
   const hintsUnlocked =
     mode === 'practice' || attempts.length >= flags.hintAfterAttempt || finished;
-  const remaining = hintsRemaining(state.hintsRevealed);
+  const remaining = hintsRemaining(state.paidHintsRevealed);
   const hintButtonLabel =
     remaining > 0 ? `힌트 (${remaining}개 남음)` : '힌트 모두 사용함';
   const hintLockNote =
     !hintsUnlocked && !finished
-      ? `<p class="hint-lock">${flags.hintAfterAttempt}번째 시도부터 힌트를 쓸 수 있어요.</p>`
+      ? `<p class="hint-lock">${flags.hintAfterAttempt}번째 시도부터 추가 힌트를 쓸 수 있어요. (뜻 힌트는 처음부터 제공)</p>`
       : '';
-  const revealedHints =
-    state.hintsRevealed > 0
-      ? `<ul class="hint-list">${Array.from({ length: state.hintsRevealed }, (_, i) => {
-          const tier = (i + 1) as HintTier;
-          return `<li><span class="hint-tier">힌트 ${tier}</span> ${hintMessage(tier, puzzle)}</li>`;
-        }).join('')}</ul>`
-      : '';
+  const paidHintItems = Array.from({ length: state.paidHintsRevealed }, (_, i) => {
+    const tier = paidHintTier(i + 1);
+    return `<li><span class="hint-tier">힌트 ${tier}</span> ${hintMessage(tier, puzzle)}</li>`;
+  }).join('');
+  const revealedHints = finished
+    ? paidHintItems
+      ? `<ul class="hint-list">${paidHintItems}</ul>`
+      : ''
+    : `<ul class="hint-list">
+        <li class="hint-free"><span class="hint-tier">시작 힌트</span> ${hintMessage(1, puzzle)}</li>
+        ${paidHintItems}
+      </ul>`;
 
   const originBadge = `<p class="origin-badge">${originBadgeLabel(puzzle)}</p>`;
 
@@ -237,7 +241,7 @@ function render(): void {
 
     ${finished ? '' : originBadge}
 
-    <p class="play-hint">${syllableCount(puzzle.word)}글자 단어를 입력하세요 (사전 제한 없음)</p>
+    <p class="play-hint">${syllableCount(puzzle.word)}글자 단어를 입력하세요 (아무 단어나 입력 가능)</p>
 
     <section class="board" id="board" data-jamo-count="${jamos.length}" style="--jamo-count: ${jamos.length}" role="grid" aria-live="polite" tabindex="0" aria-label="자모 보드 — 탭하면 입력칸으로 이동">
       ${rows}
@@ -464,6 +468,7 @@ function gameStartProps(): Record<string, string | number | boolean> {
     jamo_count: state.puzzle.jamoCount,
     seoul_date: seoulToday,
     max_attempts: flags.maxAttempts,
+    starting_hint: true,
   };
 }
 
@@ -550,19 +555,23 @@ function useNextHint(): void {
     }
     return;
   }
-  if (state.hintsRevealed >= HINT_TIER_COUNT) return;
+  if (state.paidHintsRevealed >= 2) return;
 
-  const tier = (state.hintsRevealed + 1) as HintTier;
-  state.hintsRevealed = tier;
+  state.paidHintsRevealed += 1;
+  const tier = paidHintTier(state.paidHintsRevealed);
 
   track('hint_used', {
     mode: state.mode,
     hint_level: tier,
-    hints_revealed: state.hintsRevealed,
+    paid_hints_revealed: state.paidHintsRevealed,
     after_attempt: state.attempts.length,
     flag_hint_after: flags.hintAfterAttempt,
   });
-  if (state.mode === 'daily' && tier === 1 && state.attempts.length >= flags.hintAfterAttempt) {
+  if (
+    state.mode === 'daily' &&
+    state.paidHintsRevealed === 1 &&
+    state.attempts.length >= flags.hintAfterAttempt
+  ) {
     exposure('hint_after_attempt');
   }
 
@@ -595,7 +604,7 @@ function finishGame(won: boolean): void {
 function buildShareText(): string {
   const grid = state.statuses.map((s) => statesToEmoji(s)).join('\n');
   const title = flags.shareTitle;
-  const hintMark = state.hintsRevealed > 0 ? ` · 💡${state.hintsRevealed}` : '';
+  const hintMark = state.paidHintsRevealed > 0 ? ` · 💡${state.paidHintsRevealed}` : '';
   return `${title} ${seoulToday} · ${state.won ? state.attempts.length : 'X'}/${flags.maxAttempts}${hintMark}\n${grid}\n${flags.shareSuffix}`;
 }
 

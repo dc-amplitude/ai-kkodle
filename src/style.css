@@ -375,6 +375,10 @@ button:disabled {
   margin-right: 0.35rem;
 }
 
+.hint-free {
+  opacity: 0.98;
+}
+
 .input-area {
   margin: 1rem 0 0.75rem;
 }
