@@ -1,5 +1,9 @@
 import type { PuzzleEntry } from './puzzle';
 
+export function scriptBadgeLabel(entry: Pick<PuzzleEntry, 'script'>): string {
+  return entry.script === 'en' ? '영어 정답' : '한글 정답';
+}
+
 export function categoryBadgeLabel(entry: Pick<PuzzleEntry, 'category'>): string {
   return entry.category === 'ai' ? 'AI 용어' : 'IT 기초';
 }

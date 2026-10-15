@@ -8,17 +8,24 @@ import {
   paidHintTier,
 } from './lib/hints';
 import {
-  aggregateKeyStates,
-  evaluateGuess,
   extractHangulSyllables,
-  isWin,
-  jamosToHangul,
   statesToEmoji,
   syllableCount,
   wordToJamos,
   type JamoState,
 } from './lib/jamo';
+import { processEnglishInputText } from './lib/inputEnglish';
 import { processInputText } from './lib/inputLatin';
+import {
+  aggregatePuzzleKeyStates,
+  draftUnitsToDisplay,
+  evaluatePuzzleGuess,
+  extractDraftForPuzzle,
+  isEnglishPuzzle,
+  isWin as isWinBoard,
+  unitCount,
+  unitsFromGuess,
+} from './lib/playMode';
 import {
   getDailyPuzzle,
   getPracticePuzzle,
@@ -29,6 +36,7 @@ import {
   answerExplanationHtml,
   categoryBadgeLabel,
   originBadgeLabel,
+  scriptBadgeLabel,
   successDefinitionHtml,
 } from './lib/puzzleOrigin';
 import {
@@ -38,6 +46,7 @@ import {
   wasDailyPlayed,
 } from './lib/storage';
 import { renderBoardRowHtml } from './ui/board';
+import { renderLatinBoardRowHtml } from './ui/boardLatin';
 import {
   hasSeenHowToPlay,
   isHowToPlayVisible,
@@ -52,6 +61,7 @@ import {
 } from './lib/deviceInput';
 import { initMobileViewport } from './mobileViewport';
 import { jamosForKey, renderKeyboardHtml } from './ui/keyboard';
+import { renderQwertyKeyboardHtml } from './ui/keyboardQwerty';
 
 type Mode = 'daily' | 'practice';
 
@@ -85,7 +95,21 @@ function createInitialState(mode: Mode, practiceSeed: number): GameState {
   };
 }
 
-let state = createInitialState('daily', Date.now());
+function readBootParams(): { mode: Mode; practiceSeed: number } {
+  const params = new URLSearchParams(window.location.search);
+  const modeParam = params.get('mode');
+  const mode: Mode = modeParam === 'practice' ? 'practice' : 'daily';
+  const seedRaw = params.get('practiceSeed');
+  const parsed = seedRaw != null ? Number.parseInt(seedRaw, 10) : 0;
+  const practiceSeed = Number.isFinite(parsed) ? parsed : 0;
+  return { mode, practiceSeed };
+}
+
+const bootParams = readBootParams();
+/** Increments on each 「새 단어」; also used as next seed when switching to practice. */
+let practiceSeedCounter = bootParams.practiceSeed;
+
+let state = createInitialState(bootParams.mode, bootParams.practiceSeed);
 let flags = getFlags();
 const seoulToday = getSeoulDateString();
 /** Source of truth for committed Hangul (IME + keyboard). */
@@ -98,17 +122,24 @@ let handlersBound = false;
 let inputHandlersBound = false;
 let mobileGuardsBound = false;
 
+function isEn(): boolean {
+  return isEnglishPuzzle(state.puzzle);
+}
+
 function maxSyllablesForPuzzle(): number {
   return syllableCount(state.puzzle.word);
 }
 
-function targetJamoCount(): number {
-  return wordToJamos(state.puzzle.word).length;
+function targetUnitCount(): number {
+  return unitCount(state.puzzle);
 }
 
-function draftJamosForBoard(): string[] {
-  const cap = targetJamoCount();
+function draftUnitsForBoard(): string[] {
+  const cap = targetUnitCount();
   if (keyboardJamos.length) return keyboardJamos.slice(0, cap);
+  if (isEn()) {
+    return [...draftHangul.toUpperCase()].slice(0, cap);
+  }
   return wordToJamos(extractHangulSyllables(draftHangul, maxSyllablesForPuzzle()));
 }
 
@@ -119,10 +150,28 @@ function setInputInlineMessage(text: string): void {
 }
 
 function commitInputToDraft(input: HTMLInputElement): void {
+  if (isEn()) {
+    const result = processEnglishInputText(input.value, targetUnitCount());
+    if (result.rejectedHangul) {
+      track('guess_rejected', { reason: 'hangul_in_english', mode: state.mode, script: 'en' });
+      setInputInlineMessage(result.inlineMessage ?? '');
+      draftHangul = '';
+      keyboardJamos = [];
+      updateBoardPreviewFromInput('');
+      setInputAtEnd(input, '');
+      return;
+    }
+    draftHangul = result.latin;
+    keyboardJamos = [...draftHangul];
+    setInputInlineMessage('');
+    if (draftHangul !== input.value) setInputAtEnd(input, draftHangul);
+    return;
+  }
+
   const result = processInputText(input.value, maxSyllablesForPuzzle());
 
   if (result.rejectedNonHangul) {
-    track('guess_rejected', { reason: 'non_hangul', mode: state.mode });
+    track('guess_rejected', { reason: 'non_hangul', mode: state.mode, script: 'ko' });
     setInputInlineMessage(result.inlineMessage ?? '');
     draftHangul = '';
     keyboardJamos = [];
@@ -141,9 +190,10 @@ function commitInputToDraft(input: HTMLInputElement): void {
 
 /** Live keyboard path: keep es-hangul assemble output (may include in-progress jamo). */
 function syncDraftFromKeyboard(): void {
-  const cap = targetJamoCount();
-  const jamos = keyboardJamos.slice(0, cap);
-  draftHangul = jamos.length ? jamosToHangul(jamos) : '';
+  const cap = targetUnitCount();
+  const units = keyboardJamos.slice(0, cap);
+  draftHangul = draftUnitsToDisplay(state.puzzle, units);
+  if (isEn()) keyboardJamos = [...draftHangul];
 }
 
 function focusGuessInput(): void {
@@ -167,19 +217,30 @@ function configureGuessInput(input: HTMLInputElement, finished: boolean): void {
     input.inputMode = 'text';
     input.removeAttribute('aria-readonly');
   }
+  if (isEn()) {
+    input.lang = 'en';
+    input.autocapitalize = 'characters';
+    input.spellcheck = false;
+  } else {
+    input.lang = 'ko';
+    input.autocapitalize = 'off';
+    input.removeAttribute('spellcheck');
+  }
 }
 
 function updateBoardPreviewFromInput(raw: string): void {
-  const previewHangul = extractHangulSyllables(raw, maxSyllablesForPuzzle());
-  const previewJamos = wordToJamos(previewHangul);
+  const preview = isEn()
+    ? extractDraftForPuzzle(state.puzzle, raw)
+    : extractHangulSyllables(raw, maxSyllablesForPuzzle());
+  const previewUnits = isEn() ? [...preview.toUpperCase()] : wordToJamos(preview);
   const activeRow = state.attempts.length;
   const row = document.querySelectorAll('.row')[activeRow];
   if (!row || state.finished) return;
-  const jamos = wordToJamos(state.puzzle.word);
-  jamos.forEach((_, colIdx) => {
+  const colCount = targetUnitCount();
+  Array.from({ length: colCount }).forEach((_, colIdx) => {
     const tile = row.querySelectorAll('.tile')[colIdx] as HTMLElement | undefined;
     if (!tile) return;
-    const letter = previewJamos[colIdx] ?? '';
+    const letter = previewUnits[colIdx] ?? '';
     tile.textContent = letter;
     tile.className = `tile ${letter ? 'tbd' : 'empty'}`;
     tile.dataset.state = letter ? 'tbd' : 'empty';
@@ -189,19 +250,27 @@ function updateBoardPreviewFromInput(raw: string): void {
 function render(): void {
   const { puzzle, attempts, statuses, finished, won, mode } = state;
   const maxAttempts = flags.maxAttempts;
-  const jamos = wordToJamos(puzzle.word);
+  const unitsN = targetUnitCount();
   const streak = loadStreak();
-  const keyStates = aggregateKeyStates(attempts, statuses);
+  const keyStates = aggregatePuzzleKeyStates(puzzle, attempts, statuses);
   const activeRow = attempts.length;
+  const en = isEnglishPuzzle(puzzle);
 
   const rows = Array.from({ length: maxAttempts }, (_, rowIdx) => {
     const isActive = rowIdx === activeRow && !finished;
     const guess = attempts[rowIdx] ?? '';
-    const rowJamos = isActive ? draftJamosForBoard() : guess ? wordToJamos(guess) : [];
+    const rowUnits = isActive
+      ? draftUnitsForBoard()
+      : guess
+        ? unitsFromGuess(puzzle, guess)
+        : [];
     const rowStates = statuses[rowIdx];
+    const rowHtml = en
+      ? renderLatinBoardRowHtml(puzzle.word, rowUnits, rowStates, isActive ? 'tbd' : 'empty')
+      : renderBoardRowHtml(puzzle.word, rowUnits, rowStates, isActive ? 'tbd' : 'empty');
     return `
       <div class="row" aria-label="${rowIdx + 1}번째 시도">
-        ${renderBoardRowHtml(puzzle.word, rowJamos, rowStates, isActive ? 'tbd' : 'empty')}
+        ${rowHtml}
       </div>`;
   }).join('');
 
@@ -227,7 +296,7 @@ function render(): void {
         ${paidHintItems}
       </ul>`;
 
-  const originBadge = `<p class="origin-badge">${categoryBadgeLabel(puzzle)} · ${originBadgeLabel(puzzle)}</p>`;
+  const originBadge = `<p class="origin-badge">${scriptBadgeLabel(puzzle)} · ${categoryBadgeLabel(puzzle)} · ${originBadgeLabel(puzzle)}</p>`;
 
   const resultLine =
     finished && won
@@ -238,12 +307,31 @@ function render(): void {
 
   const touchPrimary = isTouchPrimary();
   const onScreenKbPrimary = shouldUseOnScreenKeyboardPrimary();
+  const kbName = en ? 'QWERTY 키보드' : '자모 키보드';
   const inputHintHtml = onScreenKbPrimary
-    ? '<p class="input-hint input-hint-touch">아래 <strong>자모 키보드</strong>로 입력하세요. 휴대폰 키보드는 아래 버튼으로 켤 수 있어요.</p>'
-    : '<p class="input-hint">아래 <strong>자모 키보드</strong>를 누르거나, 이 칸에 한글 키보드(IME)로 입력하세요.</p>';
+    ? `<p class="input-hint input-hint-touch">아래 <strong>${kbName}</strong>로 입력하세요. 휴대폰 키보드는 아래 버튼으로 켤 수 있어요.</p>`
+    : en
+      ? `<p class="input-hint">아래 <strong>${kbName}</strong>를 누르거나, 이 칸에 영문 키보드로 입력하세요 (A–Z).</p>`
+      : '<p class="input-hint">아래 <strong>자모 키보드</strong>를 누르거나, 이 칸에 한글 키보드(IME)로 입력하세요.</p>';
   const mobileImeToggle = touchPrimary && !finished
-    ? `<button type="button" id="btn-mobile-ime" class="mobile-ime-toggle">${onScreenKbPrimary ? '휴대폰 키보드로 입력' : '자모 키보드로 입력'}</button>`
+    ? `<button type="button" id="btn-mobile-ime" class="mobile-ime-toggle">${onScreenKbPrimary ? '휴대폰 키보드로 입력' : `${kbName}로 입력`}</button>`
     : '';
+  const infoLine = en
+    ? `영문 ${unitsN}글자 · 기회 ${maxAttempts}번 · 대소문자 구분 없음`
+    : `자모 ${unitsN}칸 · 음절 ${syllableCount(puzzle.word)}글자 · 기회 ${maxAttempts}번 · 음절 테두리 초록 = 해당 글자 전체 정답`;
+  const playHintLine = en
+    ? `${unitsN}글자 영문 답을 입력하세요 (A–Z)`
+    : `${syllableCount(puzzle.word)}글자 단어를 입력하세요 (아무 단어나 입력 가능)`;
+  const inputLabel = en
+    ? `영문 ${unitsN}글자 맞추기`
+    : `한글 ${syllableCount(puzzle.word)}음절 · 자모 ${unitsN}칸 맞추기`;
+  const inputPlaceholder = en ? 'English answer (A–Z)' : '한글 단어 입력';
+  const boardClass = en ? 'board board-latin' : 'board';
+  const boardAria = en
+    ? '영문 보드'
+    : onScreenKbPrimary
+      ? '자모 보드'
+      : '자모 보드 — 탭하면 입력칸으로 이동';
 
   app.innerHTML = `
     <div class="game-shell">
@@ -275,20 +363,20 @@ function render(): void {
     ${hintLockNote}
     ${revealedHints}
 
-    <p class="info">자모 ${puzzle.jamoCount}칸 · 음절 ${syllableCount(puzzle.word)}글자 · 기회 ${maxAttempts}번 · 음절 테두리 초록 = 해당 글자 전체 정답</p>
+    <p class="info">${infoLine}</p>
 
     ${finished ? '' : originBadge}
 
-    <p class="play-hint">${syllableCount(puzzle.word)}글자 단어를 입력하세요 (아무 단어나 입력 가능)</p>
+    <p class="play-hint">${playHintLine}</p>
 
-    <section class="board" id="board" data-jamo-count="${jamos.length}" style="--jamo-count: ${jamos.length}" role="grid" aria-live="polite" tabindex="0" aria-label="자모 보드 — 탭하면 입력칸으로 이동">
+    <section class="${boardClass}" id="board" data-jamo-count="${unitsN}" style="--jamo-count: ${unitsN}" role="grid" aria-live="polite" tabindex="0" aria-label="${boardAria}">
       ${rows}
     </section>
 
     ${resultLine}
 
     <section class="input-area">
-      <label for="guess-input" class="input-label">한글 ${syllableCount(puzzle.word)}음절 · 자모 ${puzzle.jamoCount}칸 맞추기</label>
+      <label for="guess-input" class="input-label">${inputLabel}</label>
       ${inputHintHtml}
       ${mobileImeToggle}
       <input
@@ -300,7 +388,7 @@ function render(): void {
         inputmode="text"
         lang="ko"
         enterkeyhint="done"
-        placeholder="한글 단어 입력"
+        placeholder="${inputPlaceholder}"
         ${finished ? 'disabled' : ''}
       />
       <p class="draft-preview" aria-live="polite">${draftPreviewLabel()}</p>
@@ -309,7 +397,7 @@ function render(): void {
 
     <p class="message" id="message"></p>
 
-    ${finished ? '' : renderKeyboardHtml(keyStates)}
+    ${finished ? '' : en ? renderQwertyKeyboardHtml(keyStates) : renderKeyboardHtml(keyStates)}
     </div>
   `;
 
@@ -328,23 +416,19 @@ function render(): void {
     }
   }
 
-  const board = document.querySelector('#board');
-  if (board) {
-    board.setAttribute(
-      'aria-label',
-      onScreenKbPrimary
-        ? '자모 보드'
-        : '자모 보드 — 탭하면 입력칸으로 이동',
-    );
-  }
 }
 
 function draftPreviewLabel(): string {
-  const jamos = draftJamosForBoard();
-  const cap = targetJamoCount();
-  return jamos.length
-    ? `입력 중: ${draftHangul || '…'} (${jamos.length}/${cap} 자모)`
-    : `자모 ${jamos.length}/${cap}`;
+  const units = draftUnitsForBoard();
+  const cap = targetUnitCount();
+  if (isEn()) {
+    return units.length
+      ? `입력 중: ${draftHangul || '…'} (${units.length}/${cap} 글자)`
+      : `글자 ${units.length}/${cap}`;
+  }
+  return units.length
+    ? `입력 중: ${draftHangul || '…'} (${units.length}/${cap} 자모)`
+    : `자모 ${units.length}/${cap}`;
 }
 
 function updateDraftUi(): void {
@@ -477,6 +561,12 @@ function bindHandlers(): void {
       return;
     }
 
+    const latinKey = target.closest<HTMLButtonElement>('[data-latin-key]');
+    if (latinKey) {
+      appendLatinKey(latinKey.dataset.latinKey!);
+      return;
+    }
+
     const jamoKey = target.closest<HTMLButtonElement>('[data-jamo-key]');
     if (jamoKey) {
       appendJamoKeys(jamosForKey(jamoKey.dataset.jamoKey!));
@@ -487,6 +577,9 @@ function bindHandlers(): void {
     if (actionBtn?.dataset.action === 'backspace') {
       if (keyboardJamos.length > 0) {
         keyboardJamos = keyboardJamos.slice(0, -1);
+      } else if (isEn()) {
+        draftHangul = draftHangul.slice(0, -1);
+        keyboardJamos = [...draftHangul];
       } else {
         const syllables = [...draftHangul];
         syllables.pop();
@@ -519,9 +612,21 @@ function toggleMobileIme(): void {
   }
 }
 
+function appendLatinKey(key: string): void {
+  if (state.finished || !isEn()) return;
+  const cap = targetUnitCount();
+  if (keyboardJamos.length >= cap) return;
+  keyboardJamos = [...keyboardJamos, key.toUpperCase()];
+  draftHangul = keyboardJamos.join('');
+  const input = document.querySelector<HTMLInputElement>('#guess-input');
+  if (input) setInputAtEnd(input, draftHangul);
+  updateDraftUi();
+  if (!shouldUseOnScreenKeyboardPrimary()) focusGuessInput();
+}
+
 function appendJamoKeys(units: string[]): void {
-  if (state.finished) return;
-  keyboardJamos = appendKeyboardJamos(keyboardJamos, units, targetJamoCount());
+  if (state.finished || isEn()) return;
+  keyboardJamos = appendKeyboardJamos(keyboardJamos, units, targetUnitCount());
   syncDraftFromKeyboard();
   const input = document.querySelector<HTMLInputElement>('#guess-input');
   if (input) setInputAtEnd(input, draftHangul);
@@ -543,7 +648,8 @@ function switchMode(mode: Mode): void {
   track('mode_switched', { from: state.mode, to: mode });
   exposure('mode_switch');
   resetDraft();
-  state = createInitialState(mode, Date.now());
+  const seed = mode === 'practice' ? practiceSeedCounter : 0;
+  state = createInitialState(mode, seed);
   if (mode === 'daily') {
     track('game_start', gameStartProps());
   } else {
@@ -557,6 +663,7 @@ function gameStartProps(): Record<string, string | number | boolean> {
     mode: state.mode,
     puzzle_id: state.puzzle.id,
     jamo_count: state.puzzle.jamoCount,
+    script: state.puzzle.script,
     seoul_date: seoulToday,
     max_attempts: flags.maxAttempts,
     starting_hint: true,
@@ -577,33 +684,43 @@ function submitCurrent(): void {
   const guess = readGuessFromDraft();
 
   if (!guess) {
-    if (msg) msg.textContent = '한글 단어를 입력해 주세요.';
+    if (msg) msg.textContent = isEn() ? '영문 답을 입력해 주세요.' : '한글 단어를 입력해 주세요.';
     return;
   }
 
-  const guessJamos = wordToJamos(guess);
-  const cap = targetJamoCount();
-  if (guessJamos.length !== cap) {
+  const cap = targetUnitCount();
+  const guessUnits = unitsFromGuess(state.puzzle, guess);
+  if (guessUnits.length !== cap) {
     if (msg) {
-      msg.textContent = `글자 수는 ${maxSyllablesForPuzzle()}음절이어야 해요. (현재 ${syllableCount(guess)}음절 · 자모 ${guessJamos.length}/${cap})`;
+      msg.textContent = isEn()
+        ? `글자 수는 ${cap}자여야 해요. (현재 ${guessUnits.length}/${cap})`
+        : `글자 수는 ${maxSyllablesForPuzzle()}음절이어야 해요. (현재 ${syllableCount(guess)}음절 · 자모 ${guessUnits.length}/${cap})`;
     }
-    track('guess_rejected', { reason: 'jamo_count', mode: state.mode });
+    track('guess_rejected', {
+      reason: isEn() ? 'letter_count' : 'jamo_count',
+      mode: state.mode,
+      script: state.puzzle.script,
+    });
     return;
   }
 
-  if (syllableCount(guess) !== maxSyllablesForPuzzle()) {
+  if (!isEn() && syllableCount(guess) !== maxSyllablesForPuzzle()) {
     if (msg) {
       msg.textContent = `음절 ${maxSyllablesForPuzzle()}글자로 맞춰 주세요.`;
     }
-    track('guess_rejected', { reason: 'syllable_count', mode: state.mode });
+    track('guess_rejected', { reason: 'syllable_count', mode: state.mode, script: 'ko' });
     return;
   }
 
   let states: JamoState[];
   try {
-    states = evaluateGuess(state.puzzle.word, guess);
+    states = evaluatePuzzleGuess(state.puzzle, guess);
   } catch {
-    if (msg) msg.textContent = '자모 길이가 맞지 않아요. 한글 단어만 입력해 주세요.';
+    if (msg) {
+      msg.textContent = isEn()
+        ? '글자 수가 맞지 않아요. A–Z만 입력해 주세요.'
+        : '자모 길이가 맞지 않아요. 한글 단어만 입력해 주세요.';
+    }
     return;
   }
 
@@ -620,7 +737,7 @@ function submitCurrent(): void {
 
   if (msg) msg.textContent = '';
 
-  if (isWin(states)) {
+  if (isWinBoard(states)) {
     finishGame(true);
   } else if (state.attempts.length >= flags.maxAttempts) {
     finishGame(false);
@@ -723,7 +840,8 @@ async function shareResult(): Promise<void> {
 
 function newPracticeRound(): void {
   resetDraft();
-  state = createInitialState('practice', Date.now());
+  practiceSeedCounter += 1;
+  state = createInitialState('practice', practiceSeedCounter);
   track('game_start', { ...gameStartProps(), mode: 'practice' });
   render();
 }

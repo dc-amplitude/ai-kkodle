@@ -3,7 +3,13 @@ import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { GAME_BANNED_PHRASES, PUZZLE_CATALOG } from './puzzle-catalog.mjs';
+import { ENGLISH_CATALOG } from './english-catalog.mjs';
+import { GAME_BANNED_PHRASES, PUZZLE_CATALOG as KOREAN_CATALOG } from './puzzle-catalog.mjs';
+
+const PUZZLE_CATALOG = [
+  ...KOREAN_CATALOG.map((e) => ({ script: 'ko', ...e })),
+  ...ENGLISH_CATALOG.map((e) => ({ script: 'en', ...e })),
+];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outPath = join(__dirname, '../data/puzzles.json');
@@ -24,8 +30,18 @@ function validate(entry) {
       throw new Error(`Banned phrase in ${field} for "${entry.word}"`);
     }
   }
-  if (entry.startingHint.includes(entry.word)) {
+  const hint = entry.startingHint;
+  const word = entry.word;
+  if (hint.includes(word) || hint.toUpperCase().includes(word.toUpperCase())) {
     throw new Error(`startingHint contains answer for "${entry.word}"`);
+  }
+  if (!['ko', 'en'].includes(entry.script ?? 'ko')) {
+    throw new Error(`Invalid script for "${entry.word}"`);
+  }
+  if (entry.script === 'en') {
+    if (!/^[A-Za-z]+$/.test(entry.word)) {
+      throw new Error(`English word must be A–Z only: "${entry.word}"`);
+    }
   }
   if (!['ai', 'it-foundation'].includes(entry.category)) {
     throw new Error(`Invalid category for "${entry.word}"`);

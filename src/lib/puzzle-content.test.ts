@@ -8,6 +8,7 @@ const GAME_BANNED = ['이 게임', '퍼즐', '챌린지 모드', '꼬들', 'word
 
 const REQUIRED: (keyof PuzzleEntry)[] = [
   'word',
+  'script',
   'definition',
   'usage',
   'example',
@@ -26,6 +27,10 @@ describe('puzzle content quality', () => {
         expect(p[key], `${p.word}.${key}`).toBeTruthy();
       }
       expect(['ai', 'it-foundation']).toContain(p.category);
+      expect(['ko', 'en']).toContain(p.script);
+      if (p.script === 'en') {
+        expect(p.word).toMatch(/^[A-Za-z]+$/);
+      }
     }
   });
 

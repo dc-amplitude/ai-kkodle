@@ -1,13 +1,18 @@
 import puzzles from '../../data/puzzles.json';
 import type { DifficultyTier } from '../experiment';
-import { syllableCount, wordToJamos } from './jamo';
+import { syllableCount } from './jamo';
+import { wordToLetters } from './latin';
+import { unitCount as playUnitCount } from './playMode';
 
 export type PuzzleOrigin = 'loanword' | 'korean';
 
 export type PuzzleCategory = 'ai' | 'it-foundation';
 
+export type PuzzleScript = 'ko' | 'en';
+
 export type PuzzleEntry = {
   word: string;
+  script: PuzzleScript;
   definition: string;
   usage: string;
   example: string;
@@ -31,10 +36,12 @@ export function getSeoulDateString(at = new Date()): string {
 }
 
 function enrich(entry: PuzzleEntry, id: string): Puzzle {
+  const script = entry.script ?? 'ko';
+  const full = { ...entry, script };
   return {
-    ...entry,
+    ...full,
     id,
-    jamoCount: wordToJamos(entry.word).length,
+    jamoCount: playUnitCount(full),
   };
 }
 
@@ -64,6 +71,11 @@ function practicePool(tier: DifficultyTier): PuzzleEntry[] {
   const pool = (puzzles as PuzzleEntry[]).filter((p) => !p.date);
   if (tier === 'hard') return pool;
   const short = pool.filter((p) => {
+    const script = p.script ?? 'ko';
+    if (script === 'en') {
+      const n = wordToLetters(p.word).length;
+      return n >= 2 && n <= 6;
+    }
     const n = syllableCount(p.word);
     return n >= 2 && n <= 3;
   });

@@ -21,6 +21,10 @@ describe('daily puzzle', () => {
 describe('puzzle seed words', () => {
   it('every puzzle has consistent jamoCount and is jamo-guessable', () => {
     for (const p of getAllPuzzles()) {
+      if (p.script === 'en') {
+        expect(p.jamoCount).toBe(p.word.length);
+        continue;
+      }
       const jamos = wordToJamos(p.word);
       expect(p.jamoCount).toBe(jamos.length);
       expect(jamosToHangul(jamos)).toBe(p.word);

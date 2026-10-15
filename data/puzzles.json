@@ -1,5 +1,6 @@
 [
   {
+    "script": "ko",
     "word": "프롬프트",
     "category": "ai",
     "origin": "loanword",
@@ -11,6 +12,7 @@
     "etymology": "영어 prompt(앞세우다·촉구하다)에서 온 IT·AI 용어."
   },
   {
+    "script": "ko",
     "word": "토큰",
     "category": "ai",
     "origin": "loanword",
@@ -22,6 +24,7 @@
     "etymology": "그리스 token(징표·표식)에서 온 컴퓨터 용어."
   },
   {
+    "script": "ko",
     "word": "임베딩",
     "category": "ai",
     "origin": "loanword",
@@ -33,6 +36,7 @@
     "etymology": "영어 embed(안에 박다)에서, 벡터 공간에 “끼워 넣는다”는 뜻."
   },
   {
+    "script": "ko",
     "word": "파인튜닝",
     "category": "ai",
     "origin": "loanword",
@@ -44,6 +48,7 @@
     "etymology": "fine(미세한) + tuning(조율)의 합성어."
   },
   {
+    "script": "ko",
     "word": "추론",
     "category": "ai",
     "origin": "korean",
@@ -54,6 +59,7 @@
     "etymology": "漢字 推(밀다) + 論(논하다). 추리·연역의 한자어."
   },
   {
+    "script": "ko",
     "word": "에이전트",
     "category": "ai",
     "origin": "loanword",
@@ -65,6 +71,7 @@
     "etymology": "라틴 agere(행하다) → agent(행하는 자)."
   },
   {
+    "script": "ko",
     "word": "가드레일",
     "category": "ai",
     "origin": "loanword",
@@ -76,6 +83,7 @@
     "etymology": "영어 guard(지키다) + rail(난간)."
   },
   {
+    "script": "ko",
     "word": "벤치마크",
     "category": "ai",
     "origin": "loanword",
@@ -87,6 +95,7 @@
     "etymology": "영어 bench(작업대) + mark(표시) — 측량 기준점에서 유래."
   },
   {
+    "script": "ko",
     "word": "할루시네이션",
     "category": "ai",
     "origin": "loanword",
@@ -98,6 +107,7 @@
     "etymology": "라틴 hallucinari(헛것을 보다)에서 온 심리·AI 용어."
   },
   {
+    "script": "ko",
     "word": "환각",
     "category": "ai",
     "origin": "korean",
@@ -109,6 +119,7 @@
     "etymology": "漢字 幻(환상) + 覺(깨달음) — 원래는 감각 왜곡; AI에서는 허위 생성을 가리킨다."
   },
   {
+    "script": "ko",
     "word": "컨텍스트",
     "category": "ai",
     "origin": "loanword",
@@ -120,6 +131,7 @@
     "etymology": "라틴 con(함께) + texere(짜다) → “함께 짜인 글”."
   },
   {
+    "script": "ko",
     "word": "모델",
     "category": "ai",
     "origin": "loanword",
@@ -131,6 +143,7 @@
     "etymology": "라틴 modulus(작은 단위) → model(본보기)."
   },
   {
+    "script": "ko",
     "word": "파라미터",
     "category": "ai",
     "origin": "loanword",
@@ -142,6 +155,7 @@
     "etymology": "그리스 para(옆) + metron(측정) → “부수적 측정값”."
   },
   {
+    "script": "ko",
     "word": "배치",
     "category": "ai",
     "origin": "loanword",
@@ -153,6 +167,7 @@
     "etymology": "영어 batch(한 묶음) — 원래는 빵·세공 묶음에서."
   },
   {
+    "script": "ko",
     "word": "에폭",
     "category": "ai",
     "origin": "loanword",
@@ -164,6 +179,7 @@
     "etymology": "그리스 epokhē(시대·구간)에서 천문·학습 주기로."
   },
   {
+    "script": "ko",
     "word": "오버피팅",
     "category": "ai",
     "origin": "loanword",
@@ -175,6 +191,7 @@
     "etymology": "over(과도한) + fitting(맞춤)의 합성어."
   },
   {
+    "script": "ko",
     "word": "언더피팅",
     "category": "ai",
     "origin": "loanword",
@@ -186,6 +203,7 @@
     "etymology": "under(부족한) + fitting(맞춤)."
   },
   {
+    "script": "ko",
     "word": "드리프트",
     "category": "ai",
     "origin": "loanword",
@@ -197,6 +215,7 @@
     "etymology": "영어 drift(표류) — 통계·ML에서 분포 이동을 비유."
   },
   {
+    "script": "ko",
     "word": "라벨링",
     "category": "ai",
     "origin": "loanword",
@@ -208,6 +227,7 @@
     "etymology": "영어 label(꼬리표) + -ing."
   },
   {
+    "script": "ko",
     "word": "검증",
     "category": "ai",
     "origin": "korean",
@@ -218,6 +238,7 @@
     "etymology": "漢字 檢(검사할) + 證(증명) — 확인·입증."
   },
   {
+    "script": "ko",
     "word": "평가",
     "category": "ai",
     "origin": "korean",
@@ -228,6 +249,7 @@
     "etymology": "漢字 評(평하다) + 價(값) — 가치를 매김."
   },
   {
+    "script": "ko",
     "word": "체인",
     "category": "ai",
     "origin": "loanword",
@@ -239,6 +261,7 @@
     "etymology": "영어 chain(사슬) — chain of thought와 같은 계열."
   },
   {
+    "script": "ko",
     "word": "오케스트레이션",
     "category": "ai",
     "origin": "loanword",
@@ -250,6 +273,7 @@
     "etymology": "그리스 orchestros(합주 지휘) → orchestra."
   },
   {
+    "script": "ko",
     "word": "리트리벌",
     "category": "ai",
     "origin": "loanword",
@@ -261,6 +285,7 @@
     "etymology": "영어 retrieve(되찾다) + -al."
   },
   {
+    "script": "ko",
     "word": "리랭킹",
     "category": "ai",
     "origin": "loanword",
@@ -272,6 +297,7 @@
     "etymology": "re-(다시) + ranking(순위 매기기)."
   },
   {
+    "script": "ko",
     "word": "청크",
     "category": "ai",
     "origin": "loanword",
@@ -283,6 +309,7 @@
     "etymology": "영어 chunk(덩어리) — 원래는 나무·석탄 덩어리."
   },
   {
+    "script": "ko",
     "word": "유사도",
     "category": "ai",
     "origin": "korean",
@@ -293,6 +320,7 @@
     "etymology": "漢字 類(같을) + 似(닮을) + 度(정도)."
   },
   {
+    "script": "ko",
     "word": "프롬프트엔지니어링",
     "category": "ai",
     "origin": "loanword",
@@ -304,6 +332,7 @@
     "etymology": "prompt + engineering(공학) — 2020년대 생성 AI와 함께 부상."
   },
   {
+    "script": "ko",
     "word": "레드팀",
     "category": "ai",
     "origin": "loanword",
@@ -315,6 +344,7 @@
     "etymology": "군사 훈련의 red team(적팀) / blue team(아군)에서."
   },
   {
+    "script": "ko",
     "word": "머신러닝",
     "category": "ai",
     "origin": "loanword",
@@ -326,6 +356,7 @@
     "etymology": "machine(기계) + learning(학습) — 1959년대 Samuel 등."
   },
   {
+    "script": "ko",
     "word": "딥러닝",
     "category": "ai",
     "origin": "loanword",
@@ -337,6 +368,7 @@
     "etymology": "deep(깊은) + learning — 다층 perceptron 부활에서."
   },
   {
+    "script": "ko",
     "word": "신경망",
     "category": "ai",
     "origin": "korean",
@@ -347,6 +379,7 @@
     "etymology": "neural network의 번역; neural은 nerve(신경)에서."
   },
   {
+    "script": "ko",
     "word": "트랜스포머",
     "category": "ai",
     "origin": "loanword",
@@ -358,6 +391,7 @@
     "etymology": "영어 transform(변환) + -er — “Attention Is All You Need”."
   },
   {
+    "script": "ko",
     "word": "어텐션",
     "category": "ai",
     "origin": "loanword",
@@ -369,6 +403,7 @@
     "etymology": "라틴 attendere(기울이다) → attention."
   },
   {
+    "script": "ko",
     "word": "생성형",
     "category": "ai",
     "origin": "korean",
@@ -379,6 +414,7 @@
     "etymology": "generative(생성하는)의 한국어 표현."
   },
   {
+    "script": "ko",
     "word": "멀티모달",
     "category": "ai",
     "origin": "loanword",
@@ -390,6 +426,7 @@
     "etymology": "multi(여러) + modal(양식·모드)."
   },
   {
+    "script": "ko",
     "word": "사전학습",
     "category": "ai",
     "origin": "korean",
@@ -400,6 +437,7 @@
     "etymology": "pre-(미리) + training(학습)의 개념 번역."
   },
   {
+    "script": "ko",
     "word": "증류",
     "category": "ai",
     "origin": "korean",
@@ -410,6 +448,7 @@
     "etymology": "distillation(증류) — 화학 증류를 knowledge transfer에 비유."
   },
   {
+    "script": "ko",
     "word": "양자화",
     "category": "ai",
     "origin": "korean",
@@ -420,6 +459,7 @@
     "etymology": "quantization — quantum(양)의 양(量)과 구별되는 “양자화” 번역."
   },
   {
+    "script": "ko",
     "word": "로라",
     "category": "ai",
     "origin": "loanword",
@@ -431,6 +471,7 @@
     "etymology": "Low-Rank Adaptation — Hu et al. 2021."
   },
   {
+    "script": "ko",
     "word": "데이터셋",
     "category": "ai",
     "origin": "loanword",
@@ -442,6 +483,7 @@
     "etymology": "data(데이터) + set(집합)."
   },
   {
+    "script": "ko",
     "word": "역전파",
     "category": "ai",
     "origin": "korean",
@@ -452,6 +494,7 @@
     "etymology": "backpropagation — back(뒤) + propagation(전파)."
   },
   {
+    "script": "ko",
     "word": "샘플링",
     "category": "ai",
     "origin": "loanword",
@@ -463,6 +506,7 @@
     "etymology": "sample(견본) + -ing — 통계·생성 공통."
   },
   {
+    "script": "ko",
     "word": "온도",
     "category": "ai",
     "origin": "korean",
@@ -473,6 +517,7 @@
     "etymology": "statistical mechanics temperature 비유에서 차용."
   },
   {
+    "script": "ko",
     "word": "검색증강",
     "category": "ai",
     "origin": "korean",
@@ -483,6 +528,7 @@
     "etymology": "Retrieval-Augmented Generation의 직역·약칭 RAG."
   },
   {
+    "script": "ko",
     "word": "개인화",
     "category": "ai",
     "origin": "loanword",
@@ -494,6 +540,7 @@
     "etymology": "personal(개인) + -ization."
   },
   {
+    "script": "ko",
     "word": "추천",
     "category": "ai",
     "origin": "korean",
@@ -504,6 +551,7 @@
     "etymology": "recommendation의 개념; 推(밀) + 薦(천)."
   },
   {
+    "script": "ko",
     "word": "파운데이션",
     "category": "ai",
     "origin": "loanword",
@@ -515,6 +563,7 @@
     "etymology": "foundation(기초) + model — Stanford CRFM 2021."
   },
   {
+    "script": "ko",
     "word": "알고리즘",
     "category": "it-foundation",
     "origin": "loanword",
@@ -526,6 +575,7 @@
     "etymology": "9세기 페르시아 수학자 al-Khwārizmī(알호와리즈미) 이름에서."
   },
   {
+    "script": "ko",
     "word": "서버",
     "category": "it-foundation",
     "origin": "loanword",
@@ -537,6 +587,7 @@
     "etymology": "serve(섬기다) + -er — “요청을 받는 자”."
   },
   {
+    "script": "ko",
     "word": "클라우드",
     "category": "it-foundation",
     "origin": "loanword",
@@ -548,6 +599,7 @@
     "etymology": "네트워크 다이어그램의 구름(cloud) 아이콘에서."
   },
   {
+    "script": "ko",
     "word": "데이터베이스",
     "category": "it-foundation",
     "origin": "loanword",
@@ -559,6 +611,7 @@
     "etymology": "data + base(기반) — 1960년대 IBM 등."
   },
   {
+    "script": "ko",
     "word": "스키마",
     "category": "it-foundation",
     "origin": "loanword",
@@ -570,6 +623,7 @@
     "etymology": "그리스 schēma(형태·도식)."
   },
   {
+    "script": "ko",
     "word": "쿼리",
     "category": "it-foundation",
     "origin": "loanword",
@@ -581,6 +635,7 @@
     "etymology": "라틴 quaere(묻다) → query."
   },
   {
+    "script": "ko",
     "word": "인덱스",
     "category": "it-foundation",
     "origin": "loanword",
@@ -592,6 +647,7 @@
     "etymology": "라틴 index(손가락·지시) → 목차·색인."
   },
   {
+    "script": "ko",
     "word": "엔드포인트",
     "category": "it-foundation",
     "origin": "loanword",
@@ -603,6 +659,7 @@
     "etymology": "end(끝) + point(점) — 연결의 끝단."
   },
   {
+    "script": "ko",
     "word": "웹훅",
     "category": "it-foundation",
     "origin": "loanword",
@@ -614,6 +671,7 @@
     "etymology": "web + hook(걸다) — Jeff Lindsay, 2000년대."
   },
   {
+    "script": "ko",
     "word": "벡터",
     "category": "it-foundation",
     "origin": "loanword",
@@ -625,6 +683,7 @@
     "etymology": "라틴 vector(나르는 자) — 수학·물리에서."
   },
   {
+    "script": "ko",
     "word": "캐시",
     "category": "it-foundation",
     "origin": "loanword",
@@ -636,6 +695,7 @@
     "etymology": "프랑스 cacher(숨기다) — 원래는 은신처."
   },
   {
+    "script": "ko",
     "word": "프록시",
     "category": "it-foundation",
     "origin": "loanword",
@@ -647,6 +707,7 @@
     "etymology": "라틴 procurare(돌보다) → proxy(대리)."
   },
   {
+    "script": "ko",
     "word": "레이턴시",
     "category": "it-foundation",
     "origin": "loanword",
@@ -658,6 +719,7 @@
     "etymology": "라틴 latere(숨다) → latent(잠재) → latency."
   },
   {
+    "script": "ko",
     "word": "스루풋",
     "category": "it-foundation",
     "origin": "loanword",
@@ -669,6 +731,7 @@
     "etymology": "through(통과) + put(넣다) — 공장 생산량에서."
   },
   {
+    "script": "ko",
     "word": "배포",
     "category": "it-foundation",
     "origin": "korean",
@@ -679,6 +742,7 @@
     "etymology": "deploy(전개하다)의 번역 — 군사 “전개”에서 IT로."
   },
   {
+    "script": "ko",
     "word": "컨테이너",
     "category": "it-foundation",
     "origin": "loanword",
@@ -690,6 +754,7 @@
     "etymology": "contain(담다) + -er — 화물 container에서."
   },
   {
+    "script": "ko",
     "word": "스택",
     "category": "it-foundation",
     "origin": "loanword",
@@ -701,6 +766,7 @@
     "etymology": "stack(더미) — LIFO 자료구조·기술 조합 모두."
   },
   {
+    "script": "ko",
     "word": "레거시",
     "category": "it-foundation",
     "origin": "loanword",
@@ -712,6 +778,7 @@
     "etymology": "라틴 legatus(파견) → legacy(유산)."
   },
   {
+    "script": "ko",
     "word": "리팩터링",
     "category": "it-foundation",
     "origin": "loanword",
@@ -723,6 +790,7 @@
     "etymology": "factor(인수) + re- — Beck 1990년대."
   },
   {
+    "script": "ko",
     "word": "테스트",
     "category": "it-foundation",
     "origin": "loanword",
@@ -734,6 +802,7 @@
     "etymology": "라틴 testum(도자기 그릇) → 시험."
   },
   {
+    "script": "ko",
     "word": "회귀",
     "category": "it-foundation",
     "origin": "korean",
@@ -744,6 +813,7 @@
     "etymology": "regression — 통계 “회귀”와 같은 어원, SW에서는 퇴행."
   },
   {
+    "script": "ko",
     "word": "핫픽스",
     "category": "it-foundation",
     "origin": "loanword",
@@ -755,6 +825,7 @@
     "etymology": "hot(뜨거운·긴급) + fix(고치다)."
   },
   {
+    "script": "ko",
     "word": "인시던트",
     "category": "it-foundation",
     "origin": "loanword",
@@ -766,6 +837,7 @@
     "etymology": "라틴 incidere(떨어지다·발생하다)."
   },
   {
+    "script": "ko",
     "word": "모니터링",
     "category": "it-foundation",
     "origin": "loanword",
@@ -777,6 +849,7 @@
     "etymology": "monit(경고) + -or — Latin monere(경고하다)."
   },
   {
+    "script": "ko",
     "word": "트레이스",
     "category": "it-foundation",
     "origin": "loanword",
@@ -788,6 +861,7 @@
     "etymology": "라틴 tractus(끌림) → trace."
   },
   {
+    "script": "ko",
     "word": "스팬",
     "category": "it-foundation",
     "origin": "loanword",
@@ -799,6 +873,7 @@
     "etymology": "span(범위) — 다리 span에서 “한 구간”."
   },
   {
+    "script": "ko",
     "word": "샌드박스",
     "category": "it-foundation",
     "origin": "loanword",
@@ -810,6 +885,7 @@
     "etymology": "아이들 모래 놀이 sandbox에서."
   },
   {
+    "script": "ko",
     "word": "스케일링",
     "category": "it-foundation",
     "origin": "loanword",
@@ -821,6 +897,7 @@
     "etymology": "scale(저울·크기) + -ing."
   },
   {
+    "script": "ko",
     "word": "대기열",
     "category": "it-foundation",
     "origin": "korean",
@@ -831,6 +908,7 @@
     "etymology": "queue의 번역; 待(기다릴) + 行列(줄)."
   },
   {
+    "script": "ko",
     "word": "폴백",
     "category": "it-foundation",
     "origin": "loanword",
@@ -842,6 +920,7 @@
     "etymology": "fall(떨어지다) + back — “뒤로 물러서 대안”."
   },
   {
+    "script": "ko",
     "word": "마이그레이션",
     "category": "it-foundation",
     "origin": "loanword",
@@ -853,6 +932,7 @@
     "etymology": "migrate(이주하다) — 새·옛 DB “이민”."
   },
   {
+    "script": "ko",
     "word": "기능플래그",
     "category": "it-foundation",
     "origin": "loanword",
@@ -864,6 +944,7 @@
     "etymology": "feature + flag(깃발) — “기능 표시”."
   },
   {
+    "script": "ko",
     "word": "프라이버시",
     "category": "it-foundation",
     "origin": "loanword",
@@ -875,6 +956,7 @@
     "etymology": "라틴 privatus(개인의) → private."
   },
   {
+    "script": "ko",
     "word": "암호화",
     "category": "it-foundation",
     "origin": "korean",
@@ -885,6 +967,7 @@
     "etymology": "crypto(숨기다) + graphy(쓰다) — κρυπτός."
   },
   {
+    "script": "ko",
     "word": "인증",
     "category": "it-foundation",
     "origin": "korean",
@@ -895,6 +978,7 @@
     "etymology": "authentication — auth(자) + ent(행위)."
   },
   {
+    "script": "ko",
     "word": "네트워크",
     "category": "it-foundation",
     "origin": "loanword",
@@ -906,6 +990,7 @@
     "etymology": "net(그물) + work — fisher’s net."
   },
   {
+    "script": "ko",
     "word": "프로토콜",
     "category": "it-foundation",
     "origin": "loanword",
@@ -917,6 +1002,7 @@
     "etymology": "그리스 prōtokollon(첫 페이지·절차)."
   },
   {
+    "script": "ko",
     "word": "오픈소스",
     "category": "it-foundation",
     "origin": "loanword",
@@ -928,6 +1014,7 @@
     "etymology": "open + source — OSI 1998."
   },
   {
+    "script": "ko",
     "word": "리포지토리",
     "category": "it-foundation",
     "origin": "loanword",
@@ -939,6 +1026,7 @@
     "etymology": "re-(다시) + repository(보관소) — Latin repositorium."
   },
   {
+    "script": "ko",
     "word": "병렬",
     "category": "it-foundation",
     "origin": "korean",
@@ -949,6 +1037,7 @@
     "etymology": "parallel — para(옆) + allelos(서로)."
   },
   {
+    "script": "ko",
     "word": "분산",
     "category": "it-foundation",
     "origin": "korean",
@@ -959,6 +1048,7 @@
     "etymology": "distribute(나눠 주다)의 개념."
   },
   {
+    "script": "ko",
     "word": "정규화",
     "category": "it-foundation",
     "origin": "korean",
@@ -969,6 +1059,7 @@
     "etymology": "normal(정상) + -ization."
   },
   {
+    "script": "ko",
     "word": "이상치",
     "category": "it-foundation",
     "origin": "korean",
@@ -979,6 +1070,7 @@
     "etymology": "outlier — out(밖) + lier."
   },
   {
+    "script": "ko",
     "word": "검색",
     "category": "it-foundation",
     "origin": "korean",
@@ -989,6 +1081,7 @@
     "etymology": "search — Latin circare(둘러싸다)."
   },
   {
+    "script": "ko",
     "word": "마스킹",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1000,6 +1093,7 @@
     "etymology": "mask(가면) + -ing."
   },
   {
+    "script": "ko",
     "word": "아티팩트",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1011,6 +1105,7 @@
     "etymology": "Latin arte(기술) + factum(만든 것)."
   },
   {
+    "script": "ko",
     "word": "포스트모템",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1022,6 +1117,7 @@
     "etymology": "post(후) + mortem(사망) — 의학에서 IT로."
   },
   {
+    "script": "ko",
     "word": "지피유",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1033,6 +1129,7 @@
     "etymology": "Graphics Processing Unit — 1990년대 3D 그래픽에서 범용 GPGPU로."
   },
   {
+    "script": "ko",
     "word": "에이피아이",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1044,6 +1141,7 @@
     "etymology": "Application Programming Interface — 1960–70년대."
   },
   {
+    "script": "ko",
     "word": "옵저버",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1055,6 +1153,7 @@
     "etymology": "observe(관찰) + -er."
   },
   {
+    "script": "ko",
     "word": "플래그",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1066,6 +1165,7 @@
     "etymology": "flag(깃발) — “표시하다”."
   },
   {
+    "script": "ko",
     "word": "롤아웃",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1077,6 +1177,7 @@
     "etymology": "roll(구르다) + out — “밖으로 굴려 내다”."
   },
   {
+    "script": "ko",
     "word": "코호트",
     "category": "it-foundation",
     "origin": "loanword",
@@ -1086,5 +1187,221 @@
     "example": "예: 9월 가입 코호트만 retention을 봤다.",
     "startingHint": "같은 조건으로 묶은 한 무리",
     "etymology": "Latin cohors(울타리·군단) — Roman cohort."
+  },
+  {
+    "script": "en",
+    "word": "LLM",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "LLM (Large Language Model)",
+    "definition": "대규모 언어 모델을 가리키는 약어다.",
+    "usage": "ChatGPT·Claude 같은 텍스트 AI를 논할 때 가장 흔한 줄임말이다.",
+    "example": "예: This LLM runs on 8B parameters.",
+    "startingHint": "Large Language Model의 세 글자 약어",
+    "etymology": "Large + Language + Model — 2020년대 생성 AI 붐과 함께 통용."
+  },
+  {
+    "script": "en",
+    "word": "GPU",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "GPU",
+    "definition": "그래픽·행렬 연산용 병렬 프로세서다.",
+    "usage": "AI 학습·추론에서 NVIDIA 등 GPU가 표준 하드웨어다.",
+    "example": "예: We rented eight GPUs for fine-tuning.",
+    "startingHint": "Graphics Processing Unit의 약어, AI 학습 칩",
+    "etymology": "1990년대 3D 그래픽 칩에서 GPGPU·딥러닝으로 확장."
+  },
+  {
+    "script": "en",
+    "word": "GPT",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "GPT",
+    "definition": "Generative Pre-trained Transformer 계열 모델 이름에 쓰인다.",
+    "usage": "OpenAI GPT-4 등 “미리 학습된 생성 트랜스포머” 제품군을 뜻한다.",
+    "example": "예: GPT-style models predict the next token.",
+    "startingHint": "Generative Pre-trained Transformer 줄임",
+    "etymology": "OpenAI 2018 GPT-1 논문 제목에서."
+  },
+  {
+    "script": "en",
+    "word": "RAG",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "RAG",
+    "definition": "검색으로 문서를 붙인 뒤 생성하는 AI 패턴의 약어다.",
+    "usage": "사내 wiki·PDF를 LLM에 넣을 때 RAG 파이프라인을 만든다.",
+    "example": "예: Our RAG stack uses a vector DB.",
+    "startingHint": "Retrieval-Augmented Generation의 세 글자",
+    "etymology": "Lewis et al. 2020 — retrieval + augmented generation."
+  },
+  {
+    "script": "en",
+    "word": "CUDA",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "CUDA",
+    "definition": "NVIDIA GPU에서 범용 연산을 돌리게 하는 플랫폼·API다.",
+    "usage": "PyTorch·TensorFlow가 GPU 학습에 CUDA를 사용한다.",
+    "example": "예: Install the CUDA toolkit before training.",
+    "startingHint": "NVIDIA GPU 병렬 연산 플랫폼 이름",
+    "etymology": "Compute Unified Device Architecture — NVIDIA 2006."
+  },
+  {
+    "script": "en",
+    "word": "OpenAI",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "OpenAI",
+    "definition": "ChatGPT·GPT 시리즈로 알려진 AI 연구·제품 회사다.",
+    "usage": "API·모델명·정책 논의에서 자주 등장하는 기업명이다.",
+    "example": "예: OpenAI released a new embedding model.",
+    "startingHint": "ChatGPT를 만든 샌프란시스코 AI 회사",
+    "etymology": "open(개방) + AI — 2015년 비영리로 시작, 이후 capped-profit 구조."
+  },
+  {
+    "script": "en",
+    "word": "Claude",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "Claude",
+    "definition": "Anthropic이 만든 대화형 AI 모델·어시스턴트 브랜드다.",
+    "usage": "Claude 3·4 등 버전명으로 API와 앱에서 쓴다.",
+    "example": "예: Claude answered with a long context window.",
+    "startingHint": "Anthropic의 AI 어시스턴트 이름",
+    "etymology": "정보 이론가 Claude Shannon에서 이름을 따졌다고 알려짐."
+  },
+  {
+    "script": "en",
+    "word": "Gemini",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "Gemini",
+    "definition": "Google DeepMind의 멀티모달 LLM 제품군 이름이다.",
+    "usage": "Gemini Pro·Flash 등으로 검색·앱·API에 통합된다.",
+    "example": "예: Gemini processed text and images together.",
+    "startingHint": "Google의 생성 AI 모델 브랜드",
+    "etymology": "NASA Gemini(쌍둥이) 임무에서 — “쌍”·다중 모달 비유."
+  },
+  {
+    "script": "en",
+    "word": "BERT",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "BERT",
+    "definition": "양방향 트랜스포머로 문맥 표현을 학습한 초기 LLM 계열이다.",
+    "usage": "검색·분류 파인튜닝 베이스라인으로 널리 쓰였다.",
+    "example": "예: We fine-tuned BERT for intent detection.",
+    "startingHint": "Bidirectional Encoder Representations from Transformers",
+    "etymology": "Google 2018 논문 — Transformer encoder 기반."
+  },
+  {
+    "script": "en",
+    "word": "TPU",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "TPU",
+    "definition": "Google이 설계한 AI 전용 가속 칩이다.",
+    "usage": "GCP에서 대규모 TPU pod로 학습 job을 돌린다.",
+    "example": "예: Training finished on TPU v4.",
+    "startingHint": "Tensor Processing Unit — Google AI 칩",
+    "etymology": "TensorFlow 생태계와 함께 2016년 공개."
+  },
+  {
+    "script": "en",
+    "word": "VRAM",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "VRAM",
+    "definition": "GPU에 붙은 고속 영상·연산용 메모리다.",
+    "usage": "모델 크기·batch를 VRAM 용량으로 제한한다.",
+    "example": "예: Out of VRAM — reduce batch size.",
+    "startingHint": "Video RAM — GPU 옆자리 메모리",
+    "etymology": "video + RAM; AI에서 가중치·activation 저장에 사용."
+  },
+  {
+    "script": "en",
+    "word": "TOKEN",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "token",
+    "definition": "LLM이 처리하는 텍스트 최소 단위다.",
+    "usage": "API pricing and context limits are counted in tokens.",
+    "example": "예: The prompt used 1,200 tokens.",
+    "startingHint": "Five letters — LLM billing and context unit",
+    "etymology": "Same root as Korean “토큰”; from Greek token (sign)."
+  },
+  {
+    "script": "en",
+    "word": "META",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "Meta",
+    "definition": "Facebook 모회사의 AI·메타버스 브랜드 이름이다.",
+    "usage": "Llama 모델·Ray-Ban Meta AI 등으로 AI 제품을 낸다.",
+    "example": "예: Meta open-sourced Llama 3.",
+    "startingHint": "Owns Facebook, Instagram, and Llama models",
+    "etymology": "2021년 Facebook Inc. → Meta Platforms 리브랜드."
+  },
+  {
+    "script": "en",
+    "word": "Llama",
+    "category": "ai",
+    "origin": "loanword",
+    "englishSource": "Llama",
+    "definition": "Meta가 공개한 오픈웨이트 LLM 계열 이름이다.",
+    "usage": "Llama 3·4를 로컬·클라우드에서 파인튜닝한다.",
+    "example": "예: We deployed Llama on our own GPUs.",
+    "startingHint": "Meta’s open-weight LLM animal name",
+    "etymology": "Large Language Model Meta AI — 라마 동물 이름과 맞춤."
+  },
+  {
+    "script": "en",
+    "word": "AWS",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "AWS",
+    "definition": "Amazon Web Services — 클라우드 인프라 사업부다.",
+    "usage": "SageMaker·Bedrock 등 AI 서비스를 AWS에서 호스팅한다.",
+    "example": "예: Our inference runs on AWS in us-east-1.",
+    "startingHint": "Amazon’s cloud platform three-letter name",
+    "etymology": "Amazon Web Services — 2006년 S3·EC2부터."
+  },
+  {
+    "script": "en",
+    "word": "JSON",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "JSON",
+    "definition": "키–값 데이터를 텍스트로 표현하는 표준 형식이다.",
+    "usage": "LLM API request/response body가 JSON이다.",
+    "example": "예: Parse the JSON field `choices[0].message`.",
+    "startingHint": "JavaScript Object Notation — API data format",
+    "etymology": "Douglas Crockford — JavaScript 객체 문법에서."
+  },
+  {
+    "script": "en",
+    "word": "HTTP",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "HTTP",
+    "definition": "웹·API에서 쓰는 요청–응답 프로토콜이다.",
+    "usage": "REST LLM endpoints are called over HTTPS (HTTP + TLS).",
+    "example": "예: The client sent an HTTP POST to /v1/chat.",
+    "startingHint": "HyperText Transfer Protocol — web/API transport",
+    "etymology": "Tim Berners-Lee, 1991 — WWW의 기반 프로토콜."
+  },
+  {
+    "script": "en",
+    "word": "NVIDIA",
+    "category": "it-foundation",
+    "origin": "loanword",
+    "englishSource": "NVIDIA",
+    "definition": "GPU·AI 가속 하드웨어와 CUDA로 유명한 반도체 회사다.",
+    "usage": "AI 데이터센터 대부분이 NVIDIA GPU를 사용한다.",
+    "example": "예: NVIDIA H100 supplies our training cluster.",
+    "startingHint": "Green-logo GPU company behind CUDA",
+    "etymology": "Latin invidia(질투) — logo eye; founded 1993."
   }
 ]

@@ -1,4 +1,6 @@
 import { wordToJamos } from './jamo';
+import { wordToLetters } from './latin';
+import { isEnglishPuzzle } from './playMode';
 import type { Puzzle } from './puzzle';
 
 /** Tier 1 (definition) is free at game start; tiers 2–3 are progressive button hints. */
@@ -11,9 +13,12 @@ export type HintTier = 1 | 2 | 3;
 /** Strip answer word if it ever appears in the definition text. */
 export function definitionClue(definition: string, word: string): string {
   const trimmed = definition.trim();
-  if (!trimmed) return 'AI·제품 용어입니다.';
-  if (!trimmed.includes(word)) return trimmed;
-  return trimmed.replaceAll(word, '○○').replace(/\s+/g, ' ').trim();
+  if (!trimmed) return 'AI·IT 용어입니다.';
+  let out = trimmed;
+  if (trimmed.toLowerCase().includes(word.toLowerCase())) {
+    out = trimmed.replace(new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '○○');
+  }
+  return out.replace(/\s+/g, ' ').trim();
 }
 
 export function jamoPositionClue(word: string, position = 0): { position: number; jamo: string } {
@@ -28,14 +33,24 @@ export function firstSyllableClue(word: string): string {
 }
 
 export function hintMessage(tier: HintTier, puzzle: Puzzle): string {
+  const en = isEnglishPuzzle(puzzle);
   switch (tier) {
     case 1:
       return definitionClue(puzzle.startingHint, puzzle.word);
     case 2: {
+      if (en) {
+        const letters = wordToLetters(puzzle.word);
+        const ch = letters[0]?.toUpperCase() ?? '';
+        return `1번째 글자는 「${ch}」입니다.`;
+      }
       const { position, jamo } = jamoPositionClue(puzzle.word, 0);
       return `${position}번째 자모는 「${jamo}」입니다.`;
     }
     case 3: {
+      if (en) {
+        const n = wordToLetters(puzzle.word).length;
+        return `답은 ${n}글자(알파벳)입니다.`;
+      }
       const syl = firstSyllableClue(puzzle.word);
       return `첫 음절은 「${syl}」로 시작합니다.`;
     }

@@ -17,6 +17,7 @@ const sample: Puzzle = {
   startingHint: '모델에게 무엇을 어떻게 해 달라고 적어 넣는 문장',
   etymology: '영어 prompt(앞세우다)에서.',
   category: 'ai',
+  script: 'ko',
   jamoCount: 9,
   origin: 'loanword',
   englishSource: 'prompt',

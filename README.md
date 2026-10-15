@@ -40,17 +40,18 @@ npm run test:e2e # Playwright
 | 모드 | 설명 |
 |------|------|
 | **데일리** | Asia/Seoul 달력 날짜 기준 전 세계 동일 퍼즐. `date` 필드가 있으면 해당일 우선, 없으면 앵커(2025-01-01 KST)부터 로테이션. |
-| **연습** | 무제한. 「새 단어」로 다른 시드. 기본 난이도는 **2–3음절** 단어만. |
+| **연습** | 무제한. 「새 단어」로 시드 증가. 한글 **2–3음절**, 영어 **2–6글자**. URL `?mode=practice&practiceSeed=57`로 특정 연습 퍼즐 재현 가능. |
 
 ## 퍼즐 데이터 — 형식과 추가 방법
 
-**소스:** `scripts/puzzle-catalog.mjs` (편집) → `node scripts/build-puzzles.mjs` → `data/puzzles.json` (빌드 결과)
+**소스:** `scripts/puzzle-catalog.mjs` (한글) + `scripts/english-catalog.mjs` (영어) → `node scripts/build-puzzles.mjs` → `data/puzzles.json` (빌드 결과)
 
 각 항목 필드:
 
 | 필드 | 설명 |
 |------|------|
-| `word` | 정답 한글 단어 |
+| `script` | `ko` (한글·자모 보드) \| `en` (라틴 글자·QWERTY, A–Z만) |
+| `word` | 정답 (`en`은 대소문자 무관, 저장은 보통 대문자 약어) |
 | `category` | `ai` \| `it-foundation` |
 | `definition` | 한 줄 의미 |
 | `usage` | AI/IT 현장에서 어떻게 쓰이는지 |
@@ -63,7 +64,7 @@ npm run test:e2e # Playwright
 
 ### 새 용어 추가
 
-1. `scripts/puzzle-catalog.mjs`의 `PUZZLE_CATALOG` 배열에 객체를 추가합니다.
+1. 한글은 `scripts/puzzle-catalog.mjs`, 영어 제품명·약어는 `scripts/english-catalog.mjs`의 배열에 추가합니다.
 2. `node scripts/build-puzzles.mjs`로 검증 후 `data/puzzles.json`을 재생성합니다.
 3. `npm test` — `puzzle-content.test.ts`가 필수 필드·게임 자기 언급·startingHint 규칙을 검사합니다.
 

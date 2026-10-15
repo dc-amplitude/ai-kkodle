@@ -84,6 +84,10 @@ test.describe('Korean IME composition', () => {
 
   test('keyboard jamos assemble syllables live (ㄱㅏㄴ -> 간)', async ({ page }) => {
     await page.locator('#mode-practice').click();
+    for (let i = 0; i < 80; i++) {
+      if (await page.locator('[data-jamo-key="ㄱ"]').isVisible()) break;
+      await page.locator('#btn-new').click();
+    }
     for (const key of ['ㄱ', 'ㅏ', 'ㄴ']) {
       await page.locator(`[data-jamo-key="${key}"]`).click();
     }
