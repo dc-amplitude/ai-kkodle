@@ -45,7 +45,7 @@ import {
   updateStreakOnWin,
   wasDailyPlayed,
 } from './lib/storage';
-import { hangulSyllableSlots, renderBoardRowHtml, renderSyllablePreviewHtml } from './ui/board';
+import { previewTilesFromAnswerJamos, renderBoardRowHtml, renderSyllablePreviewHtml } from './ui/board';
 import { renderLatinBoardRowHtml, renderLatinPreviewHtml } from './ui/boardLatin';
 import {
   hasSeenHowToPlay,
@@ -266,10 +266,6 @@ function userIsTyping(): boolean {
   return imeComposing || keyboardJamos.length > 0 || draftHangul.length > 0;
 }
 
-function draftTextForPreview(): string {
-  return liveBoardDisplay().hangul;
-}
-
 function buildPreviewHtml(puzzle: Puzzle, en: boolean): string {
   if (en) {
     const letters = wordToLetters(puzzle.word);
@@ -291,12 +287,15 @@ function buildPreviewHtml(puzzle: Puzzle, en: boolean): string {
 
   const slots = syllableCount(puzzle.word);
   if (userIsTyping()) {
-    const chars = hangulSyllableSlots(draftTextForPreview(), slots);
+    const chars = previewTilesFromAnswerJamos(puzzle.word, liveBoardDisplay().units);
     return renderSyllablePreviewHtml(puzzle.word, chars, undefined, 'live');
   }
   const last = state.attempts.length - 1;
   if (last >= 0) {
-    const chars = hangulSyllableSlots(state.attempts[last]!, slots);
+    const chars = previewTilesFromAnswerJamos(
+      puzzle.word,
+      unitsFromGuess(puzzle, state.attempts[last]!),
+    );
     return renderSyllablePreviewHtml(puzzle.word, chars, state.statuses[last], 'submitted');
   }
   return renderSyllablePreviewHtml(puzzle.word, Array(slots).fill(''), undefined, 'idle');

@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { groupedPreviewForDailyGuess } from './helpers/daily';
 
 async function skipHowTo(page: import('@playwright/test').Page): Promise<void> {
   await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
@@ -120,7 +121,9 @@ test.describe('Chromium CDP IME', () => {
       );
     });
     await expect(input).toHaveValue('환');
-    await expect(page.locator('#board-preview .tile-syllable').first()).toHaveText('환');
+    await expect(page.locator('#board-preview .tile-syllable').first()).toHaveText(
+      groupedPreviewForDailyGuess('환')[0]!,
+    );
 
     await client.send('Input.imeSetComposition', {
       text: '환각',

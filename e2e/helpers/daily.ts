@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { syllableCount, wordToJamos } from '../../src/lib/jamo';
+import { previewTilesFromAnswerJamos } from '../../src/ui/board';
 import type { PuzzleEntry } from '../../src/lib/puzzle';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -37,20 +38,28 @@ export function todayDaily() {
   };
 }
 
+/** Top preview tiles for typed jamos against a specific answer word. */
+export function groupedPreviewForAnswer(answerWord: string, typedHangul: string): string[] {
+  return previewTilesFromAnswerJamos(answerWord, wordToJamos(typedHangul));
+}
+
+/** Top preview tiles for a partial/full typed word against today's answer grouping. */
+export function groupedPreviewForDailyGuess(typedHangul: string): string[] {
+  return groupedPreviewForAnswer(getDailyWord(), typedHangul);
+}
+
 /** Distinct wrong Hangul words with the same syllable count as today's daily (for lose flow). */
 export function wrongGuessesForDaily(count: number): string[] {
-  const { syllables, word } = todayDaily();
-  const pool = [
-    '가나다',
-    '라마바',
-    '사아자',
-    '차카타',
-    '파하거',
-    '너더러',
-    '머버서',
-    '어저처',
-    '카라마',
-    '바사아',
-  ].filter((w) => syllableCount(w) === syllables && w !== word);
+  const word = getDailyWord();
+  const syllables = syllableCount(word);
+  const jamoCount = wordToJamos(word).length;
+  const pool = (puzzles as PuzzleEntry[])
+    .map((p) => p.word)
+    .filter(
+      (w) =>
+        w !== word &&
+        syllableCount(w) === syllables &&
+        wordToJamos(w).length === jamoCount,
+    );
   return pool.slice(0, count);
 }

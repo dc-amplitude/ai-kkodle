@@ -1,5 +1,14 @@
 import { expect, test } from '@playwright/test';
-import { todayDaily, wrongGuessesForDaily } from './helpers/daily';
+import {
+  groupedPreviewForAnswer,
+  groupedPreviewForDailyGuess,
+  todayDaily,
+  wrongGuessesForDaily,
+} from './helpers/daily';
+
+/** Practice puzzle with answer 테스트 ([2][2][2] jamo groups). */
+const PRACTICE_TEST_URL = './?mode=practice&practiceSeed=38';
+const ANSWER_TEST = '테스트';
 
 async function skipHowTo(page: import('@playwright/test').Page): Promise<void> {
   await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
@@ -56,9 +65,9 @@ test.describe('User journeys — visible UI', () => {
     for (const jamo of daily.jamos) {
       await page.locator(`[data-jamo-key="${jamo}"]`).click();
     }
-    const syllables = [...daily.word.replace(/\s/g, '')];
-    for (let i = 0; i < syllables.length; i++) {
-      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(syllables[i]!);
+    const tiles = groupedPreviewForDailyGuess(daily.word);
+    for (let i = 0; i < tiles.length; i++) {
+      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(tiles[i]!);
     }
     await expect(page.locator('.draft-preview')).toContainText(
       `${daily.jamoCount}/${daily.jamoCount}`,
@@ -72,17 +81,65 @@ test.describe('User journeys — visible UI', () => {
   });
 
   test('QWERTY fallback converts to Hangul and fills preview', async ({ page }) => {
-    const daily = todayDaily();
-    await page.goto('./');
+    await page.goto(PRACTICE_TEST_URL);
     const input = page.locator('#guess-input');
     await input.click();
     await input.fill('xptmxm');
     await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
-    await expect(input).toHaveValue(daily.word);
-    const syllables = [...daily.word.replace(/\s/g, '')];
-    for (let i = 0; i < syllables.length; i++) {
-      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(syllables[i]!);
+    await expect(input).toHaveValue(ANSWER_TEST);
+    const tiles = groupedPreviewForAnswer(ANSWER_TEST, ANSWER_TEST);
+    for (let i = 0; i < tiles.length; i++) {
+      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(tiles[i]!);
     }
+  });
+
+  test('answer jamo groups: 가연 preview is [가][여][ㄴ] mid-type and after submit', async ({
+    page,
+  }, testInfo) => {
+    const expectedMid = groupedPreviewForAnswer(ANSWER_TEST, '가연');
+    expect(expectedMid).toEqual(['가', '여', 'ㄴ']);
+
+    await page.goto(PRACTICE_TEST_URL);
+    const input = page.locator('#guess-input');
+    await input.click();
+    await input.fill('가연');
+    await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
+
+    for (let i = 0; i < expectedMid.length; i++) {
+      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(expectedMid[i]!);
+    }
+
+    await page.screenshot({
+      path: '/opt/cursor/artifacts/screenshots/preview-grouped-gayeon.png',
+      fullPage: false,
+    });
+
+    await page.locator('[data-action="backspace"]').click({ clickCount: 8 });
+    for (const jamo of ['ㄱ', 'ㅏ', 'ㄴ', 'ㅏ', 'ㄷ', 'ㅏ']) {
+      await page.locator(`[data-jamo-key="${jamo}"]`).click();
+    }
+    const submitted = '가나다';
+    await page.locator('[data-action="enter"]').click();
+    const afterSubmit = groupedPreviewForAnswer(ANSWER_TEST, submitted);
+    for (let i = 0; i < afterSubmit.length; i++) {
+      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(
+        afterSubmit[i]!,
+      );
+    }
+  });
+
+  test('aligned syllables: 바보 on 2-syllable practice shows [바][보]', async ({ page }) => {
+    await page.goto('./?mode=practice');
+    for (let i = 0; i < 80; i++) {
+      const n = await page.locator('#board').getAttribute('data-syllable-count');
+      if (n === '2') break;
+      await page.locator('#btn-new').click();
+    }
+    for (const key of ['ㅂ', 'ㅏ', 'ㅂ', 'ㅗ']) {
+      await page.locator(`[data-jamo-key="${key}"]`).click();
+    }
+    await expect(page.locator('#board-preview .tile-syllable').nth(0)).toHaveText('바');
+    await expect(page.locator('#board-preview .tile-syllable').nth(1)).toHaveText('보');
   });
 
   test('backspace mid-syllable on jamo keyboard updates preview', async ({ page }) => {
@@ -93,7 +150,7 @@ test.describe('User journeys — visible UI', () => {
     await expect(page.locator('#guess-input')).toHaveValue('가');
     await page.locator('[data-action="backspace"]').click();
     await expect(page.locator('#guess-input')).toHaveValue('ㄱ');
-    await expect(page.locator('#board-preview .tile-syllable').first()).toHaveText('');
+    await expect(page.locator('#board-preview .tile-syllable').first()).toHaveText('ㄱ');
     const jamoCap = await page.locator('#board').getAttribute('data-jamo-count');
     await expect(page.locator('.draft-preview')).toContainText(`1/${jamoCap}`);
   });
@@ -110,9 +167,12 @@ test.describe('User journeys — visible UI', () => {
     for (let i = 0; i < chars.length; i++) {
       const syl = chars[i]!;
       await commitSyllableViaIme(page, prior, syl);
-      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(syl);
-      await expect(page.locator('.draft-preview')).toContainText(syl);
-      prior += syl;
+      const typed = prior + syl;
+      const tiles = groupedPreviewForDailyGuess(typed);
+      for (let t = 0; t < tiles.length; t++) {
+        await expect(page.locator('#board-preview .tile-syllable').nth(t)).toHaveText(tiles[t]!);
+      }
+      prior = typed;
     }
     await expect(input).toHaveValue(daily.word);
   });
@@ -122,10 +182,9 @@ test.describe('User journeys — visible UI', () => {
     browserName,
   }, testInfo) => {
     test.skip(browserName !== 'chromium', 'CDP + DOM IME journey runs on Chromium desktop');
-    await page.goto('./');
+    await page.goto(PRACTICE_TEST_URL);
     const input = page.locator('#guess-input');
     await input.click();
-
     await commitSyllableViaIme(page, '', '가');
 
     await page.evaluate(() => {
@@ -145,8 +204,10 @@ test.describe('User journeys — visible UI', () => {
       );
     });
 
-    await expect(page.locator('#board-preview .tile-syllable').nth(0)).toHaveText('가');
-    await expect(page.locator('#board-preview .tile-syllable').nth(1)).toHaveText('연');
+    const grouped = groupedPreviewForAnswer(ANSWER_TEST, '가연');
+    for (let i = 0; i < grouped.length; i++) {
+      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(grouped[i]!);
+    }
     await expect(page.locator('.draft-preview')).toContainText('가연');
     const jamoCap = await page.locator('#board').getAttribute('data-jamo-count');
     await expect(page.locator('.draft-preview')).toContainText(new RegExp(`/${jamoCap}`));
@@ -174,7 +235,9 @@ test.describe('User journeys — visible UI', () => {
       );
     });
     await expect(input).toHaveValue('가연');
-    await expect(page.locator('#board-preview .tile-syllable').nth(1)).toHaveText('연');
+    for (let i = 0; i < grouped.length; i++) {
+      await expect(page.locator('#board-preview .tile-syllable').nth(i)).toHaveText(grouped[i]!);
+    }
   });
 
   test('win flow: daily answer shows success definition', async ({ page }) => {

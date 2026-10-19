@@ -1,4 +1,4 @@
-import { disassembleToGroups } from 'es-hangul';
+import { assemble, disassemble, disassembleToGroups } from 'es-hangul';
 import {
   extractHangulSyllables,
   isSyllableFullyCorrect,
@@ -12,7 +12,40 @@ function syllableGroups(answerWord: string): string[][] {
   return disassembleToGroups(normalizeGuess(answerWord));
 }
 
-/** One Hangul character per answer syllable slot (empty string if not typed yet). */
+/** Display one preview tile from jamos assigned to an answer syllable group. */
+export function previewTileFromJamoGroup(jamos: string[]): string {
+  if (jamos.length === 0) return '';
+  if (jamos.length === 1) return jamos[0]!;
+  const built = assemble(jamos);
+  const back = disassemble(built).split('');
+  if (back.length === jamos.length && back.every((j, i) => j === jamos[i])) {
+    return built;
+  }
+  return jamos.join('');
+}
+
+/**
+ * Map flat typed jamos into preview tiles aligned with the answer's jamo groups
+ * (e.g. answer [2][2][2], input ㄱㅏㅇㅕㄴ → [가][여][ㄴ]).
+ */
+export function previewTilesFromAnswerJamos(answerWord: string, rowJamos: string[]): string[] {
+  const groups = syllableGroups(answerWord);
+  const tiles: string[] = [];
+  let jamoIdx = 0;
+
+  for (const answerGroup of groups) {
+    const size = answerGroup.length;
+    const slice: string[] = [];
+    for (let k = 0; k < size && jamoIdx < rowJamos.length; k++) {
+      slice.push(rowJamos[jamoIdx]!);
+      jamoIdx += 1;
+    }
+    tiles.push(previewTileFromJamoGroup(slice));
+  }
+  return tiles;
+}
+
+/** @deprecated Use previewTilesFromAnswerJamos — kept for tests migrating off typed syllables. */
 export function hangulSyllableSlots(text: string, slotCount: number): string[] {
   const joined = extractHangulSyllables(text, slotCount);
   const chars = [...joined.replace(/\s/g, '')];

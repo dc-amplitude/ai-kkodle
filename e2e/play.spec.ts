@@ -80,10 +80,10 @@ test.describe('AI 제품 꼬들 production build', () => {
     await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
     await expect(page.locator('#input-message')).toContainText('한글로 입력해 주세요');
 
-    const daily = todayDaily();
+    await page.goto('./?mode=practice&practiceSeed=38');
     await input.fill('xptmxm');
     await input.evaluate((el) => el.dispatchEvent(new Event('input', { bubbles: true })));
-    await expect(input).toHaveValue(daily.word);
+    await expect(input).toHaveValue('테스트');
   });
 
   test('shows origin badge during play', async ({ page }) => {

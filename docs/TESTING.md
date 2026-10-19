@@ -4,7 +4,7 @@
 
 Automated tests should behave like a player, not like a unit test of internal state.
 
-- **Assert visible UI**: preview syllable tiles (`#board-preview .tile-syllable`), jamo cells on the active row (`#board-guesses .row .tile-jamo`), status line (`.draft-preview`), inline hints (`#input-message`, `#message`), tile colors after submit (`.correct`, `.present`, `.absent`), and win/lose copy (`.definition`, `.fail`).
+- **Assert visible UI**: preview tiles (`#board-preview .tile-syllable`) follow the **answer’s jamo groups** (not the typed word’s natural syllable breaks — e.g. typing `가연` against answer `테스트` shows `[가][여][ㄴ]`), jamo cells on the active row, status line (`.draft-preview`), inline hints, tile colors after submit, and win/lose copy.
 - **Simulate real input paths**: DOM `compositionstart` / `compositionupdate` / `compositionend` + `input` with `isComposing`, Chromium CDP `Input.imeSetComposition`, on-screen jamo keys, QWERTY-to-Hangul in the text field, backspace, and Enter/submit.
 - **Do not** rely on private JS variables, draft buffers, or “handler ran” unless there is no visible effect.
 
