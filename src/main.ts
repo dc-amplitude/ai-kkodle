@@ -117,6 +117,8 @@ let draftHangul = '';
 /** Parallel jamo buffer for on-screen keyboard live assembly. */
 let keyboardJamos: string[] = [];
 let imeComposing = false;
+/** Live `#guess-input` value while IME composition is active (display-only). */
+let compositionDisplayValue = '';
 let inputInlineMessage = '';
 let handlersBound = false;
 let inputHandlersBound = false;
@@ -141,6 +143,38 @@ function draftUnitsForBoard(): string[] {
     return [...draftHangul.toUpperCase()].slice(0, cap);
   }
   return wordToJamos(extractHangulSyllables(draftHangul, maxSyllablesForPuzzle()));
+}
+
+/** Parse visible input for preview/board while typing (does not mutate draft or input). */
+function displayStateFromInputRaw(raw: string): { hangul: string; units: string[] } {
+  const cap = targetUnitCount();
+  if (isEn()) {
+    const { latin } = processEnglishInputText(raw, cap);
+    return { hangul: latin, units: [...latin.toUpperCase()].slice(0, cap) };
+  }
+  const trimmed = raw.trim();
+  const fromField = extractHangulSyllables(trimmed, maxSyllablesForPuzzle());
+  if (fromField) {
+    return { hangul: fromField, units: wordToJamos(fromField).slice(0, cap) };
+  }
+  const processed = processInputText(trimmed, maxSyllablesForPuzzle());
+  const hangul = processed.hangul;
+  const units = hangul ? wordToJamos(hangul).slice(0, cap) : [];
+  return { hangul, units };
+}
+
+function liveBoardDisplay(raw?: string): { hangul: string; units: string[] } {
+  if (imeComposing) {
+    const input = document.querySelector<HTMLInputElement>('#guess-input');
+    const live = raw ?? compositionDisplayValue ?? input?.value ?? '';
+    return displayStateFromInputRaw(live);
+  }
+  if (keyboardJamos.length) {
+    const cap = targetUnitCount();
+    const units = keyboardJamos.slice(0, cap);
+    return { hangul: draftUnitsToDisplay(state.puzzle, units), units };
+  }
+  return { hangul: draftHangul, units: draftUnitsForBoard() };
 }
 
 function setInputInlineMessage(text: string): void {
@@ -233,19 +267,16 @@ function userIsTyping(): boolean {
 }
 
 function draftTextForPreview(): string {
-  if (keyboardJamos.length) {
-    return draftUnitsToDisplay(state.puzzle, keyboardJamos.slice(0, targetUnitCount()));
-  }
-  return draftHangul;
+  return liveBoardDisplay().hangul;
 }
 
 function buildPreviewHtml(puzzle: Puzzle, en: boolean): string {
   if (en) {
     const letters = wordToLetters(puzzle.word);
-    if (userIsTyping()) {
-      const units = draftUnitsForBoard();
-      return renderLatinPreviewHtml(puzzle.word, units, undefined, 'live');
-    }
+  if (userIsTyping()) {
+    const units = liveBoardDisplay().units;
+    return renderLatinPreviewHtml(puzzle.word, units, undefined, 'live');
+  }
     const last = state.attempts.length - 1;
     if (last >= 0) {
       return renderLatinPreviewHtml(
@@ -271,18 +302,22 @@ function buildPreviewHtml(puzzle: Puzzle, en: boolean): string {
   return renderSyllablePreviewHtml(puzzle.word, Array(slots).fill(''), undefined, 'idle');
 }
 
-function updateBoardPreviewFromInput(_raw: string): void {
+function updateBoardPreviewFromInput(raw: string): void {
   if (state.finished) return;
+  if (imeComposing) compositionDisplayValue = raw;
   const en = isEn();
   const preview = document.querySelector('#board-preview');
   if (preview) preview.innerHTML = buildPreviewHtml(state.puzzle, en);
+
+  const draftPreview = document.querySelector('.draft-preview');
+  if (draftPreview) draftPreview.textContent = draftPreviewLabel();
 
   const activeRow = state.attempts.length;
   const row = document.querySelectorAll('#board-guesses .row')[activeRow];
   if (!row) return;
 
   if (en) {
-    const previewUnits = draftUnitsForBoard();
+    const previewUnits = liveBoardDisplay(raw).units;
     const colCount = targetUnitCount();
     Array.from({ length: colCount }).forEach((_, colIdx) => {
       const tile = row.querySelectorAll('.tile')[colIdx] as HTMLElement | undefined;
@@ -298,7 +333,7 @@ function updateBoardPreviewFromInput(_raw: string): void {
   if (!userIsTyping()) return;
   row.innerHTML = renderBoardRowHtml(
     state.puzzle.word,
-    draftUnitsForBoard(),
+    liveBoardDisplay(raw).units,
     undefined,
     'tbd',
   );
@@ -318,7 +353,7 @@ function render(): void {
     const isActive = rowIdx === activeRow && !finished;
     const guess = attempts[rowIdx] ?? '';
     const rowUnits = isActive
-      ? draftUnitsForBoard()
+      ? liveBoardDisplay().units
       : guess
         ? unitsFromGuess(puzzle, guess)
         : [];
@@ -480,15 +515,15 @@ function render(): void {
 }
 
 function draftPreviewLabel(): string {
-  const units = draftUnitsForBoard();
+  const { hangul, units } = liveBoardDisplay();
   const cap = targetUnitCount();
   if (isEn()) {
     return units.length
-      ? `입력 중: ${draftHangul || '…'} (${units.length}/${cap} 글자)`
+      ? `입력 중: ${hangul || '…'} (${units.length}/${cap} 글자)`
       : `글자 ${units.length}/${cap}`;
   }
   return units.length
-    ? `입력 중: ${draftHangul || '…'} (${units.length}/${cap} 자모)`
+    ? `입력 중: ${hangul || '…'} (${units.length}/${cap} 자모)`
     : `자모 ${units.length}/${cap}`;
 }
 
@@ -525,6 +560,9 @@ function bindInputHandlers(): void {
       const input = e.target as HTMLElement;
       if (!input.matches('#guess-input')) return;
       imeComposing = true;
+      const field = input as HTMLInputElement;
+      compositionDisplayValue = field.value;
+      updateBoardPreviewFromInput(field.value);
     },
     true,
   );
@@ -545,6 +583,7 @@ function bindInputHandlers(): void {
       const input = e.target as HTMLInputElement;
       if (!input.matches('#guess-input')) return;
       imeComposing = false;
+      compositionDisplayValue = '';
       commitInputToDraft(input);
       updateDraftUi();
     },
@@ -701,6 +740,7 @@ function resetDraft(): void {
   draftHangul = '';
   keyboardJamos = [];
   imeComposing = false;
+  compositionDisplayValue = '';
   inputInlineMessage = '';
 }
 

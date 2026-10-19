@@ -1,14 +1,12 @@
 import { expect, test } from '@playwright/test';
-
-/** Daily puzzle on 2026-10-15 (Seoul) is 환각 — 6 jamos. */
-const WORD = '환각';
-const JAMOS = 'ㅎㅗㅏㄴㄱㅏㄱ'.split('');
+import { todayDaily } from './helpers/daily';
 
 test('success screen shows meaning, usage, example, and etymology', async ({ page }, testInfo) => {
   await page.addInitScript(() => localStorage.setItem('ai-jamo-how-to-play-seen', '1'));
   await page.goto('./');
 
-  for (const jamo of JAMOS) {
+  const { jamos } = todayDaily();
+  for (const jamo of jamos) {
     await page.locator(`[data-jamo-key="${jamo}"]`).click();
   }
   await page.locator('[data-action="enter"]').click();

@@ -44,7 +44,8 @@ test('board tap does not focus input on touch; jamo keys still work', async ({ p
   for (const jamo of 'ㄷㅔㅇㅣㄹ'.split('')) {
     await page.locator(`[data-jamo-key="${jamo}"]`).click();
   }
-  await expect(page.locator('.draft-preview')).toContainText('5/7');
+  const jamoCap = await page.locator('#board').getAttribute('data-jamo-count');
+  await expect(page.locator('.draft-preview')).toContainText(`5/${jamoCap}`);
 });
 
 test('mobile IME toggle enables phone keyboard input mode', async ({ page }) => {

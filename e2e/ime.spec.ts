@@ -120,6 +120,7 @@ test.describe('Chromium CDP IME', () => {
       );
     });
     await expect(input).toHaveValue('환');
+    await expect(page.locator('#board-preview .tile-syllable').first()).toHaveText('환');
 
     await client.send('Input.imeSetComposition', {
       text: '환각',
